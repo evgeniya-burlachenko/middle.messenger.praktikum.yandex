@@ -1,0 +1,9 @@
+<div class="container">
+    <Form class="login-form">
+        {{> Title title="Вход"}}
+        {{> Input label="Логин" type="text" name="login" }}
+        {{> Input label="Пароль" type="password" name="password" data-message = "Неправильный пароль" invalidPassword=true  }}
+        {{> Button label="Авторизоваться" type="primary" }}
+		{{> Button label="Нет аккаута?" type="link" }}
+    </Form>
+</div>

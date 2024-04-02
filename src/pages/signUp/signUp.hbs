@@ -1,0 +1,16 @@
+<div class="container">
+	<Form class="login-form">
+		{{> Title title="Регистрация"}}
+		{{> Input label="Почта" type="text" name="email" }}
+		{{> Input label="Логин" type="text" name="login" }}
+		{{> Input label="Имя" type="text" name="first_name" }}
+		{{> Input label="Фамилия" type="text" name="second_name" }}
+		{{> Input label="Пароль" type="password" name="password"
+		invalidPassword=true }}
+		{{> Input label="Пароль еще раз" type="password" name="password" data-message = "Пароли не совпадают"
+		invalidPassword=true }}
+		{{> Button label="Зарегистрироваться" type="primary" }}
+		{{> Button label="Войти" type="link" name = "login" }}
+	</Form>
+</div>
+{{!-- data-message = "Неправильный пароль" --}}
