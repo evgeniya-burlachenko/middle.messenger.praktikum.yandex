@@ -3,15 +3,15 @@ const express = require('express')
 const app = express()
 const PORT = 3000
 
-app.use(express.static(`${__dirname}/dist/static`))
+app.use(express.static(`${__dirname}/dist`))
 
 app.use('/*', (req, res) => {
-    res.sendFile(`${__dirname}/dist/static/index.html`)
-	//возможно добавить удаление пути
+    res.sendFile(`${__dirname}/dist/index.html`)
 })
 
 app.get('/', (req, res) => {
-    res.status(200)
+	 res.sendFile(`${__dirname}/dist/index.html`)
+    // res.status(200)
 })
 
 app.listen(PORT, () => {

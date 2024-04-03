@@ -1,2 +1,3 @@
 import './button.scss'
-export { default as Button } from './button.hbs?raw';
+//eslint-disable-next-line
+export { default as Button } from './button.hbs?raw'
