@@ -15,7 +15,10 @@ const pages = {
   'download-error' : [Pages.DownloadErrorPage],
   'profile': [Pages.Profile],
   "editProfileInformation": [Pages.EditProfileInformation],
-  "changePassword": [Pages.ChangePassword]
+  "changePassword": [Pages.ChangePassword],
+  "modalUser": [Pages.ModalUser],
+  "chat": [Pages.Chat],
+  "addUser": [Pages.AddUser]
   
 };
 

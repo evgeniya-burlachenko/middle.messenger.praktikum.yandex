@@ -1,9 +1,7 @@
-<div class="{{#if labelPositionIsSide}} login__input-block-isSide {{else}} login__input-block {{/if}} >
-		<label class=" login__label">{{label}}</label>
+<div class="{{#if labelPositionIsSide}} input__label-isSide {{else}} input {{/if}} >
+	<label class="input__label">{{label}}</label>
 	<input {{#if disabled}} disabled={{disabled}} {{/if}}
-		class="login login__input{{#if invalidPassword}} login__input-error{{/if}} " data-message="{{data-message}} 
+	class="input__field {{#if invalidPassword}} .input__field-error{{/if}} data-message={{data-message}} 
 		name=" {{name}}" type="{{type}}" value={{value}}>
-	<label class="login__input-messageError">{{data-message}}</label>
+	<label class="input__message-error">{{data-message}}</label>
 </div>
-
-//input classname - props

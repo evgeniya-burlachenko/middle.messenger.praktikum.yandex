@@ -6,6 +6,8 @@
     --text-color: #1e1e1e;
     --text-secondary-color: #999;
 	--text-dark-gray: #1E1E1E;
+	--text-light-gray: #EAEAEA;
+	
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
