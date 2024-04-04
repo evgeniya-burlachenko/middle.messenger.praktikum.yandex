@@ -1,0 +1,19 @@
+.error {
+	width: 180px;
+	height: 100px;
+	top: 340px;
+	left: 550px;
+	gap: 0px;
+	opacity: 0px;
+	color : var(--text-dark-gray)
+	&__code {
+		font-size: 40px;
+		font-weight: 500;
+		line-height: 40px;
+	}
+	&__message{
+		font-size: 20px;
+		font-weight: 500;
+		line-height: 20px;
+	}
+}

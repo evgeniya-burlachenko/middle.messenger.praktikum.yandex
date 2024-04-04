@@ -1,0 +1,14 @@
+<Form class="profile">
+	{{> Avatar avatarUrl = "../../../public/assets/profile.svg" name="avatar"}}
+	{{> Title title="Иван" name="first_name"}}
+	<div class="profile__form">
+		{{> Input label="Почта" type="text" name="email" value ="pochta@yandex.ru" disabled ="true" }}
+		{{> Input label="Логин" type="text" name="login" value = "ivanivanov" }}
+		{{> Input label="Имя" type="text" name="first_name" value = "Иван"}}
+		{{> Input label="Фамилия" type="text" name="second_name" value = "Иванов"}}
+		{{> Input label="Имя в чате" type="text" name="second_name" value = "Иван"}}
+		{{> Input label="Телефон" type="text" name="phone" value = "+7(909)9673030" }}
+		{{> Button label="Изменить данные" type="link" }}
+		{{> Button label="Изменить пароль" type="link" }}
+	</div>
+</Form>

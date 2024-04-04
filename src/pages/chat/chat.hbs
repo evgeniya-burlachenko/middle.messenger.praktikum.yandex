@@ -1,0 +1,72 @@
+<Form class="changePassword">
+	{{> SearchBar}}
+	{{> ListCat}}
+<section class="chat">
+    <div class="chats">
+        <div class="chats__profile-link-block">
+            <a href='/src/pages/userProfile/userProfile.html' class="chats__profile-link">Профиль</a>
+        </div>
+{{!-- 
+        <form class="chats__search-block">
+            <button class="chats__search-button" type="submit"><img class="chats__search-img"
+                    src="/static/images/search.svg"></button>
+            <input class="chats__search-input" type="text" placeholder="Поиск" name="message">
+        </form> --}}
+
+       
+        <div class="chats__block">
+            <!--Новое сообщение-->
+            <div class="chats__chat">
+                <div class="chats__chat-img"><img class="chats__chat-img" src="/static/images/person.svg" /></div>
+                <div class="chats__chat-main-block">
+                    <div class="chats__chat-info-block">
+                        <div class="chats__chat-info-name">Андрей</div>
+                        <div class="chats__chat-time">12.00</div>
+                    </div>
+                    <div class="chats__chat-info-block">
+                        <div class="chats__chat-message">Значимость этих проблем настолько очевидна, что реализация намеченных плановых заданий позволяет оценить значение систем массового участия. </div>
+                        <div class="chats__chat-message-count">4</div>
+                    </div>
+                </div>
+            </div>
+             <!--Отправленное сообщение-->
+            <div class="chats__chat">
+                <div class="chats__chat-img"><img class="chats__chat-img" src="/static/images/person.svg" /></div>
+                <div class="chats__chat-main-block">
+                    <div class="chats__chat-info-block">
+                        <div class="chats__chat-info-name">Иван</div>
+                        <div class="chats__chat-time">12.00</div>
+                    </div>
+                    <div class="chats__chat-info-block">
+                        <div class="chats__chat-message"><span class="chats__chat-message-span">Вы: </span>Круто! </div>
+                      
+                    </div>
+                </div>
+            </div>
+                 <!--Прочитанное сообщение-->
+            <div class="chats__chat">
+                <div class="chats__chat-img"><img class="chats__chat-img" src="/static/images/person.svg" /></div>
+                <div class="chats__chat-main-block">
+                    <div class="chats__chat-info-block">
+                        <div class="chats__chat-info-name">Костя</div>
+                        <div class="chats__chat-time">пт</div>
+                    </div>
+                    <div class="chats__chat-info-block">
+                        <div class="chats__chat-message">Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.
+
+                            Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.                                </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="feed">
+        <p class="feed__not_chats">Выберите чат чтобы отправить сообщение</p>
+    </div>
+
+</section>
+<!--<script type="module" src="/src/pages/chats/chats.js"></script>-->
+{{!-- {{/layouts/page}} --}}
+</Form>
