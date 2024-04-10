@@ -1,0 +1,7 @@
+<div class="{{#if labelPositionIsSide}} input__label-isSide {{else}} input {{/if}} >
+	<label class="input__label">{{label}}</label>
+	<input {{#if disabled}} disabled={{disabled}} {{/if}}
+	class="input__field {{#if invalidPassword}} .input__field-error{{/if}} data-message={{data-message}} 
+		name=" {{name}}" type="{{type}}" value={{value}}>
+	<label class="input__message-error">{{data-message}}</label>
+</div>
