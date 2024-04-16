@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../node_modules/handlebars/runtime.js"],
+  "sourcesContent": ["// Create a simple path alias to allow browserify to resolve\n// the runtime on a supported path.\nmodule.exports = require('./dist/cjs/handlebars.runtime')['default'];\n"],
+  "mappings": ";;;;;;AAAA;AAAA;AAEA,WAAO,UAAU,6BAAyC,SAAS;AAAA;AAAA;",
+  "names": []
+}

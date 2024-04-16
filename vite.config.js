@@ -1,18 +1,16 @@
-import { defineConfig } from 'vite'
-import eslint from 'vite-plugin-eslint'
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   root: './',
   build: {
-    outDir: 'dist'
+    outDir: 'dist',
   },
   server: {
     port: 3000,
     open: true,
-	hmr: {
-		overlay: false,
-		},
-		
+    hmr: {
+      overlay: false,
+    },
   },
-  assetsInclude: /\.(png|jpe?g|gif|svg)$/i,
-})
+  assetsInclude: /\.(png|jpe?g|gif|svg|hbs)$/i,
+});

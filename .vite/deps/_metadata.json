@@ -1,8 +1,25 @@
 {
-  "hash": "a1c04ff4",
+  "hash": "59fb8a5a",
   "configHash": "430b9965",
-  "lockfileHash": "d48a564f",
-  "browserHash": "dcd71f45",
-  "optimized": {},
-  "chunks": {}
+  "lockfileHash": "63ed32aa",
+  "browserHash": "8fbe9d3c",
+  "optimized": {
+    "handlebars": {
+      "src": "../../node_modules/handlebars/dist/cjs/handlebars.js",
+      "file": "handlebars.js",
+      "fileHash": "4d19c1d8",
+      "needsInterop": true
+    },
+    "handlebars/runtime": {
+      "src": "../../node_modules/handlebars/runtime.js",
+      "file": "handlebars_runtime.js",
+      "fileHash": "2979594b",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-QV3GZA6I": {
+      "file": "chunk-QV3GZA6I.js"
+    }
+  }
 }

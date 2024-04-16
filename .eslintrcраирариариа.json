@@ -1,0 +1,35 @@
+{    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    // "extends": "standard-with-typescript",
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [
+                ".eslintrc.{js,cjs,json}"
+            ],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+		"eol-last":["error", "always"]
+		// "noImplicitAny": 2,
+		// "noUnusedLocals": 2,
+		// "noUnusedParameters": 2,
+		// "sourceMap": 2,
+		// "strictNullChecks": 2
+    },
+	"ignorePatterns": [".eslintrc.json","vite.config.js"]
+	// "ignores": ["node_modules/",           // unignore `node_modules/` directory
+	// 	"dist/"
+	//   ]
+}
