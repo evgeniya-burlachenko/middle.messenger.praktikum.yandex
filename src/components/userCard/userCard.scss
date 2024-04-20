@@ -5,9 +5,11 @@
     padding: 12px 10px;
     position: relative;
     margin: 2px 0;
+
 	&__active {
 		background-color: var(--second-color);
 	}
+
 	&::after {
 		content: "";
 		width: 100%;

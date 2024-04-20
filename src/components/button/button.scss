@@ -1,3 +1,12 @@
+.button-container{
+	// display: flex;
+	// align-items: center;
+	// justify-content: center;
+	// width: 280px;
+    // margin-left: auto;
+    // margin-right: auto;
+}
+
 .button {
     background-color: initial;
     border: none;
@@ -7,52 +16,62 @@
     padding: 12px 0;
     border-radius: 8px;
     cursor: pointer;
-	&__text-error{
-		content: attr(data-message); 
-		color: var(  --error-color);
-		font-size: 11px;
-		font-weight: 500;
-		line-height: 30px;
-	  }
+
+	// &__text-error{
+	// 	content: attr(data-message); 
+	// 	color: var(  --error-color);
+	// 	font-size: 11px;
+	// 	font-weight: 500;
+	// 	line-height: 30px;
+	//   }
+
 	&__error::after{
 		content: attr(data-message); 
 	}
+
 	&__attention {
 		color: var(--error-color);
 		font-size: 11px;
 		text-align: center;
 		outline: none;
 	  }
+
 	&__primary {
 		background-color: var(--main-color);
-		  color: #fff;
-	   font-size: 13px;
-	   border-radius: 8px;
-	   font-weight: 500;
-	   line-height: 13px;
-	   border: none;
-	   width: 280px;
-	   height: 37px;
-	   margin-top: 60px;
-	   cursor: pointer;
+		color: #fff;
+		font-size: 13px;
+		border-radius: 8px;
+		font-weight: 500;
+		line-height: 13px;
+		border: none;
+		width: 280px;
+		height: 37px;
+		margin-top: 60px;
+		cursor: pointer;
 	 }
+
 	 &__link {
 		color: var(--main-color);
 		font-size: 11px;
 		text-align: center;
 		outline: none;
+
 		&__underline {
 			text-decoration: underline;
 		  }
 	  }
+
 	  &__attention:focus {
 		outline: none;
 	  }
+
 	  &:focus{
 		outline: none;
 	  }
   }
-//TODO - доделать когда будет в коде
+
+// TODO - доделать когда будет в коде
+
   .button__link:focus, .button__attention:focus {
     outline: none;
   }
@@ -105,4 +124,20 @@
     transform: rotate(45deg);
     top: 2px;
     left: -1px;
+  }
+
+  .button__text-error {
+    transform: translateY(-7px);
+    color: var(--error-color);
+    font-size: 8px;
+    font-weight: 400;
+    display: none;
+  }
+
+//   .button__error .button__text-error {
+//     display: block;
+//   }
+  
+  .button__error .button__element {
+    color: var(--error-color);
   }
