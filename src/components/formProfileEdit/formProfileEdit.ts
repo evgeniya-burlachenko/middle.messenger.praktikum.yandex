@@ -70,11 +70,11 @@ export default class FormProfileEdit extends Block{
 				onClick: (e: MouseEvent)=> this.onSubmitHandler(e, 'ButtonChangeData'),
 			}),
 		});
-		const formElement = document.querySelector('.formProfile form');
-		if(formElement){
-			formElement.addEventListener('submit',
-				(e) => this.onSubmitHandler(e, 'ButtonChangeData'));
-		}
+		// const formElement = document.querySelector('.formProfile form');
+		// if(formElement){
+		// 	formElement.addEventListener('submit',
+		// 		(e) => this.onSubmitHandler(e, 'ButtonChangeData'));
+		// }
 	}
 
 	private onBlurHandler(e: FocusEvent, field: string){

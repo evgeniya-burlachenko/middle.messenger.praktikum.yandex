@@ -71,7 +71,7 @@ export function navigate(page: string) {
 	container.innerHTML = Handlebars.compile(source)(context);
 }
 
-document.addEventListener('DOMContentLoaded', () => navigate('nav'));
+document.addEventListener('DOMContentLoaded', () => navigate('download'));
 
 document.addEventListener('click', e => {
 	const target = e.target as HTMLElement;

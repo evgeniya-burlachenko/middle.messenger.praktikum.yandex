@@ -131,12 +131,15 @@
     color: var(--error-color);
     font-size: 8px;
     font-weight: 400;
-    display: none;
+    display: block;
+	margin-top: 15px;
   }
 
-//   .button__error .button__text-error {
-//     display: block;
-//   }
+  .button__error{
+	width: 280px;
+    display: block;
+	margin-top: 15px;
+  }
   
   .button__error .button__element {
     color: var(--error-color);

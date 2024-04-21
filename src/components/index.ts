@@ -1,6 +1,7 @@
 export { Button } from './button';
 export { Input } from './input';
 export { InputProfile } from './inputProfile';
+export { InputFile } from './inputFile';
 export { ErrorTemplate } from './error';
 export { Avatar } from './avatar';
 export { SearchBar } from './searchBar';

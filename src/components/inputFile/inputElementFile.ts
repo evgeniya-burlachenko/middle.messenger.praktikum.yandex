@@ -1,21 +1,22 @@
+
+import  InputFile  from './input';
 import Block from '../../core/Block';
-import ErrorLine from './errorLine';
-import Input from './input';
+import ErrorLine from './errorLineFile';
+
 
 interface IInputElement{
-	onBlur?: (e: FocusEvent) => void;
+	// onBlur?: (e: FocusEvent) => void;
 	errorText?: string,
 	label?: string,
+	title?: string,
+	type?: string
 }
-class InputElement extends Block {
+class inputElementFile extends Block {
 	constructor(props: IInputElement) {
 		super({
 			...props,
-			Input: new Input({
-				onBlur: props.onBlur || (() => {}),
-				events: {
-					blur: props.onBlur || (() => {}),
-				},
+			Input: new InputFile({
+				...props,
 			}),
 			ErrorLine: new ErrorLine({
 				error: props.errorText,
@@ -34,14 +35,11 @@ class InputElement extends Block {
 	render(): string {
 		return `
 		<div class="input {{#if error}}input__error{{/if}}" >
-			<label class="input__container">
-				{{{ Input }}}
-				<div class="input__label">{{label}}</div>
-			</label>
+			{{{ Input }}}
 			{{{ ErrorLine }}}
 		</div>
 	`;
 	}
 }
 
-export default InputElement;
+export default inputElementFile;

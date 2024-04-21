@@ -30,20 +30,20 @@ export default class FormProfileEdit extends Block {
 
 		const InputOldPassword = new InputProfile({
 			label: 'Старый пароль',
-			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'oldPassword'),
+			// onBlur:  (e: FocusEvent) => onBlurHandler(e, 'oldPassword'),
 			value: '',
 			type: 'password',
 		});
 
-		const InputPassword = new InputProfile({
+		const InputPasswordNew = new InputProfile({
 			label: 'Новый пароль',
-			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'password'),
+			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'new'),
 			type: 'password',
 		});
 
 		const InputPasswordRepeat = new InputProfile({
 			label: 'Пароль еще раз',
-			onBlur: (e: FocusEvent) => onBlurHandler(e, 'passwordRepeat'),
+			onBlur: (e: FocusEvent) => onBlurHandler(e, 'repeat'),
 			type: 'password',
 		});
 
@@ -53,9 +53,9 @@ export default class FormProfileEdit extends Block {
 			onClick: onAvatarClick,
 			change: false,
 		});
-		const ButtonChangeData =  new Button({
+		const ButtonSaveData =  new Button({
 			label: 'Сохранить', type: TYPE_BUTTON.PRIMARY,
-			onClick: (e: MouseEvent)=> onLoginHandler(e, 'ButtonChangeData'),
+			onClick: (e: MouseEvent)=> onLoginHandler(e, 'ButtonSaveData'),
 
 		});
 		// const ButtonArrowLeft =  new Button({
@@ -70,10 +70,10 @@ export default class FormProfileEdit extends Block {
 		this.children = {
 			...this.children,
 			ProfileAvatar,
-			InputPassword,
+			InputPasswordNew,
 			InputOldPassword,
 			InputPasswordRepeat,
-			ButtonChangeData,
+			ButtonSaveData,
 			// ButtonArrowLeft,
 
 		};
@@ -85,10 +85,10 @@ export default class FormProfileEdit extends Block {
 		const errors = {...this.errors};
 		let password;
 		switch(field){
-		case 'password':
+		case 'new':
 			errors[field] = !validationUtils.validatePassword(inputValue);
 			break;
-		case 'passwordRepeat':
+		case 'repeat':
 			password = this.formData.password;
 			errors[field] = !validationUtils.validatePasswordRepeat(password, inputValue);
 			break;
@@ -97,7 +97,8 @@ export default class FormProfileEdit extends Block {
 		}
 		this.errors = errors;
 		this.formData[field] = inputValue;
-		const inputComponent = this.children[`InputProfile${field.charAt(0).toUpperCase() + field.slice(1)}`];
+
+		const inputComponent = this.children[`InputPassword${field.charAt(0).toUpperCase() + field.slice(1)}`];
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'some error' : '' });
 	}
 	onAvatarClick(){
@@ -107,6 +108,7 @@ export default class FormProfileEdit extends Block {
 		event.preventDefault();
 		const hasErrors = Object.values(this.errors).some(error=> error);
 		const hasEmptyFields = Object.keys(this.formData).length === 0;
+
 		if(hasErrors || hasEmptyFields){
 			const component = this.children[field];
 			component.setProps({ error: 'ошибка', errorText: 'Форма содержит ошибки или не было изменений' });
@@ -120,15 +122,17 @@ export default class FormProfileEdit extends Block {
 
 	render() {
 		return (`
-        <div class="formProfile-content">
-			<div>
+        <div class='formChangePassword'>
+			<div class = 'formChangePassword__fields'>
 				{{{ ProfileAvatar }}}
 				{{{ InputOldPassword }}}
-				{{{ InputPassword }}}
+				{{{ InputPasswordNew }}}
 				{{{ InputPasswordRepeat }}}
 				{{{ButtonArrowLeft}}}
 			<div>
-				<div class = "form-button">  {{{ ButtonChangeData }}}</div>
+			<div class = 'formChangePassword__button'>  
+				{{{ ButtonSaveData }}}
+			</div>
 			</div>
         </div>
     `);

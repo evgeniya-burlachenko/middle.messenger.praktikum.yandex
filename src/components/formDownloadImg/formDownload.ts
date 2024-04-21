@@ -1,8 +1,8 @@
-import { Link } from '../link';
 import Block from '../../core/Block';
 import { Button } from '../button';
 import { Title } from '../title';
 import { TYPE_BUTTON } from '../button/button';
+import { InputFile } from '../inputFile';
 
 interface IFormDownload {
 	title?: string,
@@ -14,8 +14,12 @@ export default class FormDownload extends Block {
 		super({...props,
 			isVisibleFile: false,
 			isError: false,
-			 TitleDownload: new Title({
+			TitleDownload: new Title({
 				title: 'Загрузите файл',
+			}),
+			InputDownload: new InputFile({
+				title: 'Выбрать файл на компьютере',
+				type: 'file',
 			}),
 			TitleDownloadSuccess: new Title({
 				title:  'Файл загружен',
@@ -33,9 +37,6 @@ export default class FormDownload extends Block {
 				label: 'Поменять',
 				type: TYPE_BUTTON.PRIMARY,
 				onClick: (e: MouseEvent)=> this.handleFileChange(e),
-			}),
-			LinkDownload: new Link({
-				label: 'Выбрать файл на компьютере',
 			}),
 		});
 		this.handleFileUpload = this.handleFileUpload.bind(this);
@@ -68,9 +69,9 @@ export default class FormDownload extends Block {
 		if(isVisibleFile && !isError){
 			modalContent = 'pic.jpg';
 		}else if (isError && isVisibleFile) {
-			modalContent = '{{{ LinkDownload }}}';
+			modalContent = '{{{ InputDownload }}}';
 		} else {
-			modalContent = '{{{ LinkDownload }}}';
+			modalContent = '{{{ InputDownload }}}';
 		}
 
 

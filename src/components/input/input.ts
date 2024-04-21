@@ -11,8 +11,9 @@ class Input extends Block {
 	render(): string {
 		return `
             <input
-                class="input__element"
-                placeholder=""
+                class='input__element'
+                placeholder="",
+				type = {{{type}}}
             />
         `;
 	}

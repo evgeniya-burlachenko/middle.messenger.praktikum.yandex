@@ -1,0 +1,15 @@
+.inputFile{
+	&__label{
+		display: inline-block;
+		cursor: pointer;
+
+		&-title{
+			text-decoration: underline;
+			color: var(--main-color)
+		}
+
+		&-content{
+			display: none;
+		}
+	}
+}

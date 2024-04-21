@@ -8,6 +8,7 @@ export enum TYPE_BUTTON{
 }
 interface IButton {
 	onClick?: (e: MouseEvent) => void;
+	error?: string,
 	errorText?: string,
 	label?: string,
 	type?: TYPE_BUTTON,

@@ -9,7 +9,6 @@ class InputProfile extends Block {
 	}
 
 	render(): string {
-
 		return (`
             <input
                 class="inputProfile__element"

@@ -42,11 +42,11 @@ export default class FormLogin extends Block {
 			ButtonLogin,
 			ButtonCreateAccount,
 		};
-		const formElement = document.querySelector('.formLogin form');
-		if(formElement){
-			formElement.addEventListener('submit',
-				(e: Event) => this.onSubmitHandler(e, 'ButtonLogin'));
-		}
+		// const formElement = document.querySelector('.formLogin form');
+		// if(formElement){
+		// 	formElement.addEventListener('submit',
+		// 		(e: Event) => this.onSubmitHandler(e, 'ButtonLogin'));
+		// }
 	}
 
 	onBlurHandler(e: FocusEvent, field: string){
