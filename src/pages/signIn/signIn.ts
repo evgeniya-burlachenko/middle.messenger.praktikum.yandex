@@ -19,7 +19,7 @@ export default class LoginPage extends Block {
 
 	render():string {
 		return `
-            <div class="signIn">
+            <div">
                 {{{ FormLogin }}}
             </div>
         `;

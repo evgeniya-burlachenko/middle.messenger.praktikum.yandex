@@ -18,7 +18,7 @@ export default class AddUser extends Block {
 
 	render() {
 		return(`
-            <div class="container">
+            <div>
                 {{{ UserActions}}}
             </div>
         `);

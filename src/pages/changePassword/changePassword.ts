@@ -16,9 +16,7 @@ export default class ChangePassword extends Block {
 	render(): string {
 		return (`
 			<div class="profile-container">
-				<Form class="profile">
-					{{{ FormProfile }}}
-				</Form>
+				{{{ FormProfile }}}
 			</div>
 			`);
 	}

@@ -15,7 +15,7 @@ export default class Download extends Block {
 	}
 	render() {
 		return `
-            <div class="download">
+            <div>
                 {{{ FormDownLoad }}}
             </div>
         `;

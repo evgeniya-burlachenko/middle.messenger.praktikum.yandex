@@ -16,10 +16,8 @@ export default class Profile extends Block {
 	}
 	render(): string {
 		return `
-			<div class="profile-container">
-				<Form class="profile">
+			<div>
 					{{{ FormProfile }}}
-				</Form>
 			</div>
         `;
 	}

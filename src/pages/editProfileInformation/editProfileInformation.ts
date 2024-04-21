@@ -1,5 +1,5 @@
 import { FormProfileWrapper } from '../../components';
-import { FormProfileEdit } from '../../components/formProfileEdit';
+import { FormProfileEdit } from '../../components/form/formProfileEdit';
 import Block from '../../core/Block';
 
 export interface IEditProfile {
@@ -16,10 +16,8 @@ export default class EditProfile extends Block {
 	}
 	render(): string {
 		return (`
-			<div class="profile-container">
-				<Form class="profile">
-					{{{ FormProfile }}}
-				</Form>
+			<div>
+				{{{ FormProfile }}}
 			</div>
         `);
 	}

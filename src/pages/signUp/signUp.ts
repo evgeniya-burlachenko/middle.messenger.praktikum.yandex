@@ -17,10 +17,8 @@ export default class AuthPage extends Block {
 	}
 	render(): string {
 		return `
-			<div class="container">
-				<Form class="login-form">
-					{{{ FormAuth }}}
-				</Form>
+			<div>
+				{{{ FormAuth }}}
 			</div>
         `;
 	}

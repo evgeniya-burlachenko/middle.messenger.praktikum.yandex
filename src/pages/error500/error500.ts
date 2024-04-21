@@ -18,10 +18,10 @@ export default class ErrorPage500 extends Block{
 		});
 	}
 	render():string{
-		return `
-			<div class="error">	
+		return( `
+			<div>	
 				{{{Error}}}
 			</div>
-		`;
+		`);
 	}
 }
