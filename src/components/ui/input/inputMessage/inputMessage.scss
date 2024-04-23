@@ -1,0 +1,32 @@
+.input__text-error {
+    transform: translateY(-7px);
+    color: var(--error-color);
+    font-size: 8px;
+    font-weight: 400;
+    display: none;
+  }
+  
+  .input__element:not(:placeholder-shown) + .input__label,
+  .input__element:focus + .input__label {
+    transform: translateY(-36px);
+    font-size: 9px;
+  }
+  
+  .input__error .input__text-error {
+    display: block;
+  }
+  
+  .input__error .input__element {
+    color: var(--error-color);
+  }
+
+  .chatAreaInput {
+    display: flex;
+    margin: 10px 13px 10px 20px;
+    border-top: 1px solid #eaeaea;
+    padding-top: 10px;
+}
+
+.chatAreaInput__send {
+margin-top: 3px;
+}

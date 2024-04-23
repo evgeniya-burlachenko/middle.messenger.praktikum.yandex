@@ -1,7 +1,7 @@
 import Block from '../../core/Block';
 import { navigate } from '../../main';
-import { Button } from '../button';
-import { TYPE_BUTTON } from '../button/button';
+import { Button } from '../ui/button';
+import { TYPE_BUTTON } from '../ui/button/button';
 
 interface ErrorTemplateProps{
 	code: string;
@@ -20,7 +20,10 @@ class ErrorTemplate extends Block{
 	init(){
 		const navName = this.props.page as string;
 		const label = this.props.label as string;
-		const ButtonCreateAccount = new Button({label: label, type: TYPE_BUTTON.LINK, onClick: ()=> navigate(navName)});
+		const ButtonCreateAccount = new Button({
+			label: label,
+			style: TYPE_BUTTON.LINK,
+			onClick: ()=> navigate(navName)});
 		this.children = {
 			...this.children,
 			ButtonCreateAccount,

@@ -1,0 +1,15 @@
+
+.link {
+    text-align: right;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #999;
+    text-decoration: none;
+    margin: 21px 0 22px;
+	
+	&:active, &:visited, &:focus, &:hover{
+		cursor: pointer;
+	}
+}
+

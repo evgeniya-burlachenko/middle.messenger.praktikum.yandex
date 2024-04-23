@@ -7,6 +7,7 @@ export {default as EditProfileInformation} from './editProfileInformation';
 export {default as ErrorPage404} from './error404';
 export {default as ErrorPage500} from './error500';
 export {default as ChangePassword} from './changePassword';
-export {Chat} from './chat';
+export {default as Chat} from './chat';
+
 // NavigatePage будет позже удалена
 export {NavigatePage} from './navigate';

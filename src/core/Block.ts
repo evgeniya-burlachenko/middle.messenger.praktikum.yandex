@@ -4,22 +4,11 @@ import Handlebars from 'handlebars';
 
 type EventHandler = (event: Event) => void;
 
-interface IBlockProps {
+interface IBlock {
     [key: string]: unknown;
     events?: { [key: string]: EventHandler };
-	// isModalVisible?: boolean;
 }
 
-// interface IBlockChildren {
-//     [key: string]: Block;
-// }
-
-// interface IBlockMeta {
-//     tagName: string;
-//     props: IBlockProps;
-// }
-// export interface IComponent {
-// }
 export interface IComponentProps {
 	events?: { [eventName: string]: (e: Event) => void }
 	withId?: boolean;
@@ -107,7 +96,7 @@ export default class Block {
 		});
 	}
 
-	componentDidMount(oldProps?: IBlockProps) {
+	componentDidMount(oldProps?: IBlock) {
 		console.log(oldProps);
 	}
 
@@ -116,14 +105,14 @@ export default class Block {
 	}
 
 	private _componentDidUpdate(oldProps: unknown, newProps: unknown ) {
-		const response = this.componentDidUpdate(oldProps as IBlockProps, newProps as IBlockProps);
+		const response = this.componentDidUpdate(oldProps as IBlock, newProps as IBlock);
 		if (!response) {
 			return;
 		}
 		this._render();
 	}
 
-	componentDidUpdate(oldProps: IBlockProps, newProps: IBlockProps) {
+	componentDidUpdate(oldProps: IBlock, newProps: IBlock) {
 		console.log(oldProps, newProps);
 		return true;
 	}
@@ -219,13 +208,5 @@ export default class Block {
 	private _createDocumentElement(tagName: string) {
 		// Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
 		return document.createElement(tagName);
-	}
-
-	show() {
-		this.getContent()!.style.display = 'block';
-	}
-
-	hide() {
-		this.getContent()!.style.display = 'none';
 	}
 }

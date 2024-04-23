@@ -1,23 +1,39 @@
-export { Button } from './button';
-export { Input } from './input/input';
-export { InputProfile } from './input/inputProfile';
-export { InputFile } from './input/inputFile';
+export { InputFile } from './ui/input/inputFile';
+
+export { Input } from './ui/input/input';
+export { InputProfile } from './ui/input/inputProfile';
+export { InputMessage} from './ui/input/inputMessage';
+export { InputSearch } from './ui/input/inputSearch';
+export { Button } from './ui/button';
+export { AttachButton } from './ui/attachButton'
+export { Image } from './ui/image';
+export { Link } from './ui/link';
+export { Title } from './ui/title';
+export { KebabMenu } from './ui/kebabMenu';
 export { ErrorTemplate } from './error';
-export { Avatar } from './avatar';
-export { SearchBar } from './searchBar';
-// export { ListUsers } from './form/listUsers';
-export { UserCard } from './userCard';
-export { ChatArea } from './chatArea';
-export { FormWrapper } from './form/wrapper/registrationWrapper';
-export { FormProfileWrapper } from './form/wrapper/profileWrapper';
-export { FormProfile } from './form/formProfile';
-export { FormLogin } from './form/formLogin';
-export { FormAuth } from './form/formAuth';
-export { ModalWrapper } from './form/wrapper/modalWrapper';
-export { UserActions } from './form/userActions';
-export { FormDownload } from './form/formDownloading';
-export { Link } from './link';
-export { Title } from './title';
-export { FormProfileEdit } from './form/formProfileEdit';
-export { FormChangePassword } from './form/formChangePassword';
+export { Avatar } from './ui/avatar';
+
+
+//chat
+export { ChatArea } from './chatComponents/chatArea';
+
+export { ModalUserActions } from './chatComponents/chatArea/modalUserActions';
+export { HeaderMessage} from './chatComponents/chatArea/headerArea';
+export { MessageInput } from './chatComponents/chatArea/messageInput';
+export { FormChatWrapper } from './modules/chatWrapper';
+
+export { FormWrapper } from './form/registrationWrapper';
+
+export { FormProfileWrapper } from './form/profileWrapper';
+export { FormProfile } from './modules/profile/formProfile';
+//reg
+export { FormLogin } from './modules/registration/formLogin';
+export { FormAuth } from './modules/registration/formAuth';
+
+export { ModalWrapper } from './form/modalWrapper';
+export { UserActions } from './chatComponents/userActions';
+export { FormDownload } from './formDownloading';
+
+export { FormProfileEdit } from './modules/profile/formProfileEdit';
+export { FormChangePassword } from './modules/profile/formChangePassword';
 

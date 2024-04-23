@@ -1,5 +1,5 @@
 import { FormProfileWrapper } from '../../components';
-import { FormProfileEdit } from '../../components/form/formProfileEdit';
+import { FormProfileEdit } from '../../components/modules/profile/formProfileEdit';
 import Block from '../../core/Block';
 
 export interface IEditProfile {

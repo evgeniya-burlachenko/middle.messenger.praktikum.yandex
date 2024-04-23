@@ -5,14 +5,17 @@ export interface IChangePassword {
 	FormProfile: FormProfileWrapper
 }
 export default class ChangePassword extends Block {
+
 	constructor(props: IChangePassword) {
 		super({
 			...props,
+			FormData:{},
 			FormProfile: new FormProfileWrapper({
-				formBodyProfile: new FormChangePassword({}),
+				formBodyProfile: new FormChangePassword({FormData}),
 			}),
 		});
 	}
+
 	render(): string {
 		return (`
 			<div class="profile-container">

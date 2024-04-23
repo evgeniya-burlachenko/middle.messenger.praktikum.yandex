@@ -2,6 +2,8 @@ import { UserActions, ModalWrapper } from '../../components';
 import Block from '../../core/Block';
 
 export interface IAddUser{
+	title?: string;
+	label?: string;
 
 }
 export default class AddUser extends Block {
@@ -9,8 +11,8 @@ export default class AddUser extends Block {
 		super({
 			...props,
 			UserActions: new ModalWrapper({
-				title: 'Добавить пользователя',
-				modalBody: new UserActions({label: 'Добавить'}),
+				title: props.title,
+				modalBody: new UserActions({label: props.label}),
 
 			}),
 		});

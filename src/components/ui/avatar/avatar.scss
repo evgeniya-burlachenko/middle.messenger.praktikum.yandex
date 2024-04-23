@@ -1,0 +1,47 @@
+.avatar-container {
+    display: inline-block;
+}
+
+.avatar {
+    position: relative;
+    border-radius: 50%; /* Делаю изображение круглым */
+    overflow: hidden; /* Обреза изображение, чтобы оно не выходило за границы круга */
+	&__image {
+		width: 100%; /* Заполнение контейнера изображению */
+		height: 100%; /* Заполнение контейнера изображению */
+		object-fit: cover; /* Масштабирование изображения */
+	}
+
+	&__overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 50%); /* Затемненный эффект при наведении */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0; /* Изначально скрытый */
+		transition: opacity 0.3s ease;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&-text {
+			color: white;
+			font-size: 14px;
+		}
+
+		&::before {
+			content: "Поменять аватар";
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+	}
+
+	&:hover  .avatar__overlay {
+		opacity: 1; /* Показываю затeмненный эффект при наведении */
+	}
+}

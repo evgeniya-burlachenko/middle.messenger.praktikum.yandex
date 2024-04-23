@@ -1,0 +1,26 @@
+.inputFile{
+	&__label{
+		display: inline-block;
+		cursor: pointer;
+
+		&--title{
+			text-decoration: underline;
+			color: var(--main-color)
+		}
+		
+		&--attach{
+			font-weight: 500;
+			font-size: 12px;
+			line-height: 14px;
+			display: flex;
+			align-items: center;
+			margin-left: 15px;
+			text-align: left;
+			color: grey;
+		}
+
+		&--content{
+			display: none;
+		}
+	}
+}
