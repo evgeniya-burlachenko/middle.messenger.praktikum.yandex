@@ -57,7 +57,7 @@ export default class FormProfileEdit extends Block{
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'displayName'),
 				value: 'Иван',
 				disabled: false,
-				name: INPUT_TYPE.FIRST_NAME,
+				name: INPUT_TYPE.DISPLAY_NAME,
 			}),
 			InputProfilePhone: new InputProfile({
 				label: 'Телефон',

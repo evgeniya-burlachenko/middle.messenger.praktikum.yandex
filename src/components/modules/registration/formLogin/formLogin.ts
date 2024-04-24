@@ -19,8 +19,6 @@ export default class FormLogin extends Block {
 
 	init() {
 		const onBlurHandler = this.onBlurHandler.bind(this);
-		const onSubmitHandler = this.onSubmitHandler.bind(this);
-
 		const InputLogin = new Input({
 			label: 'Логин',
 			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'login'),
@@ -30,17 +28,16 @@ export default class FormLogin extends Block {
 			label: 'Пароль',
 			onBlur: (e: FocusEvent) => onBlurHandler(e, 'password'),
 			name: INPUT_TYPE.PASSWORD,
+			type: 'password',
 		});
 		const ButtonLogin = new Button({
-			label: 'Авторизироваться', type: TYPE_BUTTON.PRIMARY,
-			onClick: (e: MouseEvent)=> onSubmitHandler(e, 'ButtonLogin'),
-			onSubmit:(e: MouseEvent)=> onSubmitHandler(e, 'ButtonLogin'),
+			label: 'Авторизироваться', style: TYPE_BUTTON.PRIMARY,
+			type: 'submit',
 		});
 		const ButtonCreateAccount = new Button({
 			label: 'Нет аккаунта?',
 			style: TYPE_BUTTON.LINK,
 			onClick: () => navigate('signUp'),
-			type: "submit",
 		});
 
 		this.children = {
@@ -70,7 +67,19 @@ export default class FormLogin extends Block {
 
 		const inputComponent = this.children[`Input${field.charAt(0).toUpperCase() + field.slice(1)}`];
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
+		// для submit
+		const hasErrors = Object.values(this.errors).some(error=> error);
+		const hasEmptyKeys= Object.keys(this.formData).length === 0;
+		const hasEmptyFields = Object.values(this.formData).some(value => value.trim() === "");
+		console.log("!!!Форма содержит ошибки",hasErrors, hasEmptyFields, hasEmptyKeys )
+		if(hasErrors || hasEmptyFields || hasEmptyKeys){
+			const component = this.children['ButtonLogin'];
+			component.setProps({ error: 'ошибка', errorText:  'Форма содержит ошибки' });
+			return;
+		}
+		this.props.FormDataProps = this.formData
 	}
+
 	onSubmitHandler(event: MouseEvent | Event, field: string){
 		event.preventDefault();
 		const hasErrors = Object.values(this.errors).some(error=> error);
@@ -78,7 +87,7 @@ export default class FormLogin extends Block {
 		const hasEmptyFields = Object.values(this.formData).some(value => value.trim() === "");
 		if(hasErrors || hasEmptyFields || hasEmptyKeys){
 			const component = this.children[field];
-			component.setProps({ error: 'ошибка', errorText:  'Форма содержит ошибки. Пожалуйста, исправьте их' });
+			component.setProps({ error: 'ошибка', errorText:  'Форма содержит ошибки' });
 			return;
 		}
 		const component = this.children[field];

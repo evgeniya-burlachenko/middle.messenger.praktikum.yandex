@@ -51,7 +51,7 @@ export default class FormProfile extends Block {
 			label: 'Имя в чате',
 			value: 'Иван',
 			disabled: true,
-			name: INPUT_TYPE.FIRST_NAME,
+			name: INPUT_TYPE.DISPLAY_NAME,
 		});
 		const InputProfilePhone = new InputProfile({
 			label: 'Телефон',

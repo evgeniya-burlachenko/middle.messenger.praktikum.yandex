@@ -50,24 +50,25 @@ export default class FormAuth extends Block {
 		const InputPassword = new Input({
 			label: 'Пароль',
 			name: INPUT_TYPE.PASSWORD,
+			type: 'password',
 			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'password'),
 		});
 		const InputPasswordRepeat = new Input({
 			label: 'Пароль еще раз',
 			name: INPUT_TYPE.PASSWORD,
+			type: 'password',
 			onBlur: (e: FocusEvent) => onBlurHandler(e, 'passwordRepeat'),
 		});
 		const ButtonLogin = new Button({
 			label: 'Зарегистрироваться',
 			style: TYPE_BUTTON.PRIMARY,
 			onClick: (e: MouseEvent)=> onLoginHandler(e, 'ButtonLogin'),
-			onSubmit: (e: MouseEvent)=> onLoginHandler(e, 'ButtonLogin'),
+			type: "submit",
 		});
 		const ButtonCreateAccount = new Button({
 			label: 'Войти',
 			style: TYPE_BUTTON.LINK,
 			onClick: ()=> navigate('signIn'),
-			type: "submit",
 		});
 		const InputEmailLogin = new Input({
 			label: 'Почта',

@@ -38,7 +38,7 @@ export default class FormChangePassword extends Block {
 			name: INPUT_TYPE.PASSWORD,
 		});
 
-		const InputPassword = new InputProfile({
+		const InputPasswordPassword = new InputProfile({
 			label: 'Новый пароль',
 			onBlur:  (e: FocusEvent) => onBlurHandler(e, INPUT_TYPE.PASSWORD),
 			type: 'password',
@@ -69,7 +69,7 @@ export default class FormChangePassword extends Block {
 		this.children = {
 			...this.children,
 			ProfileAvatar,
-			InputPassword,
+			InputPasswordPassword,
 			InputOldPassword,
 			InputPasswordRepeat,
 			ButtonSaveData,
@@ -82,7 +82,7 @@ export default class FormChangePassword extends Block {
 		const errors = {...this.errors};
 		let password;
 		switch(field){
-		case 'new':
+		case 'password':
 			errors[field] = !validationUtils.validatePassword(inputValue);
 			break;
 		case 'repeat':
@@ -126,7 +126,7 @@ export default class FormChangePassword extends Block {
 			<div class = 'formChangePassword__fields'>
 				{{{ ProfileAvatar }}}
 				{{{ InputOldPassword }}}
-				{{{ InputPassword }}}
+				{{{ InputPasswordPassword }}}
 				{{{ InputPasswordRepeat }}}
 				{{{ButtonArrowLeft}}}
 			<div>

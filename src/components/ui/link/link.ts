@@ -8,6 +8,7 @@ class Link extends Block {
 	constructor(props: ILink) {
 		super({
 			...props,
+		 click: props.onClick,
 			events: {
 				click: props.onClick,
 			},

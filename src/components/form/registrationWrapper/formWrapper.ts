@@ -4,12 +4,19 @@ import { FormAuth } from '../../modules/registration/formAuth';
 import { FormLogin } from '../../modules/registration/formLogin';
 
 interface IFormWrapper{
+	onSubmit?: (e: Event) => void;
+	title?: string,
+	formBody?: FormLogin,
+	type?: string
 
 }
 
 export default class FormWrapper extends Block {
 	constructor(props: IFormWrapper) {
-		super({...props});
+		super({...props,
+			events: {
+				submit: props.onSubmit,
+			}});
 	}
 	componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps): boolean {
 		if(oldProps === newProps) {
@@ -40,12 +47,12 @@ export default class FormWrapper extends Block {
 	}
 	render() {
 		return (`      
-			<form class="form" onsubmit = "return false">
+			<Form class="form" onsubmit = "return false">
                 <p class="form-title">{{title}}</p>
                 <div class="form-content">
 					{{{ formBody }}} 
                 </div>
-            </form>`
+            </Form>`
 		);
 	}
 }

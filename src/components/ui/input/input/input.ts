@@ -13,8 +13,9 @@ class Input extends Block {
 		return `
             <input
                 class='input__element'
-                placeholder="",
-				type = {{{type}}},
+				{{#if value}} value={{value}} {{/if}}
+				{{#if disabled}} disabled={{disabled}} {{/if}}
+				{{#if type}} type={{type}} {{/if}},
 				name={{{name}}}
             />
         `;

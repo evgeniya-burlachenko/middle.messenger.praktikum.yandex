@@ -6,6 +6,7 @@ import Input from './input';
 export enum INPUT_TYPE{
 	FIRST_NAME = 'first_name',
 	SECOND_NAME = 'second_name',
+	DISPLAY_NAME = 'display_name',
 	LOGIN = 'login',
 	EMAIL = 'email',
 	PASSWORD = 'password',
@@ -14,9 +15,12 @@ export enum INPUT_TYPE{
 
 }
 interface IInputElement{
-	onBlur?: (e: FocusEvent) => void;
 	errorText?: string,
+	onBlur?: (e: FocusEvent) => void,
 	label?: string,
+	value?: string,
+	disabled?: boolean,
+	type?: string,
 	name: INPUT_TYPE
 }
 class InputElement extends Block {
@@ -24,6 +28,7 @@ class InputElement extends Block {
 		super({
 			...props,
 			Input: new Input({
+				...props,
 				onBlur: props.onBlur || (() => {}),
 				events: {
 					blur: props.onBlur || (() => {}),
@@ -44,6 +49,7 @@ class InputElement extends Block {
 	}
 
 	render(): string {
+
 		return `
 		<div class="input {{#if error}}input__error{{/if}}" >
 			<label class="input__container">

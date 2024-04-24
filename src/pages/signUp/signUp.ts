@@ -2,7 +2,6 @@ import { FormWrapper } from '../../components';
 import Block from '../../core/Block';
 
 export interface IAuthPageProps {
-	FormAuth: FormWrapper;
 }
 
 export default class AuthPage extends Block {
