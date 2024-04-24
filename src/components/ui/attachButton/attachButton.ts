@@ -7,7 +7,6 @@ class AttachButton extends Block {
 	constructor(props: IAttachButton) {
 		super({
 			...props,
-			click: props.onClick,
 			events: {
 				click: props.onClick,
 			},

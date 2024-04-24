@@ -14,7 +14,8 @@ class Input extends Block {
             <input
                 class='input__element'
                 placeholder="",
-				type = {{{type}}}
+				type = {{{type}}},
+				name={{{name}}}
             />
         `;
 	}

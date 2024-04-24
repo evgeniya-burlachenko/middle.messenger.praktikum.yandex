@@ -1,6 +1,5 @@
 import Block from '../../../../core/Block';
 
-
 interface InputProfileProps {
 
 }
@@ -16,6 +15,7 @@ class InputProfile extends Block {
 				{{#if value}} value={{value}} {{/if}}
 				{{#if disabled}} disabled={{disabled}} {{/if}}
 				{{#if type}} type={{type}} {{/if}}
+				name={{{name}}}
             />
         `);
 	}

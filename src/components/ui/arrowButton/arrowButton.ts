@@ -13,7 +13,6 @@ export default class ArrowButton extends Block{
 	constructor(props:IArrowButton){
 		super({
 			...props,
-			click: props.onClick,
 			events: {
 				click: props.onClick,
 				submit: props.onSubmit,

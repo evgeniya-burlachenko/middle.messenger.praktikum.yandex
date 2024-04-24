@@ -57,9 +57,22 @@ export default class Block {
 		this.setProps({type});
 		this.render();
 	}
-	private _addEvents() {
+
+	_removeEvents() {
+		const {events = {}} = this.props as { events: Record<string, () => void> };
+		if (!events || !this._element) {
+				  return;}
+		Object.keys(events).forEach(eventName => {
+			this._element?.removeEventListener(eventName, events[eventName]);
+		});
+	}
+
+	_addEvents() {
 		const {events = {}} = this.props as { events: Record<string, () => void> };
 
+		if (!events) {
+			return;
+		  }
 		Object.keys(events).forEach(eventName => {
 			this._element?.addEventListener(eventName, events[eventName]);
 		});
@@ -157,7 +170,11 @@ export default class Block {
 		});
 		const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 		fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
+		if(this._element){
+			this._removeEvents();
+		  }
 		const newElement = fragment.content.firstElementChild as HTMLElement;
+
 		Object.values(this.children).forEach((child) => {
 			const stub= fragment.content.querySelector(`[data-id="${child._id}"]`);
 			if (stub){

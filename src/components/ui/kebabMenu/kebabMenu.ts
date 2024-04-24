@@ -8,7 +8,6 @@ class KebabMenu extends Block {
 	constructor(props: IKebabMenu) {
 		super({
 			...props,
-			click: props.onClick,
 			events: {
 				click: props.onClick,
 			},

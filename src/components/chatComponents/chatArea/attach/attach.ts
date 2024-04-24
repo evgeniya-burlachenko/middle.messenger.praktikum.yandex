@@ -17,10 +17,10 @@ export default class Attach extends Block {
 	init() {
 		const onClickHandler = this.onClickHandler.bind(this);
 
-		const Modal =  new AttachModal({
-
-		})
-		const Attach = new AttachButton({onClick:  (e:MouseEvent) => onClickHandler(e)})
+		const Modal =  new AttachModal({});
+		const Attach = new AttachButton({
+			onClick:  (e:MouseEvent) => onClickHandler(e),
+		});
 		this.children = {
 			...this.children,
 			Modal,

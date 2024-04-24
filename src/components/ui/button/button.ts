@@ -20,7 +20,6 @@ class Button extends Block {
 	constructor(props: IButton) {
 		super({
 			...props,
-			click: props.onClick,
 			events: {
 				click: props.onClick,
 			},

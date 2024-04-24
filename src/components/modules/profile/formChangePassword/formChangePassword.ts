@@ -62,7 +62,7 @@ export default class FormChangePassword extends Block {
 			label: 'Сохранить',
 			style: TYPE_BUTTON.PRIMARY,
 			type: 'submit',
-			onClick: (e: MouseEvent)=> onLoginHandler(e, 'ButtonSaveData'),
+			onClick: (e: MouseEvent) => onLoginHandler(e, 'ButtonSaveData'),
 
 		});
 

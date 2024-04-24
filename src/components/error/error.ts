@@ -23,7 +23,7 @@ class ErrorTemplate extends Block{
 		const ButtonCreateAccount = new Button({
 			label: label,
 			style: TYPE_BUTTON.LINK,
-			onClick: ()=> navigate(navName)});
+			onClick: () => navigate(navName)});
 		this.children = {
 			...this.children,
 			ButtonCreateAccount,

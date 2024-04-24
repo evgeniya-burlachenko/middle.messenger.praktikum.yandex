@@ -1,7 +1,6 @@
 {
 	"extends": "stylelint-config-standard-scss",
 	"rules": {
-	  "color-function-notation": "legacy",
 	  "no-empty-source": true,
 	  "selector-class-pattern": null
 	}
