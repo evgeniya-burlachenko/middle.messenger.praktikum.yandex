@@ -69,7 +69,6 @@ export default class FormProfileEdit extends Block{
 				name: INPUT_TYPE.PHONE,
 			}),
 			ProfileAvatar: new Avatar({
-				// avatarUrl: '/assets/icons/profile.svg',
 				avatarUrl: avatar,
 				name: 'avatar',
 				onClick: () => this.onAvatarClick(),

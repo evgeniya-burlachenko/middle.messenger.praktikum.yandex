@@ -2,6 +2,7 @@ import Block from '../../../../core/Block';
 import { Avatar } from '../../../ui/avatar';
 import {KebabMenu} from '../../../ui/kebabMenu';
 import { ModalUserActions } from '../modalUserActions';
+import avatar from '/assets/icons/profile.svg'
 
 interface IHeaderMessage {
 
@@ -15,7 +16,7 @@ export default class HeaderMessage extends Block {
 	init() {
 		const onKebabClick = this.onKebabClick.bind(this);
 		const HeaderMessageAvatar = new Avatar({
-			avatarUrl: '/assets/icons/profile.svg',
+			avatarUrl: avatar,
 			name: 'avatar',
 			change: false,
 		});
