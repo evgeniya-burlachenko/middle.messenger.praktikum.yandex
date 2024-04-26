@@ -15,7 +15,7 @@ interface Errors {
 }
 
 interface IFormChangePassword{
-	FormData?: object
+	// FormData?: object
 
 }
 export default class FormChangePassword extends Block {
@@ -29,7 +29,6 @@ export default class FormChangePassword extends Block {
 	init() {
 		const onBlurHandler = this.onBlurHandler.bind(this);
 		const onAvatarClick = this.onAvatarClick.bind(this);
-		const onLoginHandler = this.onLoginHandler.bind(this);
 
 		const InputOldPassword = new InputProfile({
 			label: 'Старый пароль',
@@ -62,8 +61,7 @@ export default class FormChangePassword extends Block {
 			label: 'Сохранить',
 			style: TYPE_BUTTON.PRIMARY,
 			type: 'submit',
-			onClick: (e: MouseEvent) => onLoginHandler(e, 'ButtonSaveData'),
-
+			// onClick: (e: MouseEvent) => onLoginHandler(e, 'ButtonSaveData'),
 		});
 
 		this.children = {
@@ -97,27 +95,11 @@ export default class FormChangePassword extends Block {
 
 		const inputComponent = this.children[`InputPassword${field.charAt(0).toUpperCase() + field.slice(1)}`];
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'some error' : '' });
+
+		this.props.FormDataProps =  this.formData
 	}
 	onAvatarClick(){
 		this.setProps({ isModalVisible: true });
-	}
-	onLoginHandler(event: MouseEvent | Event, field: string){
-		event.preventDefault();
-		const hasErrors = Object.values(this.errors).some(error=> error);
-		const hasEmptyKeys = Object.keys(this.formData).length === 0;
-		const hasEmptyFields = Object.values(this.formData).some(value => value.trim() === "");
-
-		if(hasErrors || hasEmptyFields || hasEmptyKeys){
-			const component = this.children[field];
-			component.setProps({ error: 'ошибка', errorText: 'Форма содержит ошибки или не было изменений' });
-			return;
-		}
-		const component = this.children[field];
-		component.setProps({ error: false, errorText: '' });
-
-		console.log('Данные формы:', this.formData);
-		this.props.FormData =  this.formData
-		return false
 	}
 
 	render() {

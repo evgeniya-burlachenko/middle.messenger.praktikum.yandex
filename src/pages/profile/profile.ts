@@ -10,14 +10,14 @@ export default class Profile extends Block {
 		super({
 			...props,
 			FormProfile: new FormProfileWrapper({
-				formBodyProfile: new FormProfile({}),
+				formBodyProfile: new FormProfile({FormDataProps: {login: "", password: ""}}),
 			}),
 		});
 	}
 	render(): string {
 		return `
 			<div>
-					{{{ FormProfile }}}
+				{{{ FormProfile }}}
 			</div>
         `;
 	}

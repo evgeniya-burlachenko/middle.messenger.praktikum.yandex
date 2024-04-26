@@ -8,8 +8,6 @@ export interface ILoginPageProps{
 export  interface IFormDataProps{
 	login?: string,
 	password?: string
-	// [key: string]: string,
-	// [password: string]: string
 }
 export default class LoginPage extends Block {
 	constructor(props: ILoginPageProps) {
@@ -23,12 +21,12 @@ export default class LoginPage extends Block {
 					e.preventDefault();
 					const formData = this.children.FormLogin.children.formBody.props.FormDataProps  as  IFormDataProps
 					const btnError = this.children.FormLogin.children.formBody.children.ButtonLogin
-
 					if(!formData || !formData.login || !formData.password){
-						btnError.setProps({ error: 'ошибка', errorText:  'Форма содержит ошибки' });
+						btnError.setProps({ error: 'ошибка', errorText:  'Форма содержит ошибки, submit' });
 						return
 					}
-					console.log('Данные формы(submit):', formData)
+					btnError.setProps({error: '', errorText: ''})
+					console.log('!!!!Данные формы(submit):', formData)
 				},
 			}),
 		});

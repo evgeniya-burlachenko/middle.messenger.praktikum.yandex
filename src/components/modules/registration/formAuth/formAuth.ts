@@ -20,7 +20,7 @@ export default class FormAuth extends Block {
 
 	init() {
 		const onBlurHandler = this.onBlurHandler.bind(this);
-		const onLoginHandler = this.onLoginHandler.bind(this);
+
 
 		const InputEmail = new Input({
 			label: 'Почта',
@@ -62,8 +62,7 @@ export default class FormAuth extends Block {
 		const ButtonLogin = new Button({
 			label: 'Зарегистрироваться',
 			style: TYPE_BUTTON.PRIMARY,
-			onClick: (e: MouseEvent)=> onLoginHandler(e, 'ButtonLogin'),
-			type: "submit",
+			type: 'submit',
 		});
 		const ButtonCreateAccount = new Button({
 			label: 'Войти',
@@ -128,20 +127,20 @@ export default class FormAuth extends Block {
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
 	}
 
-	onLoginHandler(event: MouseEvent, field: string){
-		event.preventDefault();
-		const hasErrors = Object.values(this.errors).some(error=> error);
-		const hasEmptyKeys = Object.keys(this.formData).length === 0;
-		const hasEmptyFields = Object.values(this.formData).some(value => value.trim() === "");
-		if(hasErrors || hasEmptyFields || hasEmptyKeys){
-			const component = this.children[field];
-			component.setProps({ error: 'ошибка', errorText: 'Форма содержит ошибки. Пожалуйста, исправьте их' });
-			return;
-		}
-		const component = this.children[field];
-		component.setProps({ error: false, errorText: '' });
-		console.log('Данные формы:', this.formData);
-	}
+	// onLoginHandler(event: MouseEvent, field: string){
+	// 	event.preventDefault();
+	// 	const hasErrors = Object.values(this.errors).some(error=> error);
+	// 	const hasEmptyKeys = Object.keys(this.formData).length === 0;
+	// 	const hasEmptyFields = Object.values(this.formData).some(value => value.trim() === "");
+	// 	if(hasErrors || hasEmptyFields || hasEmptyKeys){
+	// 		const component = this.children[field];
+	// 		component.setProps({ error: 'ошибка', errorText: 'Форма содержит ошибки. Пожалуйста, исправьте их' });
+	// 		return;
+	// 	}
+	// 	const component = this.children[field];
+	// 	component.setProps({ error: false, errorText: '' });
+	// 	console.log('Данные формы:', this.formData);
+	// }
 	render() {
 		return (`
 			<div class = 'formAuth'>

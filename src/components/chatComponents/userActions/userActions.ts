@@ -15,6 +15,7 @@ interface IErrors {
 interface IUserActions {
 	title?: string;
 	label?: string;
+	FormDataProps?: object
 
 }
 export default class UserActions extends Block {
@@ -25,7 +26,7 @@ export default class UserActions extends Block {
 	}
 	init() {
 		const onBlurHandler = this.onBlurHandler.bind(this);
-		const onLoginHandler = this.onLoginHandler.bind(this);
+
 		const label =  this.props.label as string;
 
 		const InputLogin = new Input({
@@ -36,8 +37,7 @@ export default class UserActions extends Block {
 		const ButtonLogin = new Button({
 			label: label,
 			style: TYPE_BUTTON.PRIMARY,
-			onClick: onLoginHandler,
-			onSubmit: onLoginHandler,
+			type: 'submit',
 		});
 
 		this.children = {
@@ -63,15 +63,7 @@ export default class UserActions extends Block {
 		this.formData[field] = inputValue;
 		const inputComponent = this.children[`Input${field.charAt(0).toUpperCase() + field.slice(1)}`];
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
-	}
-	onLoginHandler(event: MouseEvent){
-		event.preventDefault();
-		const hasErrors = Object.values(this.errors).some(error=> error);
-		if(hasErrors){
-			console.log('Форма содержит ошибки. Пожалуйста, исправьте их');
-			return;
-		}
-		console.log('Данные формы:', this.formData);
+		this.props.FormDataProps = this.formData
 	}
 
 	render() {

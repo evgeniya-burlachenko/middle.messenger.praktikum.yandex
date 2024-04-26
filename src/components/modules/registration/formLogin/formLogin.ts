@@ -31,7 +31,8 @@ export default class FormLogin extends Block {
 			type: 'password',
 		});
 		const ButtonLogin = new Button({
-			label: 'Авторизироваться', style: TYPE_BUTTON.PRIMARY,
+			label: 'Авторизироваться',
+			style: TYPE_BUTTON.PRIMARY,
 			type: 'submit',
 		});
 		const ButtonCreateAccount = new Button({
@@ -55,7 +56,6 @@ export default class FormLogin extends Block {
 		const errors = {...this.errors};
 		const validationFunctions:  {[key: string]: (value: string) => boolean}  = {
 			login: validationUtils.validateLogin,
-			password: validationUtils.validatePassword,
 		};
 		const validationFunction = validationFunctions[field];
 
@@ -67,33 +67,8 @@ export default class FormLogin extends Block {
 
 		const inputComponent = this.children[`Input${field.charAt(0).toUpperCase() + field.slice(1)}`];
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
-		// для submit
-		const hasErrors = Object.values(this.errors).some(error=> error);
-		const hasEmptyKeys= Object.keys(this.formData).length === 0;
-		const hasEmptyFields = Object.values(this.formData).some(value => value.trim() === "");
-		console.log("!!!Форма содержит ошибки",hasErrors, hasEmptyFields, hasEmptyKeys )
-		if(hasErrors || hasEmptyFields || hasEmptyKeys){
-			const component = this.children['ButtonLogin'];
-			component.setProps({ error: 'ошибка', errorText:  'Форма содержит ошибки' });
-			return;
-		}
-		this.props.FormDataProps = this.formData
-	}
 
-	onSubmitHandler(event: MouseEvent | Event, field: string){
-		event.preventDefault();
-		const hasErrors = Object.values(this.errors).some(error=> error);
-		const hasEmptyKeys= Object.keys(this.formData).length === 0;
-		const hasEmptyFields = Object.values(this.formData).some(value => value.trim() === "");
-		if(hasErrors || hasEmptyFields || hasEmptyKeys){
-			const component = this.children[field];
-			component.setProps({ error: 'ошибка', errorText:  'Форма содержит ошибки' });
-			return;
-		}
-		const component = this.children[field];
-		component.setProps({ error: false, errorText: '' });
-
-		console.log('Данные формы:', this.formData);
+		this.props.FormDataProps = this.formData;
 	}
 
 	render() {

@@ -6,6 +6,7 @@ import { Avatar } from '../../../ui/avatar';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
+import avatar from '/assets/icons/profile.svg'
 
 interface IFormData{
 	[key: string]: string
@@ -15,6 +16,7 @@ interface IErrors {
 }
 interface IFormProfileEdit {
 	isModalVisible?: boolean;
+	FormDataProps?: object
 }
 
 export default class FormProfileEdit extends Block{
@@ -62,12 +64,13 @@ export default class FormProfileEdit extends Block{
 			InputProfilePhone: new InputProfile({
 				label: 'Телефон',
 				onBlur: (e: FocusEvent) => this.onBlurHandler(e, 'phone'),
-				value: '+7(909)9673030',
+				value: '89099673030',
 				disabled: false,
 				name: INPUT_TYPE.PHONE,
 			}),
 			ProfileAvatar: new Avatar({
-				avatarUrl: '/assets/icons/profile.svg',
+				// avatarUrl: '/assets/icons/profile.svg',
+				avatarUrl: avatar,
 				name: 'avatar',
 				onClick: () => this.onAvatarClick(),
 				change: false,
@@ -75,8 +78,9 @@ export default class FormProfileEdit extends Block{
 			ButtonChangeData:  new Button({
 				label: 'Сохранить',
 				style: TYPE_BUTTON.PRIMARY,
-				onClick: (e: MouseEvent)=> this.onSubmitHandler(e, 'ButtonChangeData'),
-				onSubmit: (e: MouseEvent)=> this.onSubmitHandler(e, 'ButtonChangeData'),
+				type: 'submit',
+				// onClick: (e: MouseEvent)=> this.onSubmitHandler(e, 'ButtonChangeData'),
+				// onSubmit: (e: MouseEvent)=> this.onSubmitHandler(e, 'ButtonChangeData'),
 			}),
 		});
 	}
@@ -87,6 +91,7 @@ export default class FormProfileEdit extends Block{
 		const errors = {...this.errors};
 		const validationFunctions: {[key: string]: (value: string) => boolean} = {
 			email: validationUtils.validateEmail,
+			login: validationUtils.validateLogin,
 			name: validationUtils.validateName,
 			secondname: validationUtils.validateName,
 			phone: validationUtils.validatePhone,
@@ -97,39 +102,16 @@ export default class FormProfileEdit extends Block{
 		}
 		this.errors = errors;
 		this.formData[field] = inputValue;
-		const inputString = `InputProfile${field.charAt(0).toUpperCase() + field.slice(1)}`;
-		const inputComponent =  this.children?.[inputString];
-		// const inputComponent =  (this as {children?: Partial<IComponents>}).children?.[inputString];
-		if(inputComponent){
-			inputComponent.setProps({ error: errors[field], errorText: errors[field] ?
-				'Форма содержит ошибки' : '' });
-		}
+
+		const inputComponent =  this.children?.[`InputProfile${field.charAt(0).toUpperCase() + field.slice(1)}`];
+
+		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
+		this.props.FormDataProps = this.formData
 	}
 	private onAvatarClick(){
 		this.setProps({ isModalVisible: true });
 	}
-	private onSubmitHandler(event: MouseEvent | Event, field: string){
-		event.preventDefault();
-		const hasErrors = Object.values(this.errors).some(error=> error);
-		const hasEmptyKeys = Object.keys(this.formData).length === 0;
-		const hasEmptyFields = Object.values(this.formData).some(value => value.trim() === "");
-		if(hasErrors || hasEmptyFields || hasEmptyKeys){
-			const component =  this.children?.[field];
-			if(component){
-				component.setProps({
-					error: 'ошибка',
-					errorText: 'Форма содержит ошибки или не было изменений',
-				});
-			}
-			return;
-		}
-		const component = this.children?.[field];
-		if(component) {
-			component.setProps({ error: false, errorText: '' });
-			console.log('Данные формы:', this.formData);
-			//  PATCH
-		}
-	}
+
 	render(){
 		return (`
 				<div class="formProfile">
