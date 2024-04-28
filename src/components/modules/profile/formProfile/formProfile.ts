@@ -2,12 +2,13 @@ import Block from '../../../../core/Block';
 import { Button } from '../../../ui/button';
 
 import { navigate } from '../../../../main';
-import { Avatar } from '../../..';
+import { Avatar, BackButton } from '../../..';
 import { Download } from '../../../../pages';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-
+import avatar from '../../../../assets/icons/profile.svg'
+import backArrow from '../../../../assets/icons/arrow-left.svg'
 interface IFormProfile {
 
 }
@@ -60,7 +61,7 @@ export default class FormProfile extends Block {
 			name: INPUT_TYPE.PHONE,
 		});
 		const ProfileAvatar = new Avatar({
-			avatarUrl: '/assets/icons/profile.svg',
+			avatarUrl: avatar,
 			name: 'avatar',
 			onClick: onAvatarClick,
 			change: true,
@@ -83,6 +84,10 @@ export default class FormProfile extends Block {
 
 
 		const DownloadAvatar = new Download({});
+		const BackButtonArrow =  new BackButton({
+			src: backArrow,
+			onClick: () => navigate('chat'),
+		});
 
 		this.children = {
 			...this.children,
@@ -97,6 +102,7 @@ export default class FormProfile extends Block {
 			ButtonChangePassword,
 			ButtonChangeData,
 			ButtonExit,
+			BackButtonArrow,
 
 		};
 	}
@@ -109,20 +115,26 @@ export default class FormProfile extends Block {
 		const { isModalVisible } = this.props;
 		return (`
         <div class="formProfile">
-			<div class = "formProfile__fields"> 
-				{{{ ProfileAvatar }}}
-				{{{ InputProfileEmail }}}
-				{{{ InputProfileLogin }}}
-				{{{ InputProfileName }}}
-				{{{ InputProfileSurname }}}
-				{{{ InputProfileDisplayName }}}
-				{{{ InputProfilePhone }}}
+			<div class = 'formProfile__btn-back'>
+					{{{BackButtonArrow}}}
 			</div>
-			<div class="formProfile__buttons">	
-				{{{ ButtonChangeData }}}
-				{{{ ButtonChangePassword }}}
-				{{{ButtonExit}}}
+			<div class = 'formProfile__fields-wrapper'>
+				<div class = "formProfile__fields"> 
+					{{{ ProfileAvatar }}}
+					{{{ InputProfileEmail }}}
+					{{{ InputProfileLogin }}}
+					{{{ InputProfileName }}}
+					{{{ InputProfileSurname }}}
+					{{{ InputProfileDisplayName }}}
+					{{{ InputProfilePhone }}}
+					<div class="formProfile__buttons">	
+					{{{ ButtonChangeData }}}
+					{{{ ButtonChangePassword }}}
+					{{{ ButtonExit }}}
+				</div>
 			</div>
+			</div>
+			
 
 			<div class="formProfile__modalChange">   
 				${isModalVisible ? `

@@ -190,13 +190,23 @@ export default class Block {
 
 		this._addEvents();
 	}
-
-	render() {}
-
-	getContent() {
-		return this.element;
+	protected render(): string {
+		return '';
 	}
 
+	getContent() {
+		// // Хак, чтобы вызвать CDM только после добавления в DOM
+		// if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+		//   setTimeout(() => {
+		// 	if (
+		// 	  this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+		// 	) {
+		// 		this.dispatchComponentDidMount();
+		// 	}
+		//   }, 100);
+		// }
+		return this._element;
+	  }
 	_makePropsProxy(props: IComponentProps) {
 		// Можно и так передать this
 		// Такой способ больше не применяется с приходом ES6+
@@ -225,5 +235,12 @@ export default class Block {
 	private _createDocumentElement(tagName: string) {
 		// Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
 		return document.createElement(tagName);
+	}
+	show() {
+		this.getContent()!.style.display = "block";
+	}
+
+	hide() {
+		this.getContent()!.style.display = "none";
 	}
 }
