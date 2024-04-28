@@ -1,6 +1,7 @@
-import { FormProfileWrapper } from '../../components';
+import { BackButton, FormProfileWrapper } from '../../components';
 import { FormProfileEdit } from '../../components/modules/profile/formProfileEdit';
 import Block from '../../core/Block';
+import { navigate } from '../../main';
 
 export interface IEditProfile {
 
@@ -22,6 +23,9 @@ export default class EditProfile extends Block {
 					if(!formData) return
 					console.log('Измененные данные формы(submit):', formData)
 				},
+			}),
+			ButtonBackArrow: new BackButton({
+				onClick: () => navigate('/chat'),
 			}),
 		});
 	}

@@ -6,7 +6,10 @@ import { Avatar } from '../../../ui/avatar';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-import avatar from '/assets/icons/profile.svg'
+import avatar from '../../../../assets/icons/profile.svg'
+import backArrow from '../../../../assets/icons/arrow-left.svg'
+import { navigate } from '../../../../main';
+import { BackButton } from '../../../ui/backButton';
 interface FormData{
 	[key: string]: string
 }
@@ -63,6 +66,10 @@ export default class FormChangePassword extends Block {
 			type: 'submit',
 			// onClick: (e: MouseEvent) => onLoginHandler(e, 'ButtonSaveData'),
 		});
+		const BackButtonArrow =  new BackButton({
+			src: backArrow,
+			onClick: () => navigate('chat'),
+		});
 
 		this.children = {
 			...this.children,
@@ -71,6 +78,7 @@ export default class FormChangePassword extends Block {
 			InputOldPassword,
 			InputPasswordRepeat,
 			ButtonSaveData,
+			BackButtonArrow,
 		};
 	}
 
@@ -105,6 +113,11 @@ export default class FormChangePassword extends Block {
 	render() {
 		return (`
         <div class='formChangePassword' id="134">
+			<div class = 'formChangePassword__btn-back'>
+			{{{BackButtonArrow}}}
+			</div>	
+
+			<div class = 'formChangePassword__fields-wrapper'>
 			<div class = 'formChangePassword__fields'>
 				{{{ ProfileAvatar }}}
 				{{{ InputOldPassword }}}
@@ -116,6 +129,7 @@ export default class FormChangePassword extends Block {
 				{{{ ButtonSaveData }}}
 			</div>
 			</div>
+			<div>
         </div>
     `);
 	}
