@@ -7,7 +7,7 @@ import { Download } from '../../../../pages';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-
+import avatar from '../../../../assets/icons/profile.svg'
 interface IFormProfile {
 
 }
@@ -60,7 +60,7 @@ export default class FormProfile extends Block {
 			name: INPUT_TYPE.PHONE,
 		});
 		const ProfileAvatar = new Avatar({
-			avatarUrl: '/assets/icons/profile.svg',
+			avatarUrl: avatar,
 			name: 'avatar',
 			onClick: onAvatarClick,
 			change: true,

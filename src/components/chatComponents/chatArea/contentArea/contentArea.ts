@@ -1,4 +1,5 @@
 import Block from '../../../../core/Block';
+import img from '../../../../assets/images/image.png'
 
 interface IMessageArea {
 
@@ -21,7 +22,7 @@ class MessageArea extends Block {
         </div>
         <div class="mesageArea__image">
             <div class="mesageArea__message">
-                <img src="/assets/images/image.png" alt="">
+                <img src=${img} alt="">
             </div>
             <div class="mesageArea__incoming--date">11:56</div>
         </div>  
