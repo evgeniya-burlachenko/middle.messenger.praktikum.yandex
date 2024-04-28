@@ -6,7 +6,7 @@ import { Avatar } from '../../../ui/avatar';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-import avatar from '/assets/icons/profile.svg'
+import avatar from '../../../../assets/icons/profile.svg'
 interface FormData{
 	[key: string]: string
 }

@@ -2,7 +2,7 @@ import Block from '../../../../core/Block';
 import { Avatar } from '../../../ui/avatar';
 import {KebabMenu} from '../../../ui/kebabMenu';
 import { ModalUserActions } from '../modalUserActions';
-import avatar from '/assets/icons/profile.svg'
+import avatar from '../../../../assets/icons/profile.svg'
 
 interface IHeaderMessage {
 

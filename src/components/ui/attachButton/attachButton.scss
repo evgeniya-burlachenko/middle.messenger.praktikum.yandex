@@ -6,9 +6,9 @@
     height: 20px;
     cursor: pointer;
     margin-top: 5px;
-    background-image: url('/assets/icons/attachGray.svg');
+    background-image: url('../../../assets/icons/attachGray.svg');
 	
 	&:hover{
-		background-image: url('/assets/icons/attachBlue.svg');
+		background-image: url('../../../assets/icons/attachBlue.svg');
 	}
 }

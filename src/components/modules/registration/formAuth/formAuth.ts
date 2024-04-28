@@ -125,22 +125,9 @@ export default class FormAuth extends Block {
 		const inputKey = `Input${field.charAt(0).toUpperCase() + field.slice(1)}`;
 		const inputComponent = this.children[inputKey];
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
+		this.props.FormDataProps = this.formData;
 	}
 
-	// onLoginHandler(event: MouseEvent, field: string){
-	// 	event.preventDefault();
-	// 	const hasErrors = Object.values(this.errors).some(error=> error);
-	// 	const hasEmptyKeys = Object.keys(this.formData).length === 0;
-	// 	const hasEmptyFields = Object.values(this.formData).some(value => value.trim() === "");
-	// 	if(hasErrors || hasEmptyFields || hasEmptyKeys){
-	// 		const component = this.children[field];
-	// 		component.setProps({ error: 'ошибка', errorText: 'Форма содержит ошибки. Пожалуйста, исправьте их' });
-	// 		return;
-	// 	}
-	// 	const component = this.children[field];
-	// 	component.setProps({ error: false, errorText: '' });
-	// 	console.log('Данные формы:', this.formData);
-	// }
 	render() {
 		return (`
 			<div class = 'formAuth'>
