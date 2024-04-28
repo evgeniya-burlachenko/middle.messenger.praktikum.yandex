@@ -6,7 +6,7 @@ import { Avatar } from '../../../ui/avatar';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-import avatar from '/assets/icons/profile.svg'
+import avatar from '../../../../assets/icons/profile.svg'
 
 interface IFormData{
 	[key: string]: string
@@ -78,8 +78,6 @@ export default class FormProfileEdit extends Block{
 				label: 'Сохранить',
 				style: TYPE_BUTTON.PRIMARY,
 				type: 'submit',
-				// onClick: (e: MouseEvent)=> this.onSubmitHandler(e, 'ButtonChangeData'),
-				// onSubmit: (e: MouseEvent)=> this.onSubmitHandler(e, 'ButtonChangeData'),
 			}),
 		});
 	}

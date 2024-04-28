@@ -6,7 +6,7 @@ import { FormLogin } from '../../modules/registration/formLogin';
 interface IFormWrapper{
 	onSubmit?: (e: Event) => void;
 	title?: string,
-	formBody?: FormLogin,
+	formBody?: FormLogin | FormAuth,
 	type?: string
 
 }

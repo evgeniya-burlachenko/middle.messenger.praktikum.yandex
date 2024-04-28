@@ -2,6 +2,7 @@ import Block from '../../../../core/Block';
 import { AddUser } from '../../../../pages';
 import { Button } from '../../../ui/button';
 import { TYPE_BUTTON } from '../../../ui/button/button';
+import add from '../../../../assets/icons/add.svg'
 
 interface IModalUserActions {
 	label?: string,
@@ -70,14 +71,14 @@ export default class ModalUserActions extends Block {
 				<div class ='modalUserActions__field'>
 					<div class = 'modalUserActions__field-btn'>	
 						<img class="modalUserActions__field-btn--add"
-						src="/assets/icons/add.svg"></img> 
+						src=${add}></img> 
 						{{{ ButtonAddUser }}}
 				
 					</div>
 					<div class = 'modalUserActions__field-btn'>	
 					<img 
 						class="modalUserActions__field-btn--delete"
-						src="/assets/icons/add.svg"></img> 
+						src=${add}></img> 
 						{{{ ButtonRemoveUser }}}
 				
 					</div>

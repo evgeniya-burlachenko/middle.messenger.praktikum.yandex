@@ -3,6 +3,7 @@ import { ArrowButton } from "../../../ui/arrowButton"
 import { INPUT_TYPE } from "../../../ui/input/input/inputElement"
 import { InputMessage } from "../../../ui/input/inputMessage"
 import Attach from "../attach/attach"
+import arrowRight from '../../../../assets/icons/arrowRight.svg'
 
 
 interface IFormData{
@@ -29,7 +30,7 @@ export default class MessageInput extends Block{
 			ArrowButton: new ArrowButton({
 				...props,
 				type: 'submit',
-				src: '/assets/icons/arrowRight.svg',
+				src: arrowRight,
 				onClick: (e: MouseEvent)=> this.onSubmitHandler(e),
 				// onSubmit: (e: MouseEvent)=> this.onSubmitHandler(e),
 			}),

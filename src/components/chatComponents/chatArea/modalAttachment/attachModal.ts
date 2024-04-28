@@ -1,5 +1,8 @@
 import Block from '../../../../core/Block';
 import InputFile from '../../../ui/input/inputFile/input';
+import attachFile from '../../../../assets/icons/attachFile.svg';
+import attachMedia from '../../../../assets/icons/attachMedia.svg';
+import attachLocation from '../../../../assets/icons/attachLocation.svg'
 
 interface IAttachModal{
 
@@ -29,19 +32,19 @@ export default class AttachModal extends Block{
 			<div class="modalAttach__attachment">
 				<img 
 				class="modalAttach__attachment--icon"
-				src="/assets/icons/attachMedia.svg"></img>
+				src=${attachMedia}></img>
 				{{{InputDownloadFoto}}}
 			</div>
 				<div class="modalAttach__attachment">
 			<img 
 				class="modalAttach__attachment--icon"
-				src="/assets/icons/attachFile.svg"></img>
+				src=${attachFile}></img>
 			{{{InputDownloadFile}}}
 			</div>
 			<div class="modalAttach__attachment">
 				<img 
 				class="modalAttach__attachment--icon"
-				src="/assets/icons/attachLocation.svg"></img>
+				src=${attachLocation}></img>
 				<p class="modalAttach__text">Локация</p>
 			</div>
 		</div>
