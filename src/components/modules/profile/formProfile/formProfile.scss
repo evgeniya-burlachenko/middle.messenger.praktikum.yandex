@@ -5,6 +5,9 @@
 	min-width: 1024px;
 
 	&__btn-back{
+		position: absolute;
+		left: 0;
+		height: 100vh;
 		display: flex;
 		width: 64px;
 		background-color: #FBFBFB;
