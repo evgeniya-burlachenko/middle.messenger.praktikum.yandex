@@ -20,6 +20,7 @@ export default class ChatList extends Block{
 	}
 
 	render(){
+		console.log("!!!props", this.props)
 		return(`
 		<div class = 'chatList'>
 			{{{ListHeader}}}

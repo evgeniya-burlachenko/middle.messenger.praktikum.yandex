@@ -7,6 +7,9 @@ import { TYPE_BUTTON } from '../../../ui/button/button';
 import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
 import avatar from '../../../../assets/icons/profile.svg'
+import { BackButton } from '../../..';
+import { navigate } from '../../../../main';
+import backArrow from '../../../../assets/icons/arrow-left.svg'
 
 interface IFormData{
 	[key: string]: string
@@ -79,6 +82,11 @@ export default class FormProfileEdit extends Block{
 				style: TYPE_BUTTON.PRIMARY,
 				type: 'submit',
 			}),
+			BackButton: new BackButton({
+				...props,
+				src: backArrow,
+				onClick: () => navigate('chat'),
+			}),
 		});
 	}
 
@@ -111,8 +119,12 @@ export default class FormProfileEdit extends Block{
 
 	render(){
 		return (`
-				<div class="formProfile">
-					<div class="formProfile__fields"> 
+				<div class="formProfileEdit">
+					<div class = 'formProfileEdit__btn-back'>
+					{{{BackButton}}}
+					</div>
+				<div class = 'formProfileEdit__fields-wrapper'>
+				<div class="formProfileEdit__fields"> 
 						{{{ ProfileAvatar }}}
 						{{{ InputProfileEmail }}}
 						{{{ InputProfileLogin }}}
@@ -120,13 +132,13 @@ export default class FormProfileEdit extends Block{
 						{{{ InputProfileSecondName }}}
 						{{{ InputProfileDisplayName }}}
 						{{{ InputProfilePhone }}}</div>
+						<div class = "formProfileEdit__button">
+							{{{ ButtonChangeData }}}
+						</div>
 					<div>
-					<div class = "formProfile__button">
-						{{{ ButtonChangeData }}}
-					</div>
 					</div>
 				</div>
-				
+			</div>
     	`);
 	}
 }
