@@ -3,11 +3,12 @@ import { Avatar } from '../../../ui/avatar';
 import {KebabMenu} from '../../../ui/kebabMenu';
 import { ModalUserActions } from '../modalUserActions';
 import avatar from '../../../../assets/icons/profile.svg'
+import { IStoreData, connect } from '../../../../core/Store';
 
 interface IHeaderMessage {
 
 }
-export default class HeaderMessage extends Block {
+ class HeaderMessage extends Block {
 	constructor(props: IHeaderMessage){
 		super({...props,
 			isModalVisible: false,
@@ -44,13 +45,14 @@ export default class HeaderMessage extends Block {
 
 	render() {
 		const { isModalVisible} = this.props;
+		console.log("!!header", this.props?.currentUser?.first_name)
 		return (`
 			<div class = 'headerArea'>
 				<div class='header'>
 					<div class = "header__avatar"> 
 						{{{HeaderMessageAvatar}}}
 					</div>
-					<div class ='header__name'>Имя</div>
+					<div class ='header__name'>${this.props?.currentUser?.first_name}</div>
 					{{{ Kebab }}}
 				</div>
 				${isModalVisible ? `<div class = 'headerArea__modal'> {{{Actions}}} </div>` : ' ' }
@@ -58,3 +60,9 @@ export default class HeaderMessage extends Block {
    		`);
 	}
 }
+const mapStateToProps = (state: IStoreData) => {
+	// console.log("!!!2", state.currentUser)
+	return { currentUser : state.currentUser}
+}
+
+export default  connect(mapStateToProps)(HeaderMessage)

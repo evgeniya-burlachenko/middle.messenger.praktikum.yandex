@@ -1,4 +1,4 @@
-import Block from '../../../../core/Block';
+import Block, { IComponentProps } from '../../../../core/Block';
 import { Button } from '../../../ui/button';
 
 import * as validationUtils from '../../../../utils/validationUtils';
@@ -8,8 +8,9 @@ import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
 import avatar from '../../../../assets/icons/profile.svg'
 import { BackButton } from '../../..';
-import { navigate } from '../../../../main';
 import backArrow from '../../../../assets/icons/arrow-left.svg'
+import Router from '../../../../core/Router';
+import { IStoreData, IUserData, connect, store } from '../../../../core/Store';
 
 interface IFormData{
 	[key: string]: string
@@ -19,55 +20,59 @@ interface IErrors {
 }
 interface IFormProfileEdit {
 	isModalVisible?: boolean;
-	FormDataProps?: object
+	FormDataProps?: object;
+	currentUser?: IUserData;
 }
 
-export default class FormProfileEdit extends Block{
+class FormProfileEdit extends Block{
 	private formData: IFormData = {};
 	private errors: IErrors = {};
 
 	constructor(props: IFormProfileEdit){
+
 		super({...props,
 			isModalVisible: false,
+			currentUser: props.currentUser,
+	//почему не могу воспользоваться  currentUser после перезагрузки
 			InputProfileEmail: new InputProfile({
 				label: 'Почта',
 				onBlur: (e: FocusEvent) => this.onBlurHandler(e, 'email'),
-				value: 'pochta@yandex.ru',
+				value: `${store.getState().currentUser?.email}`,
 				disabled: false,
 				name: INPUT_TYPE.EMAIL,
 			}),
 			InputProfileLogin: new InputProfile({
 				label: 'Логин',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'login'),
-				value: 'ivanivanov',
+				value: props.currentUser ? (props.currentUser as IUserData).login : "",
 				disabled: false,
 				name: INPUT_TYPE.LOGIN,
 			}),
-			InputProfileName: new InputProfile({
+			InputProfileFirst_name: new InputProfile({
 				label: 'Имя',
-				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'name'),
-				value: 'Иван',
+				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'first_name'),
+				value: props.currentUser ? (props.currentUser as IUserData).first_name : "",
 				disabled: false,
 				name: INPUT_TYPE.FIRST_NAME,
 			}),
-			InputProfileSecondname: new InputProfile({
+			InputProfileSecond_name: new InputProfile({
 				label: 'Фамилия',
-				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'secondname'),
-				value: 'Иванов',
+				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'second_name'),
+				value: props.currentUser ? (props.currentUser as IUserData).second_name : "",
 				disabled: false,
 				name: INPUT_TYPE.SECOND_NAME,
 			}),
-			InputProfileDisplayName: new InputProfile({
+			InputProfileDisplay_name: new InputProfile({
 				label: 'Имя в чате',
-				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'displayName'),
-				value: 'Иван',
+				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'display_name'),
+				value: props.currentUser ? (props.currentUser as IUserData).display_name : "",
 				disabled: false,
 				name: INPUT_TYPE.DISPLAY_NAME,
 			}),
 			InputProfilePhone: new InputProfile({
 				label: 'Телефон',
 				onBlur: (e: FocusEvent) => this.onBlurHandler(e, 'phone'),
-				value: '89099673030',
+				value: props.currentUser ? (props.currentUser as IUserData).phone : "",
 				disabled: false,
 				name: INPUT_TYPE.PHONE,
 			}),
@@ -85,7 +90,7 @@ export default class FormProfileEdit extends Block{
 			BackButton: new BackButton({
 				...props,
 				src: backArrow,
-				onClick: () => navigate('chat'),
+				onClick: () => new Router().go('/messenger'),
 			}),
 		});
 	}
@@ -118,6 +123,8 @@ export default class FormProfileEdit extends Block{
 	}
 
 	render(){
+		const email = !this.props.currentUser ? " " : (this.props.currentUser as IUserData).email;
+		console.log("!!email", email)
 		return (`
 				<div class="formProfileEdit">
 					<div class = 'formProfileEdit__btn-back'>
@@ -126,11 +133,11 @@ export default class FormProfileEdit extends Block{
 				<div class = 'formProfileEdit__fields-wrapper'>
 				<div class="formProfileEdit__fields"> 
 						{{{ ProfileAvatar }}}
-						{{{ InputProfileEmail }}}
+						{{{ InputProfileEmail}}}
 						{{{ InputProfileLogin }}}
-						{{{ InputProfileName }}}
-						{{{ InputProfileSecondName }}}
-						{{{ InputProfileDisplayName }}}
+						{{{ InputProfileFirst_name }}}
+						{{{ InputProfileSecond_name }}}
+						{{{ InputProfileDisplay_name }}}
 						{{{ InputProfilePhone }}}</div>
 						<div class = "formProfileEdit__button">
 							{{{ ButtonChangeData }}}
@@ -142,3 +149,7 @@ export default class FormProfileEdit extends Block{
     	`);
 	}
 }
+const mapStateToProps = (state: IStoreData) => {
+	return { currentUser : state.currentUser}
+}
+export default connect(mapStateToProps)(FormProfileEdit)

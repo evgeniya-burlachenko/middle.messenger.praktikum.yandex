@@ -1,4 +1,8 @@
+import { connect } from '../../core/Store';
 import Chat from './chat';
 
-export default Chat;
+const withUser = connect((state) => {
+	// console.log("!!!stateProfile", state)
+	return ({ ...state.currentUser })});
+export default withUser(Chat);
 

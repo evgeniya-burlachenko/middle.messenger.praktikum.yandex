@@ -1,12 +1,14 @@
-import Block from '../../../core/Block';
-import { HeaderMessage } from './headerArea';
-import { MessageArea } from './contentArea';
-import { MessageInput } from './messageInput';
+import Block from "../../../../core/Block";
+import { IStoreData, connect } from "../../../../core/Store";
+import { MessageArea } from "../../../chatComponents/chatArea/contentArea";
+import { HeaderMessage } from "../../../chatComponents/chatArea/headerArea";
+import { MessageInput } from "../../../chatComponents/chatArea/messageInput";
+
 
 interface IChatArea {
 
 }
-export default class ChatArea extends Block {
+class ChatArea extends Block {
 	constructor(props: IChatArea){
 		super({...props,
 			isModalVisible: false,
@@ -26,7 +28,7 @@ export default class ChatArea extends Block {
 		  ракету они так никогда и не попали. Всего их было 
 		  произведено 25 штук, одну из них недавно продали 
 		  на аукционе за 45000 евро.`
-
+		// console.log("!!!this.pro", this.props.currentUser)
 		const Header= new HeaderMessage({});
 		const Body = new MessageArea({content: message})
 		const Footer = new MessageInput({})
@@ -40,6 +42,7 @@ export default class ChatArea extends Block {
 	}
 
 	render() {
+		// console.log("!!!chatArea.", this.props?.currentUser?.first_name)
 		return (`
         <div class="chatArea">
 			{{{ Header }}}
@@ -49,3 +52,9 @@ export default class ChatArea extends Block {
     `);
 	}
 }
+const mapStateToProps = (state: IStoreData) => {
+	// console.log("!!!2", state.currentUser)
+	return { currentUser : state.currentUser}
+}
+
+export default  connect(mapStateToProps)(ChatArea)

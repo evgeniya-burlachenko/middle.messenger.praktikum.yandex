@@ -102,15 +102,18 @@ export default class Block {
 
 	private _componentDidMount() {
 		this.componentDidMount();
-		console.log('CDM');
+		// console.log('CDM');
 
 		Object.values(this.children).forEach(child => {
 			child.dispatchComponentDidMount();
 		});
 	}
 
-	componentDidMount(oldProps?: IBlock) {
-		console.log(oldProps);
+	componentDidMount() {
+		// console.log(oldProps);
+	}
+	componentWillUnmount(){
+		
 	}
 
 	dispatchComponentDidMount() {
@@ -243,4 +246,23 @@ export default class Block {
 	hide() {
 		this.getContent()!.style.display = "none";
 	}
+
+	// compile(templateString: string, context: Record<string, any>) {
+	// 	const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
+	// 	const template = Handlebars.compile(templateString);
+	
+	// 	fragment.innerHTML = template({ ...context, children: this.children });
+	// 	Object.entries(this.children).forEach(([, child]) => {
+	// 	  const stub = fragment.content.querySelector(`[data-id="id-${child.id}"]`);
+	
+	// 	  if (!stub) {
+	// 		return;
+	// 	  }
+	// 	  stub.replaceWith(child.getContent()!);
+	// 	});
+	
+	// 	return fragment.content;
+	//   }
+	
+	  public onDestroy() {}
 }

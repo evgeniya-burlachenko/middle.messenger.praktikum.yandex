@@ -1,7 +1,10 @@
 
 
-import { FormChatWrapper } from '../../components/modules/chatWrapper';
+import { FormChatWrapper } from '../../components/form/chatWrapper';
 import Block from '../../core/Block';
+import Router from '../../core/Router';
+import AuthController from '../../core/controllers/AuthController';
+import ChatController from '../../core/controllers/ChatController';
 
 export interface IFormChatWrapper {
 
@@ -11,12 +14,20 @@ export default class Chat extends Block {
 		super({
 			...props,
 			FormChat: new FormChatWrapper({
-				// formBodyClasses: "chatWrapper secondWrapper",
-				// formBody: new ChatAreaField({}), new ChatAreaField({})
+
 			}),
 		});
 	}
+	componentDidMount() {
+		const router = new Router();
+		ChatController.getChats().then(() => {
+		  AuthController.fetchUser(); 
+		}).catch(() => {
+		  router.go('/');
+		});
+	  }
 	render(): string {
+		console.log("!!this", this.props)
 		return (`
 			<div>
 				{{{ FormChat }}}

@@ -2,10 +2,10 @@ import Block from '../../../../core/Block';
 import { Button } from '../../../ui/button';
 
 import * as validationUtils from '../../../../utils/validationUtils';
-import { navigate } from '../../../../main';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { Input } from '../../../ui/input/input';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
+import Router from '../../../../core/Router';
 
 interface FormData{
 	[key: string]: string
@@ -38,7 +38,7 @@ export default class FormLogin extends Block {
 		const ButtonCreateAccount = new Button({
 			label: 'Нет аккаунта?',
 			style: TYPE_BUTTON.LINK,
-			onClick: () => navigate('signUp'),
+			onClick: () => new Router().go('/sign-up')
 		});
 
 		this.children = {
@@ -55,11 +55,12 @@ export default class FormLogin extends Block {
 		const inputValue = target.value.trim();
 		const errors = {...this.errors};
 		const validationFunctions:  {[key: string]: (value: string) => boolean}  = {
-			login: validationUtils.validateLogin,
+			email: validationUtils.validateLogin,
 		};
 		const validationFunction = validationFunctions[field];
 
 		if(validationFunction){
+
 			errors[field] = !validationFunction(inputValue);
 		}
 		this.errors = errors;

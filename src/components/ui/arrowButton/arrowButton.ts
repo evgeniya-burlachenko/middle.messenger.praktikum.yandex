@@ -30,7 +30,6 @@ export default class ArrowButton extends Block{
 		return true;
 	}
 	render(){
-		console.log("!!!this", this.props)
 		return(`
 		<div class = 'button-container {{#if error}}button-error{{/if}} '>
 			<button 

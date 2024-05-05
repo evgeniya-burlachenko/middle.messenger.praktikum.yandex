@@ -1,7 +1,6 @@
 import { InputSearch, Link } from "../../..";
 import Block from "../../../../core/Block"
-import { navigate } from "../../../../main";
-
+import Router from "../../../../core/Router";
 interface IHeaderList{
 
 }
@@ -31,7 +30,8 @@ export default class HeaderList extends Block{
 	}
 	onProfileClick(e: MouseEvent) {
 		e.preventDefault()
-		navigate('profile')
+		new Router().go('/settings')
+		// navigate('profile')
 	}
 
 	render(){

@@ -8,8 +8,8 @@ import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
 import avatar from '../../../../assets/icons/profile.svg'
 import backArrow from '../../../../assets/icons/arrow-left.svg'
-import { navigate } from '../../../../main';
 import { BackButton } from '../../../ui/backButton';
+import Router from '../../../../core/Router';
 interface FormData{
 	[key: string]: string
 }
@@ -64,11 +64,10 @@ export default class FormChangePassword extends Block {
 			label: 'Сохранить',
 			style: TYPE_BUTTON.PRIMARY,
 			type: 'submit',
-			// onClick: (e: MouseEvent) => onLoginHandler(e, 'ButtonSaveData'),
 		});
 		const BackButtonArrow =  new BackButton({
 			src: backArrow,
-			onClick: () => navigate('chat'),
+			onClick: () => new Router().go('/messenger'),
 		});
 
 		this.children = {

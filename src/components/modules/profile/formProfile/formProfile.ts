@@ -1,67 +1,88 @@
-import Block from '../../../../core/Block';
+import Block, { IComponentProps } from '../../../../core/Block';
 import { Button } from '../../../ui/button';
 
-import { navigate } from '../../../../main';
+// import { navigate } from '../../../../main';
 import { Avatar, BackButton } from '../../..';
 import { Download } from '../../../../pages';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-import avatar from '../../../../assets/icons/profile.svg'
+import avatarImg from '../../../../assets/icons/profile.svg'
 import backArrow from '../../../../assets/icons/arrow-left.svg'
+import Router from '../../../../core/Router';
+import AuthController from '../../../../core/controllers/AuthController';
+import { IStoreData, IUserData, connect, store } from '../../../../core/Store';
 interface IFormProfile {
+	// id?: string;
+	// email?: string;
+	// login?: string;
+	// first_name?: string;
+	// second_name?: string;
+	// display_name?: string;
+	// phone?: string;
+	// avatar?: string;
 
 }
-export default class FormProfile extends Block {
-	constructor(props: IFormProfile){
+class FormProfile extends Block {
+	constructor(props: IFormProfile & {currentUser?: any}){
 		super({...props,
 			isModalVisible: false,
+			currentUser: props.currentUser,
+
+		
 		});
+	
+	//почему не могу воспользоваться  currentUser?
+	console.log("!!!currentUser", this.props)
+	console.log("!!! store.getState()", store.getState())
 	}
+
 	init() {
 		const onAvatarClick = this.onAvatarClick.bind(this);
+		const onExitClick = this.onExitClick.bind(this)
+
 
 		const InputProfileEmail = new InputProfile({
 			label: 'Почта',
-			value: 'pochta@yandex.ru',
+			value: this.props.currentUser? (this.props.currentUser as IUserData).email : "",
 			disabled: true,
 			name: INPUT_TYPE.EMAIL,
 		});
 
 		const InputProfileLogin = new InputProfile({
 			label: 'Логин',
-			value: 'ivanivanov',
+			value: this.props.currentUser ?(this.props.currentUser as IUserData).login : "",
 			disabled: true,
 			name: INPUT_TYPE.LOGIN,
 		});
 
 		const InputProfileName = new InputProfile({
 			label: 'Имя',
-			value: 'Иван',
+			value: this.props.currentUser ? (this.props.currentUser as IUserData).first_name : "",
 			disabled: true,
 			name: INPUT_TYPE.FIRST_NAME,
 		});
 
 		const InputProfileSurname = new InputProfile({
 			label: 'Фамилия',
-			value: 'Иванов',
+			value: this.props.currentUser ? (this.props.currentUser as IUserData).second_name : "",
 			disabled: true,
 			name: INPUT_TYPE.SECOND_NAME,
 		});
 		const InputProfileDisplayName = new InputProfile({
 			label: 'Имя в чате',
-			value: 'Иван',
+			value: this.props.currentUser ? (this.props.currentUser as IUserData).display_name : "",
 			disabled: true,
 			name: INPUT_TYPE.DISPLAY_NAME,
 		});
 		const InputProfilePhone = new InputProfile({
 			label: 'Телефон',
-			value: '+7(909)9673030',
+			value:this.props.currentUser ? (this.props.currentUser as IUserData).phone : "",
 			disabled: true,
 			name: INPUT_TYPE.PHONE,
 		});
 		const ProfileAvatar = new Avatar({
-			avatarUrl: avatar,
+			avatarUrl: avatarImg,
 			name: 'avatar',
 			onClick: onAvatarClick,
 			change: true,
@@ -69,24 +90,25 @@ export default class FormProfile extends Block {
 		const ButtonChangeData =  new Button({
 			label: 'Изменить данные',
 			style: TYPE_BUTTON.LINK,
-			onClick: () => navigate('editProfileInformation'),
+			onClick: () => new Router().go('/settings-edit')
 		});
 
 		const ButtonChangePassword =  new Button({
 			label: 'Изменить пароль',
 			style: TYPE_BUTTON.LINK,
-			onClick: () => navigate('changePassword'),
+			onClick: () => new Router().go('/password-edit')
 		});
 		const ButtonExit =  new Button({
 			label: 'Выход',
 			style: TYPE_BUTTON.ATTENTION,
-			onClick: () => navigate('nav')});
+			onClick: () => onExitClick()
+		});
 
 
 		const DownloadAvatar = new Download({});
 		const BackButtonArrow =  new BackButton({
 			src: backArrow,
-			onClick: () => navigate('chat'),
+			onClick: () => new Router().go('/messenger')
 		});
 
 		this.children = {
@@ -106,6 +128,13 @@ export default class FormProfile extends Block {
 
 		};
 	}
+	onExitClick() {
+		AuthController.logout().then(() => {
+		  store.clearUserInfo();
+		  const router = new Router();
+		  router.go('/sign-in');
+		}).catch((error) => console.error(`Ошибка выполнения запроса /logout! ${error ? error.reason : ''}`));
+	  }
 
 	onAvatarClick(){
 		this.setProps({ isModalVisible: true });
@@ -121,7 +150,7 @@ export default class FormProfile extends Block {
 			<div class = 'formProfile__fields-wrapper'>
 				<div class = "formProfile__fields"> 
 					{{{ ProfileAvatar }}}
-					{{{ InputProfileEmail }}}
+				
 					{{{ InputProfileLogin }}}
 					{{{ InputProfileName }}}
 					{{{ InputProfileSurname }}}
@@ -148,3 +177,7 @@ export default class FormProfile extends Block {
     `);
 	}
 }
+const mapStateToProps = (state: IStoreData) => {
+	return { currentUser : state.currentUser}
+}
+export default  connect(mapStateToProps)(FormProfile)
