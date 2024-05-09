@@ -21,35 +21,27 @@ export default class Profile extends Block {
 			}),
 		});
 	}
-	// componentDidMount() {
-	// 	AuthController.fetchUser().catch(() => new Router().go('/'));
-	//   }
+
 	componentDidMount() {
-		AuthController.fetchUser().catch(() => new Router().go('/'));
+		AuthController.fetchUser()
+			.then(user => {
+				this.props = {...this.props, currentUser: user};
+				this.render();
+		}).
+		catch(() => new Router().go('/'));
 
 	  }
-	// async componentDidMount() {
-	// 	try{
-	// 		console.log("componentDidMount")
-	// 		await AuthController.fetchUser()
-	// 	} catch(error){
-	// 		new Router().go('/')
-	// 		console.error("Error fetching")
-	// 	}
-	// }
+	
 	componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps): boolean {
 		
     	if(oldProps.currentUser !== newProps.currentUser){
-			console.log("!!!props1", this.props)
 			this.props = newProps;
 			this.render();
-			console.log("!!!props2", this.props)
 			return true;
 	  }
 	  return false;
 	}
 	render(): string {
-		console.log("!!1pro1", this.props)
 		return `
 			<div>
 				{{{ FormProfile }}}

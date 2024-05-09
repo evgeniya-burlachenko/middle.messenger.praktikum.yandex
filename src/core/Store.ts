@@ -38,9 +38,15 @@ export interface IStoreData {
 	currentUser?: IUserData;
 	chatList?: IChatData[];
 	currentChatId?: string;
-	messageList: any
-//   IMessageProps[];
+	messageList: IMessageProps[];
+
 }
+export interface IMessageProps {
+	isMyMessage: boolean;
+	messageText: string;
+	messageDate?: string;
+	messageTime?: string;
+  }
 
 class Store extends EventBus {
   private state: Indexed = {};
@@ -53,8 +59,7 @@ class Store extends EventBus {
     set(this.state, path, value);
     this.emit(StoreEvents.Updated);
   }
-
-
+ 
   public clearUserInfo() {
     this.set('currentUser', {});
     this.set('chatList', []);
@@ -78,7 +83,7 @@ export const connect = (mapStateToProps: (state: IStoreData) => Record<string, u
 
         if (!isEqual(state, newState)) {
           this.setProps({ ...newState });
-        }
+        } 
 	  }
 	  store.on(StoreEvents.Updated, onUpdate)
   

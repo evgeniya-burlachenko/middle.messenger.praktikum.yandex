@@ -1,26 +1,22 @@
 import Block, { IComponentProps } from '../../../../core/Block';
 import { Button } from '../../../ui/button';
-
-// import { navigate } from '../../../../main';
 import { Avatar, BackButton } from '../../..';
 import { Download } from '../../../../pages';
 import { TYPE_BUTTON } from '../../../ui/button/button';
-import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
 import avatarImg from '../../../../assets/icons/profile.svg'
 import backArrow from '../../../../assets/icons/arrow-left.svg'
 import Router from '../../../../core/Router';
 import AuthController from '../../../../core/controllers/AuthController';
 import { IStoreData, IUserData, connect, store } from '../../../../core/Store';
+import FirstNameInput from '../inputs/firstNameInput';
+import LoginInput from '../inputs/loginInput';
+import PhoneInput from '../inputs/phoneInput';
+import secondNameInput from '../inputs/secondNameInput';
+import emailInput from '../inputs/emailInput';
+import displayNameInput from '../inputs/displayNameInput';
 interface IFormProfile {
-	// id?: string;
-	// email?: string;
-	// login?: string;
-	// first_name?: string;
-	// second_name?: string;
-	// display_name?: string;
-	// phone?: string;
-	// avatar?: string;
+
 
 }
 class FormProfile extends Block {
@@ -29,62 +25,56 @@ class FormProfile extends Block {
 			isModalVisible: false,
 			currentUser: props.currentUser,
 
-		
 		});
-	
-	//почему не могу воспользоваться  currentUser?
-	console.log("!!!currentUser", this.props)
-	console.log("!!! store.getState()", store.getState())
 	}
 
 	init() {
 		const onAvatarClick = this.onAvatarClick.bind(this);
 		const onExitClick = this.onExitClick.bind(this)
-
-
-		const InputProfileEmail = new InputProfile({
+		const avatarUrl = this.props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatarImg
+		const InputProfileEmail = new emailInput({
 			label: 'Почта',
 			value: this.props.currentUser? (this.props.currentUser as IUserData).email : "",
 			disabled: true,
 			name: INPUT_TYPE.EMAIL,
 		});
 
-		const InputProfileLogin = new InputProfile({
+		const InputProfileLogin = new LoginInput({
 			label: 'Логин',
 			value: this.props.currentUser ?(this.props.currentUser as IUserData).login : "",
 			disabled: true,
 			name: INPUT_TYPE.LOGIN,
 		});
 
-		const InputProfileName = new InputProfile({
+		const InputProfileName = new FirstNameInput({
 			label: 'Имя',
 			value: this.props.currentUser ? (this.props.currentUser as IUserData).first_name : "",
 			disabled: true,
 			name: INPUT_TYPE.FIRST_NAME,
 		});
 
-		const InputProfileSurname = new InputProfile({
+		const InputProfileSurname = new secondNameInput({
 			label: 'Фамилия',
 			value: this.props.currentUser ? (this.props.currentUser as IUserData).second_name : "",
 			disabled: true,
 			name: INPUT_TYPE.SECOND_NAME,
 		});
-		const InputProfileDisplayName = new InputProfile({
+		const InputProfileDisplayName = new displayNameInput({
 			label: 'Имя в чате',
 			value: this.props.currentUser ? (this.props.currentUser as IUserData).display_name : "",
 			disabled: true,
 			name: INPUT_TYPE.DISPLAY_NAME,
 		});
-		const InputProfilePhone = new InputProfile({
+		const InputProfilePhone = new PhoneInput({
 			label: 'Телефон',
 			value:this.props.currentUser ? (this.props.currentUser as IUserData).phone : "",
 			disabled: true,
 			name: INPUT_TYPE.PHONE,
 		});
 		const ProfileAvatar = new Avatar({
-			avatarUrl: avatarImg,
+			avatarUrl: avatarUrl,
 			name: 'avatar',
-			onClick: onAvatarClick,
+			onClick: () => onAvatarClick(),
 			change: true,
 		});
 		const ButtonChangeData =  new Button({
@@ -128,6 +118,15 @@ class FormProfile extends Block {
 
 		};
 	}
+	componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps ): boolean {
+		if(oldProps === newProps){
+		  return false;
+		}
+		this.children.ProfileAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${newProps.currentUser.avatar}` });
+
+		return true;
+	
+	  }
 	onExitClick() {
 		AuthController.logout().then(() => {
 		  store.clearUserInfo();
@@ -138,10 +137,12 @@ class FormProfile extends Block {
 
 	onAvatarClick(){
 		this.setProps({ isModalVisible: true });
+
 	}
 
 	render() {
 		const { isModalVisible } = this.props;
+
 		return (`
         <div class="formProfile">
 			<div class = 'formProfile__btn-back'>
@@ -149,8 +150,10 @@ class FormProfile extends Block {
 			</div>
 			<div class = 'formProfile__fields-wrapper'>
 				<div class = "formProfile__fields"> 
+				<div class = "avatar__profile-container">	
 					{{{ ProfileAvatar }}}
-				
+					</div>
+					{{{ InputProfileEmail }}}
 					{{{ InputProfileLogin }}}
 					{{{ InputProfileName }}}
 					{{{ InputProfileSurname }}}
@@ -160,17 +163,16 @@ class FormProfile extends Block {
 					{{{ ButtonChangeData }}}
 					{{{ ButtonChangePassword }}}
 					{{{ ButtonExit }}}
-				</div>
+				</div> 
 			</div>
 			</div>
 			
 
 			<div class="formProfile__modalChange">   
 				${isModalVisible ? `
-				<div class="formProfile__modalChange-overlay"></div>
-				<div class="formProfile__modalChange-modal">
 					{{{ DownloadAvatar }}}
-				</div>
+			
+				
 				` : ''}
 			</div>
         </div>

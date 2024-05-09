@@ -7,13 +7,15 @@ import { InputFile } from '../ui/input/inputFile';
 
 interface IFormDownload {
 	title?: string,
-	isVisibleFile?: boolean
+	isVisibleFile?: boolean,
+	onChange: () => void,
+	fileName:string
 }
 
 export default class FormDownload extends Block {
 	constructor(props: IFormDownload) {
 		super({...props,
-			isVisibleFile: false,
+		
 			isError: false,
 			TitleDownload: new Title({
 				title: 'Загрузите файл',
@@ -21,6 +23,7 @@ export default class FormDownload extends Block {
 			InputDownload: new InputFile({
 				title: 'Выбрать файл на компьютере',
 				type: 'file',
+				onChange: props.onChange
 			}),
 			TitleDownloadSuccess: new Title({
 				title:  'Файл загружен',
@@ -30,45 +33,38 @@ export default class FormDownload extends Block {
 				textError: 'true',
 			}),
 			ButtonDownload: new Button({
-				label: 'Поменять',
+				label: 'Закрыть Х',
 				style: TYPE_BUTTON.PRIMARY,
 				onClick: (e: MouseEvent)=> this.handleFileUpload(e),
 			}),
-			ButtonChange: new Button({
-				label: 'Поменять',
-				style: TYPE_BUTTON.PRIMARY,
-				onClick: (e: MouseEvent)=> this.handleFileChange(e),
-			}),
 		});
 		this.handleFileUpload = this.handleFileUpload.bind(this);
-		this.handleFileChange = this.handleFileChange.bind(this);
+
 	}
 
 	private handleFileUpload(event: MouseEvent){
 		event.preventDefault();
 		this.setProps({isVisibleFile: true});
 	}
-	private handleFileChange(event: MouseEvent){
-		event.preventDefault();
-		this.setProps({isError: true});
-	}
 
 	render() {
-		const { isVisibleFile, isError } = this.props;
-		const buttonDownload = isVisibleFile ? '{{{ ButtonChange }}}' : '{{{ ButtonDownload }}}';
+		const { isVisibleFile, isError, fileName } = this.props;
+
 		let titleComponent = '';
 		let modalContent = '';
-
-		if (isVisibleFile && !isError) {
+		let modalWarning = ""
+		if (!isError && fileName) {
 			titleComponent = '{{{TitleDownloadSuccess}}}';
-		} else if (isError && isVisibleFile) {
+			modalContent = fileName as string
+		} else if (isError) {
 			titleComponent = '{{{TitleDownloadError}}}';
 		} else {
 			titleComponent = '{{{TitleDownload}}}';
 		}
 
-		if(isVisibleFile && !isError){
-			modalContent = 'pic.jpg';
+		if(fileName && !isError){
+			modalContent = fileName as string;
+			modalWarning = "Для корректной работы после закрытия модального окна перезагрузите страницу"
 		}else if (isError && isVisibleFile) {
 			modalContent = '{{{ InputDownload }}}';
 		} else {
@@ -82,10 +78,9 @@ export default class FormDownload extends Block {
 				<div class='formDownload__content'>
 					${modalContent}
 				</div>
-				<div class='formDownload__button'>
-					${buttonDownload} 
-				</div>
+				${modalWarning}
 			</div>
 		`;
 	}
 }
+

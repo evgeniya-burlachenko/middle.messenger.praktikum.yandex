@@ -36,13 +36,11 @@ class InputElementProfile extends Block {
 			return false;
 		}
 		if(this.props !== newProps){
-			console.log("!!!1props1", this.props)
 			this.props = newProps;
 			this.render();
-			console.log("!!!1props2", this.props)
+			this.children.InputProfile.setProps({...newProps})
 			return true;
 	  }
-		// this.children.ErrorLineProfile.setProps(newProps);
 		return true;
 	}
 

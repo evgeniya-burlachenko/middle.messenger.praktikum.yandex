@@ -1,4 +1,4 @@
-import Block from '../../../../core/Block';
+import Block, { IComponentProps } from '../../../../core/Block';
 import { Button } from '../../../ui/button';
 
 import * as validationUtils from '../../../../utils/validationUtils';
@@ -10,6 +10,7 @@ import avatar from '../../../../assets/icons/profile.svg'
 import backArrow from '../../../../assets/icons/arrow-left.svg'
 import { BackButton } from '../../../ui/backButton';
 import Router from '../../../../core/Router';
+import { IStoreData, IUserData, connect } from '../../../../core/Store';
 interface FormData{
 	[key: string]: string
 }
@@ -18,10 +19,9 @@ interface Errors {
 }
 
 interface IFormChangePassword{
-	// FormData?: object
 
 }
-export default class FormChangePassword extends Block {
+ class FormChangePassword extends Block {
 	private formData: FormData = {};
 	private errors: Errors = {};
 	constructor(props: IFormChangePassword){
@@ -32,7 +32,7 @@ export default class FormChangePassword extends Block {
 	init() {
 		const onBlurHandler = this.onBlurHandler.bind(this);
 		const onAvatarClick = this.onAvatarClick.bind(this);
-
+		const avatarUrl = this.props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatar
 		const InputOldPassword = new InputProfile({
 			label: 'Старый пароль',
 			value: '',
@@ -55,7 +55,7 @@ export default class FormChangePassword extends Block {
 		});
 
 		const ProfileAvatar = new Avatar({
-			avatarUrl: avatar,
+			avatarUrl: avatarUrl,
 			name: 'avatar',
 			onClick: onAvatarClick,
 			change: false,
@@ -80,7 +80,15 @@ export default class FormChangePassword extends Block {
 			BackButtonArrow,
 		};
 	}
+	componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps ): boolean {
+		if(oldProps === newProps){
+		  return false;
+		}
+		this.children.ProfileAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${newProps.currentUser.avatar}` });
 
+		return true;
+	
+	  }
 	onBlurHandler(e: FocusEvent, field: string){
 		const target = e.target as HTMLInputElement;
 		const inputValue = target.value.trim();
@@ -118,7 +126,9 @@ export default class FormChangePassword extends Block {
 
 			<div class = 'formChangePassword__fields-wrapper'>
 			<div class = 'formChangePassword__fields'>
+			<div class = "avatar__profile-container">	
 				{{{ ProfileAvatar }}}
+			</div>
 				{{{ InputOldPassword }}}
 				{{{ InputPasswordPassword }}}
 				{{{ InputPasswordRepeat }}}
@@ -133,3 +143,7 @@ export default class FormChangePassword extends Block {
     `);
 	}
 }
+const mapStateToProps = (state: IStoreData) => {
+	return { currentUser : state.currentUser}
+}
+export default  connect(mapStateToProps)(FormChangePassword)

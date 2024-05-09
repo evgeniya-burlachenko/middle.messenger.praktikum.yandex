@@ -12,6 +12,8 @@ export default class ModalWrapper extends Block {
 		super({...props,
 			events: {
 				submit: props.onSubmit,
+				change: props.onChange,
+				click: props.onClick
 			}});
 	}
 

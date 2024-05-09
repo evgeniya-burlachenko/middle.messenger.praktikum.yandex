@@ -45,7 +45,6 @@ interface IHeaderMessage {
 
 	render() {
 		const { isModalVisible} = this.props;
-		console.log("!!header", this.props?.currentUser?.first_name)
 		return (`
 			<div class = 'headerArea'>
 				<div class='header'>
@@ -61,7 +60,6 @@ interface IHeaderMessage {
 	}
 }
 const mapStateToProps = (state: IStoreData) => {
-	// console.log("!!!2", state.currentUser)
 	return { currentUser : state.currentUser}
 }
 

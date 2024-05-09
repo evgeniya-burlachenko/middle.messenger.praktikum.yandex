@@ -20,7 +20,7 @@ class EditProfile extends Block {
 		super({
 			...props,
 			FormProfile: new FormProfileWrapper({
-				formBodyProfile: new FormProfileEdit({FormDataProps: {login: "", password: ""}}),
+				formBodyProfile: new FormProfileEdit({FormDataProps: {}}),
 				onSubmit: (e: Event)=> this.onSubmitHandler(e),
 			}),
 			ButtonBackArrow: new BackButton({
@@ -29,7 +29,6 @@ class EditProfile extends Block {
 		});
 	}
 	componentDidMount() {
-
 		AuthController.fetchUser().catch(() => new Router().go('/'));
 	  }
 	async onSubmitHandler(event: MouseEvent | Event){
@@ -43,7 +42,6 @@ class EditProfile extends Block {
 		console.log('Измененные данные формы(submit):', formData)
 	}
 	render(): string {
-		console.log("!!edit", this.props)
 		return (`
 			<div>
 				{{{ FormProfile }}}
@@ -52,7 +50,6 @@ class EditProfile extends Block {
 	}
 }
 const mapStateToProps = (state: IStoreData) => {
-	console.log("!!!", state.currentUser)
 	return { currentUser : state.currentUser}
 }
 const withUser = connect(mapStateToProps);

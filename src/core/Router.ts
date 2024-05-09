@@ -61,6 +61,7 @@ class Router {
   private getRoute(pathname: string) {
 	const defaultRoute = this.routes.find(route => route.match('*'))
     return this.routes.find((route) => route.match(pathname)) || defaultRoute;
+
   }
 }
 

@@ -14,7 +14,11 @@ export default class Chat extends Block {
 		super({
 			...props,
 			FormChat: new FormChatWrapper({
-
+				onCreateChat: () => this.createChat(),
+				onDeleteChat: () => this.deleteChat(),
+				onAddUser: () => this.addUserToChat(),
+				onDeleteUser: () => this.removeUserFromChat(),
+				getProfileInfo: () => this.getProfileInfo(),
 			}),
 		});
 	}
@@ -27,7 +31,6 @@ export default class Chat extends Block {
 		});
 	  }
 	render(): string {
-		console.log("!!this", this.props)
 		return (`
 			<div>
 				{{{ FormChat }}}

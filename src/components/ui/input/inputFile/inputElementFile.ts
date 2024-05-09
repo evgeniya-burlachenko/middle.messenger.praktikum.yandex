@@ -10,7 +10,8 @@ interface IInputElement{
 	errorText?: string,
 	label?: string,
 	title?: string,
-	type?: string
+	type?: string,
+	onChange: () => void
 }
 class inputElementFile extends Block {
 	constructor(props: IInputElement) {
@@ -22,6 +23,9 @@ class inputElementFile extends Block {
 			ErrorLine: new ErrorLine({
 				error: props.errorText,
 			}),
+			events: {
+				change: props.onChange
+			}
 		});
 	}
 

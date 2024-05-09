@@ -11,6 +11,12 @@ import { BackButton } from '../../..';
 import backArrow from '../../../../assets/icons/arrow-left.svg'
 import Router from '../../../../core/Router';
 import { IStoreData, IUserData, connect, store } from '../../../../core/Store';
+import emailInput from '../inputs/emailInput';
+import loginInput from '../inputs/loginInput';
+import firstNameInput from '../inputs/firstNameInput';
+import secondNameInput from '../inputs/secondNameInput';
+import displayNameInput from '../inputs/displayNameInput';
+import phoneInput from '../inputs/phoneInput';
 
 interface IFormData{
 	[key: string]: string
@@ -33,43 +39,43 @@ class FormProfileEdit extends Block{
 		super({...props,
 			isModalVisible: false,
 			currentUser: props.currentUser,
-	//почему не могу воспользоваться  currentUser после перезагрузки
-			InputProfileEmail: new InputProfile({
+
+			InputProfileEmail: new emailInput({
 				label: 'Почта',
 				onBlur: (e: FocusEvent) => this.onBlurHandler(e, 'email'),
 				value: `${store.getState().currentUser?.email}`,
 				disabled: false,
 				name: INPUT_TYPE.EMAIL,
 			}),
-			InputProfileLogin: new InputProfile({
+			InputProfileLogin: new loginInput({
 				label: 'Логин',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'login'),
 				value: props.currentUser ? (props.currentUser as IUserData).login : "",
 				disabled: false,
 				name: INPUT_TYPE.LOGIN,
 			}),
-			InputProfileFirst_name: new InputProfile({
+			InputProfileFirst_name: new firstNameInput({
 				label: 'Имя',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'first_name'),
 				value: props.currentUser ? (props.currentUser as IUserData).first_name : "",
 				disabled: false,
 				name: INPUT_TYPE.FIRST_NAME,
 			}),
-			InputProfileSecond_name: new InputProfile({
+			InputProfileSecond_name: new secondNameInput({
 				label: 'Фамилия',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'second_name'),
 				value: props.currentUser ? (props.currentUser as IUserData).second_name : "",
 				disabled: false,
 				name: INPUT_TYPE.SECOND_NAME,
 			}),
-			InputProfileDisplay_name: new InputProfile({
+			InputProfileDisplay_name: new displayNameInput({
 				label: 'Имя в чате',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'display_name'),
 				value: props.currentUser ? (props.currentUser as IUserData).display_name : "",
 				disabled: false,
 				name: INPUT_TYPE.DISPLAY_NAME,
 			}),
-			InputProfilePhone: new InputProfile({
+			InputProfilePhone: new phoneInput({
 				label: 'Телефон',
 				onBlur: (e: FocusEvent) => this.onBlurHandler(e, 'phone'),
 				value: props.currentUser ? (props.currentUser as IUserData).phone : "",
@@ -77,7 +83,7 @@ class FormProfileEdit extends Block{
 				name: INPUT_TYPE.PHONE,
 			}),
 			ProfileAvatar: new Avatar({
-				avatarUrl: avatar,
+				avatarUrl: props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(props.currentUser as IUserData).avatar}`: avatar,
 				name: 'avatar',
 				onClick: () => this.onAvatarClick(),
 				change: false,
@@ -123,8 +129,6 @@ class FormProfileEdit extends Block{
 	}
 
 	render(){
-		const email = !this.props.currentUser ? " " : (this.props.currentUser as IUserData).email;
-		console.log("!!email", email)
 		return (`
 				<div class="formProfileEdit">
 					<div class = 'formProfileEdit__btn-back'>
@@ -132,7 +136,9 @@ class FormProfileEdit extends Block{
 					</div>
 				<div class = 'formProfileEdit__fields-wrapper'>
 				<div class="formProfileEdit__fields"> 
+				<div class = "avatar__profile-container">	
 						{{{ ProfileAvatar }}}
+						</div>
 						{{{ InputProfileEmail}}}
 						{{{ InputProfileLogin }}}
 						{{{ InputProfileFirst_name }}}

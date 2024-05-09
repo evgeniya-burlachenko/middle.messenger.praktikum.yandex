@@ -1,4 +1,4 @@
-import Block, { IComponentProps } from '../../../core/Block';
+import Block  from '../../../core/Block';
 import Router from '../../../core/Router';
 import { IStoreData, connect } from '../../../core/Store';
 import AuthController from '../../../core/controllers/AuthController';
@@ -8,7 +8,7 @@ import { FormProfileEdit } from '../../modules/profile/formProfileEdit';
 
 interface IFormProfileWrapper{
 	onSubmit?: (e: Event) => void;
-	formBodyProfile?: typeof FormProfile | typeof FormProfileEdit | FormChangePassword,
+	formBodyProfile?: typeof FormProfile | typeof FormProfileEdit | typeof FormChangePassword,
 	
 }
 class FormProfileWrapper extends Block {
@@ -17,7 +17,6 @@ class FormProfileWrapper extends Block {
 			events: {
 				submit: props.onSubmit,
 			},
-			currentUser: props.currentUser,
 		})
 	}
 	componentDidMount() {
