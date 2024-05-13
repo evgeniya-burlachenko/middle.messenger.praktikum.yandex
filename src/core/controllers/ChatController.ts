@@ -1,6 +1,8 @@
 import { store } from '../Store';
 import ChatAPI from '../api/ChatAPI';
-
+import cat1 from '../../assets/assets/01.jpg'
+import cat2 from '../../assets/assets/02.jpg'
+import cat3 from '../../assets/assets/03.jpg'
 
 class ChatController {
   private api: ChatAPI;
@@ -22,6 +24,10 @@ class ChatController {
 
     store.set('chatList', chatList);
   }
+
+   setActiveCatCard(card: any) {
+    store.set('currentChatId', card);
+}
 
   async getChatUsers(chatId: string) {
     return this.api.getChatUsers(chatId);

@@ -52,7 +52,7 @@ export default class FormDownload extends Block {
 
 		let titleComponent = '';
 		let modalContent = '';
-		let modalWarning = ""
+		let modalWarning = "Для корректной работы после закрытия модального окна перезагрузите страницу"
 		if (!isError && fileName) {
 			titleComponent = '{{{TitleDownloadSuccess}}}';
 			modalContent = fileName as string
@@ -64,7 +64,7 @@ export default class FormDownload extends Block {
 
 		if(fileName && !isError){
 			modalContent = fileName as string;
-			modalWarning = "Для корректной работы после закрытия модального окна перезагрузите страницу"
+			// xmodalWarning = "Для корректной работы после закрытия модального окна перезагрузите страницу"
 		}else if (isError && isVisibleFile) {
 			modalContent = '{{{ InputDownload }}}';
 		} else {

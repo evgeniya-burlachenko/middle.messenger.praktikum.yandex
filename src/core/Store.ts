@@ -32,6 +32,7 @@ export interface IChatData {
   created_by: number;
   unread_count: number;
   last_message: ILastMessage;
+  selectedCard: any
 }
 
 export interface IStoreData {
@@ -84,6 +85,7 @@ export const connect = (mapStateToProps: (state: IStoreData) => Record<string, u
         if (!isEqual(state, newState)) {
           this.setProps({ ...newState });
         } 
+		state = newState;
 	  }
 	  store.on(StoreEvents.Updated, onUpdate)
   

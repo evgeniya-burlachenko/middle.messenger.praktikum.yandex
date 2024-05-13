@@ -22,6 +22,7 @@ export { FormChatWrapper } from './form/chatWrapper';
 //chat_module
 export { ChatArea } from './modules/chat/chatArea';
 export { ChatList } from './modules/chat/chatList';
+
 //chatComponents_area
 export { Attach }  from './chatComponents/chatArea/attach';
 export { MessageArea }  from './chatComponents/chatArea/contentArea';
@@ -29,9 +30,7 @@ export { HeaderMessage} from './chatComponents/chatArea/headerArea';
 export { MessageInput } from './chatComponents/chatArea/messageInput';
 export { AttachModal }  from './chatComponents/chatArea/modalAttachment';
 export { ModalUserActions } from './chatComponents/chatArea/modalUserActions';
-//chatComponents_list
-export { HeaderList } from './chatComponents/chatList/headerList'
-export { ListItem, ItemList} from './chatComponents/chatList/listItem'
+
 //--------------------------registration--------------------------
 export { FormWrapper } from './form/registrationWrapper';
 export { FormLogin } from './modules/registration/formLogin';

@@ -32,15 +32,15 @@ export default class Profile extends Block {
 
 	  }
 	
-	componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps): boolean {
+	// componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps): boolean {
 		
-    	if(oldProps.currentUser !== newProps.currentUser){
-			this.props = newProps;
-			this.render();
-			return true;
-	  }
-	  return false;
-	}
+    // 	if(oldProps.currentUser !== newProps.currentUser){
+	// 		this.props = newProps;
+	// 		this.render();
+	// 		return true;
+	//   }
+	//   return false;
+	// }
 	render(): string {
 		return `
 			<div>

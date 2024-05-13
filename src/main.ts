@@ -3,6 +3,7 @@ import * as Components from './components';
 import * as Pages from './pages';
 import './style.scss';
 import Router from './core/Router';
+import { store } from './core/Store';
 
 Object.entries(Components).forEach(([ name, component ]) => {
 	if(typeof component === 'string'){
@@ -11,7 +12,9 @@ Object.entries(Components).forEach(([ name, component ]) => {
 });
 
 const router = new Router();
+
 // export const ws = new WS();
+
 
 router.use('/', Pages.LoginPage)
   .use('/sign-up', Pages.AuthPage)

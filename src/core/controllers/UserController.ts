@@ -16,7 +16,6 @@ class UserController {
   }
 
   async changePassword(data: ChangePasswordData) {
-    console.log('mannayamashaQWERTY12345!');
     await this.api.changePassword(data);
   }
 

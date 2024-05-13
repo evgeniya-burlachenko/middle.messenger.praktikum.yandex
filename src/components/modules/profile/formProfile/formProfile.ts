@@ -29,9 +29,11 @@ class FormProfile extends Block {
 	}
 
 	init() {
+		console.log("!!!ListCardsHTML",  this.children)
 		const onAvatarClick = this.onAvatarClick.bind(this);
 		const onExitClick = this.onExitClick.bind(this)
 		const avatarUrl = this.props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatarImg
+
 		const InputProfileEmail = new emailInput({
 			label: 'Почта',
 			value: this.props.currentUser? (this.props.currentUser as IUserData).email : "",

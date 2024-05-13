@@ -26,6 +26,9 @@ class AuthController {
 
     store.set('currentUser', userData);
   }
+  setActiveCatCard (card)  {
+    store.set({selectedCard: card});
+}
 }
 
 export default new AuthController();

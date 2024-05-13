@@ -27,9 +27,7 @@ class Avatar extends Block {
 				${this.props.change ?`<div class="avatar__overlay">
 				<span class="avatar__overlay-text">Поменять аватар</span>
 			</div>` : ''}
-	
 			</div>
-	
 		</div>
     
         `;
