@@ -10,7 +10,8 @@ interface IInputElement{
 	errorText?: string,
 	label?: string,
 	name: INPUT_TYPE,
-	value?: string
+	value?: string,
+	onSubmit?: () => void
 }
 class InputElementMessage extends Block {
 	constructor(props: IInputElement) {
@@ -22,7 +23,7 @@ class InputElementMessage extends Block {
 				events: {
 					blur: props.onBlur || (() => {}),
 					submit: props.onSubmit,
-				
+
 				},
 			}),
 			ErrorLine: new ErrorLine({

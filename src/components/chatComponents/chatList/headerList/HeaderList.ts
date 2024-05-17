@@ -1,5 +1,5 @@
 import { Button, InputSearch, Link } from '../../..';
-import Block from '../../../../core/Block';
+import Block, { ICustomError } from '../../../../core/Block';
 import Router from '../../../../core/Router';
 import ChatController from '../../../../core/controllers/ChatController';
 interface IHeaderList{
@@ -47,7 +47,7 @@ export default class HeaderList extends Block{
 		if (chatTitle) {
 		  ChatController.createChat(chatTitle)
 				.then(() => ChatController.getChats())
-				.catch((error) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
+				.catch((error: ICustomError) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
 		} else {
 		  alert('Название чата не должно быть пустым!');
 		}

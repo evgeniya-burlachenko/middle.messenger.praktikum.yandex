@@ -15,8 +15,8 @@ class Chat extends Block {
 			...props,
 			events: {
 				click: (e: PointerEvent) => this.setCurrentChatId(e),
-		
-			
+
+
 			},
 			FormChat: new FormChatWrapper({
 				...props,
@@ -42,22 +42,22 @@ class Chat extends Block {
 			store.set('currentChatId', id);
 			this.children.FormChat.children.ChatListField.children.
 				ItemList.setProps({
-					currentChatId: store.getState().currentChatId
+					currentChatId: (store.getState() as IStoreData ).currentChatId,
 				});
 			this.children.FormChat.children.ChatAreaField.setProps({
-				currentChatId: store.getState().currentChatId
+				currentChatId: (store.getState() as IStoreData ).currentChatId,
 			});
 			this.children.FormChat.children.ChatAreaField.children.
 				Header.setProps({
-					currentChatId: store.getState().currentChatId
+					currentChatId: (store.getState() as IStoreData ).currentChatId,
 				});
 			this.children.FormChat.children.ChatAreaField.children.
 				Footer.setProps({
-					currentChatId: store.getState().currentChatId
+					currentChatId:(store.getState() as IStoreData ).currentChatId,
 				});
 			this.children.FormChat.children.ChatAreaField.children.
 				Body.setProps({
-					currentChatId: store.getState().currentChatId
+					currentChatId:(store.getState() as IStoreData ).currentChatId,
 				});
 			const chatUsers = await ChatController.getChatUsers(id);
 			console.log(`Чат ${id}, пользователи: `, chatUsers);

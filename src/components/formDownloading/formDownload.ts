@@ -8,8 +8,8 @@ import { InputFile } from '../ui/input/inputFile';
 interface IFormDownload {
 	title?: string,
 	isVisibleFile?: boolean,
-	onChange: () => void,
-	fileName: string
+	onChange?: (e: Event) => void,
+	fileName?: string
 }
 
 export default class FormDownload extends Block {

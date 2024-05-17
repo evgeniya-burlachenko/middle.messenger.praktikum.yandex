@@ -4,6 +4,9 @@ import Handlebars from 'handlebars';
 
 type EventHandler = () => void;
 
+export interface ICustomError{
+	reason: string
+}
 interface IBlock {
 	[key: string]: unknown;
 	events?: { [key: string]: EventHandler };
@@ -179,14 +182,14 @@ export default class Block {
 				 childrenProps.push(item);
 				 return `<div data-id="${item._id}"></div>`;
 			   }
-	 
+
 			   return item;
 			 }).join('');
 		   }
 		 });
 		const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 		fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
-		
+
 		if(this._element){
 			this._removeEvents();
 		}
@@ -194,7 +197,7 @@ export default class Block {
 
 		[...Object.values(this.children), ...childrenProps].forEach(child => {
 			const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-	  
+
 			stub?.replaceWith(child.getContent());
 		  });
 
@@ -213,7 +216,7 @@ export default class Block {
 
 	getContent() {
 
-		return this._element as HTMLElement;
+		return this.element as HTMLElement;
 	  }
 	_makePropsProxy(props: IComponentProps) {
 		// Можно и так передать this
@@ -246,11 +249,11 @@ export default class Block {
 		return document.createElement(tagName);
 	}
 	show() {
-		this.getContent()!.style.display = 'block';
+		this.getContent().style.display = 'block';
 	}
 
 	hide() {
-		this.getContent()!.style.display = 'none';
+		this.getContent().style.display = 'none';
 	}
 	public onDestroy() {}
 }

@@ -21,7 +21,7 @@ export default class Download extends Block {
 				}),
 				onChange: (e: Event) => {
 					const target= e.target as HTMLInputElement;
-					const file: File= (target.files as FileList)[0];
+					const file: File= target.files![0];
 					const formData = new FormData();
 					const fileName = file.name;
 					formData.append('avatar', file as string | Blob);

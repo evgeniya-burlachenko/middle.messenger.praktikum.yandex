@@ -84,7 +84,7 @@ class FormChangePassword extends Block {
 		if(oldProps === newProps){
 		  return false;
 		}
-		this.children.ProfileAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${newProps.currentUser.avatar}` });
+		this.children.ProfileAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${(newProps.currentUser as IUserData ).avatar}` });
 
 		return true;
 	}

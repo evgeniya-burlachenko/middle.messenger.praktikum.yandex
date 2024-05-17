@@ -1,8 +1,7 @@
 import { Button, InputSearch, Link } from '../../..';
-import Block, { IComponentProps } from '../../../../core/Block';
+import Block, { ICustomError } from '../../../../core/Block';
 import Router from '../../../../core/Router';
 import { IStoreData, connect, store } from '../../../../core/Store';
-import AuthController from '../../../../core/controllers/AuthController';
 import ChatController from '../../../../core/controllers/ChatController';
 import { ItemList } from '../../../chatComponents/chatList/listItem';
 
@@ -48,29 +47,6 @@ class ChatList extends Block{
 			BtnCreateChat,
 		};
 	}
-	// componentDidMount(): void {
-	// 	const router = new Router();
-	// 	ChatController.getChats()
-	// 		.then(() => {
-	// 			AuthController.fetchUser()
-					
-	// 		})
-	// 		.catch(() => {
-	// 			router.go('/');
-	// 		});
-	// }
-	// componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps ): boolean {
-	// 	if(oldProps === newProps){
-	// 		return false;
-	// 	}
-
-	// 	this.children.ItemList.setProps({
-	// 		chatList: newProps.chatList,
-	// 		currentChatId: newProps.currentChatId,
-	// 	});
-	// 	this.children.ItemList.setProps({currentChatId: newProps.currentChatId});
-	// 	return true;
-	// }
 
 	onProfileClick(e: MouseEvent) {
 		e.preventDefault();
@@ -82,17 +58,16 @@ class ChatList extends Block{
 		if (chatTitle) {
 			ChatController.createChat(chatTitle)
 				.then(() => ChatController.getChats())
-				.catch((error) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
+				.catch((error: ICustomError) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
 		} else {
 			alert('Название чата не должно быть пустым!');
 		}
 	}
 	deleteChat() {
-		// eslint-disable-next-line no-alert
 		const result = window.confirm('Вы действительно хотите удалить этот чат?');
 
 		if (result) {
-			ChatController.deleteChat(store.getState().currentChatId as string)
+			ChatController.deleteChat(store.getState().currentChatId)
 				.then(() => {
 					store.set('messageList', []);
 					ChatController.getChats()
@@ -100,7 +75,7 @@ class ChatList extends Block{
 						.catch(() => {});
 				})
 
-				.catch((error) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
+				.catch((error: ICustomError) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
 		}
 	}
 
@@ -110,7 +85,10 @@ class ChatList extends Block{
 			<div class="listHeader">
 				{{{ LinkProfile }}}
 				{{{ InputSearchList }}}
+				<div class = 'block'>
 				{{{ BtnCreateChat }}}
+				</div>
+				
 			</div>
 			{{{ItemList}}}	
 		</div>

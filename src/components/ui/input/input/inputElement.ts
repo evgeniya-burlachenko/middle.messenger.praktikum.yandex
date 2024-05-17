@@ -21,7 +21,9 @@ interface IInputElement{
 	value?: string,
 	disabled?: boolean,
 	type?: string,
-	name: INPUT_TYPE
+	name: INPUT_TYPE,
+	submit?: () => void
+
 }
 class InputElement extends Block {
 	constructor(props: IInputElement) {

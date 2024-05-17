@@ -7,7 +7,7 @@ import { ws } from '../../../../main';
 
 
 interface IListItem {
-	onClick: () => {}
+	onClick: () => void
 }
 class ListItem extends Block{
 	constructor(props:IListItem){
@@ -32,10 +32,12 @@ class ListItem extends Block{
 		  scrollToLastMessage();
 		}
 	  }
-	
-	render(){
-		const active = store.getState().currentChatId == this.props.id;
 
+
+	render(){
+		const active =( store.getState() as IStoreData).currentChatId == this.props.id;
+		const count = this.props.unread_count ? '<div class="listItem__badge{{LImodifier}}">{{unread_count}}</div>' :
+			'';
 
 		// <img src="{{avatar}}" height="200px" width="200px" />
 		return(`
@@ -43,13 +45,13 @@ class ListItem extends Block{
 
 				<div class="listItem__image">
 				</div>
-				<div class="listItem__content" data-id=${this.props.id}>
+				<div class="listItem__content" data-id={{id}}>
 					<p class="listItem__title">{{title}}</p>
 					<p class="listItem__text">{{text}}</p>
 				</div>
 				<div class="listItem__info">
 					<p class="listItem__date">{{date}}</p>
-				<div class="listItem__badge{{LImodifier}}">${this.props.unread_count}</div>
+				${count}
 				</div>
 			</div>
 			
