@@ -2,21 +2,19 @@
 
 import { Button } from '../../..';
 import Block, { IComponentProps } from '../../../../core/Block';
-
-import {  connect, store  } from '../../../../core/Store';
+import {  IChatData, IStoreData, connect, store  } from '../../../../core/Store';
 import ChatController from '../../../../core/controllers/ChatController';
 import UserController from '../../../../core/controllers/UserController';
-
-
 import { ListCard } from './list-cats';
 import ListItem from './listItem';
 
 interface IItemList {
-    chatList?: IItemList;
-	onClick: () => void
+	onClick: () => void,
+	chatList: IChatData[]
 }
 
 class ItemList extends Block {
+	chatList: IChatData[];
 
 	constructor(props: IItemList) {
 		super({
@@ -25,6 +23,7 @@ class ItemList extends Block {
 				click: props.onClick,
 			},
 		});
+		this.chatList = props.chatList;
 	}
 
 
@@ -35,21 +34,21 @@ class ItemList extends Block {
 		const removeUserFromChat = this.removeUserFromChat.bind(this);
 
 		const ListCat = new ListCard({
-			cards: this.mapStateToProps(this.chatList, null) || [],
+			cards: this.mapStateToProps(this.chatList ) || [],
 			...this.props,
 
 		});
 		const BtnDeleteChat = new Button({
 			label: '- Удалить чат',
-			onClick: () => deleteChat(),
+			onClick: () => void deleteChat(),
 		});
 		const BtnAddUser= new Button({
 			label: '+ Добавить пользователя в чат',
-			onClick: () => addUserToChat(),
+			onClick: () => void addUserToChat(),
 		});
 		const BtnRemoveUser= new Button({
 			label: '- Удалить пользователя из чата',
-			onClick: () => removeUserFromChat(),
+			onClick: () => void removeUserFromChat(),
 		});
 
 		this.children = {
@@ -60,69 +59,80 @@ class ItemList extends Block {
 		};
 	}
 	deleteChat() {
-	// eslint-disable-next-line no-alert
+
 		const result = window.confirm('Вы действительно хотите удалить этот чат?');
 
 		if (result) {
-	  ChatController.deleteChat(store.getState().currentChatId as string)
-				.then(() => {
+			const currentChatId = (store.getState() as IStoreData).currentChatId;
+			if (currentChatId){
+				ChatController.deleteChat(currentChatId)
+					.then(() => {
 		  store.set('messageList', []);
-		  ChatController.getChats()
-		//   .then(() => {})
-		//   .catch(() => {});
-				})
+		  ChatController.getChats().then(() => {}).catch(() => {});
+					})
 
-				.catch((error) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
+					.catch((error) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
+			}
 		}
+
 	}
 	async addUserToChat() {
-		// eslint-disable-next-line no-alert
 		const userId = prompt('Введите login пользователя для добавления в текущий чат');
 		try{
 			if(userId){
-				const newUser = await UserController.searchUser(userId);
-				const newUserId = newUser[0].id;
-				if(newUserId){
-					ChatController.addUserToChat(store.getState().currentChatId,
-						+newUser[0].id)
-						.then(() => {})
-						.catch(() => {});
-					alert('Пользователь успешно добавлен!');
-				}
-				else {
-					// eslint-disable-next-line no-alert
-					alert('Поле не должно быть пустым!');
+				const newUser = await UserController.searchUser(userId) as unknown;
+				let newUserId;
+				if(Array.isArray(newUser)){
+				 newUserId = newUser[0].id ;
+				 if(newUserId){
+						ChatController.addUserToChat((store.getState()).currentChatId,
+							+ newUser[0].id)
+							.then(() => {alert('Пользователь успешно добавлен!');})
+							.catch(console.error);
+
+					}
+					else {
+
+						alert('Поле не должно быть пустым!');
 		  }
+				}
+
 			}
 
-
 		}catch(error){
-			alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`);
+			alert(`Ошибка выполнения запроса! ${error}`);
 		}
 	}
 
-	removeUserFromChat() {
-		// eslint-disable-next-line no-alert
-		const userId = prompt('Введите ID пользователя для удаления из текущего чата');
-		if (userId) {
-			ChatController.removeUserFromChat(store.getState().currentChatId, +userId)
-			// eslint-disable-next-line no-alert
-				.then(() => alert('Пользователь успешно удалён!'))
-			// eslint-disable-next-line no-alert
-				.catch((error) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
-		} else {
-			// eslint-disable-next-line no-alert
-			alert('Поле не должно быть пустым!');
+	async removeUserFromChat() {
+		const userId = prompt('Введите логин пользователя для удаления из текущего чата');
+		try{
+			if (userId) {
+				const newUser = await UserController.searchUser(userId) as unknown;
+				console.log('!!newUser', newUser);
+				let newUserId;
+				if(Array.isArray(newUser)){
+					newUserId = newUser[0].id;
+				}
+				if(newUserId){
+					ChatController.removeUserFromChat((store.getState()).currentChatId, + userId)
+						.then(() => alert('Пользователь успешно удалён!'));
+				}
+				else{
+					alert('Поле не должно быть пустым!');
+				}
+			}
+		}catch(error){
+			alert(`Ошибка выполнения запроса! ${error}`);
 		}
 	}
-	mapStateToProps(catCard, activeId) {
+	mapStateToProps(catCard: IChatData[]) {
 
 		return catCard?.map(({title, avatar, id, unread_count}) =>
 			new ListItem({
 				title,
 				avatar: avatar,
 				id,
-				activeId,
 				unread_count,
 			}));
 	}
@@ -132,18 +142,17 @@ class ItemList extends Block {
 			return false;
 		  }
 		this.children.ListCat.setProps({
-			cards: this.mapStateToProps(newProps.chatList, null) || [],
+			cards: this.mapStateToProps((newProps.chatList as IChatData[])) || [],
 			currentChatId: newProps.currentChatId,
 		});
-		console.log("!!this.children.ListCat2", this.children.ListCat)
 		return true;
 	}
 
 	render() {
 		const btnDelete =  store.getState().currentChatId;
-		const deleteBlock = btnDelete ? '<div> 	<hr/> {{{BtnDeleteChat}}} {{{BtnAddUser}}} {{{BtnRemoveUser}}}</div>' : '';
+		const deleteBlock = btnDelete ? '<div class = "block" > 	<hr/> <div class="block__element">{{{BtnDeleteChat}}}</div>  <div class="block__element">{{{BtnAddUser}}} </div> <div class="block__element">{{{BtnRemoveUser}}}</div></div>' : '';
 		return `
-            <div>
+            <div >
 			${deleteBlock}
 			{{{ ListCat }}}
             </div>

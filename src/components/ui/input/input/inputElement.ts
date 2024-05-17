@@ -9,7 +9,9 @@ export enum INPUT_TYPE{
 	DISPLAY_NAME = 'display_name',
 	LOGIN = 'login',
 	EMAIL = 'email',
+	OLD_PASSWORD = 'oldPassword',
 	PASSWORD = 'password',
+	NEW_PASSWORD = 'newPassword',
 	PHONE = 'phone',
 	MESSAGE  = 'message'
 
@@ -21,7 +23,9 @@ interface IInputElement{
 	value?: string,
 	disabled?: boolean,
 	type?: string,
-	name: INPUT_TYPE
+	name: INPUT_TYPE,
+	submit?: () => void
+
 }
 class InputElement extends Block {
 	constructor(props: IInputElement) {

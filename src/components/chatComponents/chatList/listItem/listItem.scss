@@ -1,20 +1,21 @@
 .chat {
-&__link_hover {
-    width: 400px;
-    height: 75px;
-    z-index: 1;
-    opacity: 0;
-    background-color: #e4edfd;
-    margin-top: -7.7px;
-    margin-left: 0px;
-    transition: all .3s linear;
-    position: absolute;
-  }
+	&__link_hover {
+		width: 400px;
+		height: 75px;
+		z-index: 1;
+		opacity: 0;
+		background-color: #e4edfd;
+		margin-top: -7.7px;
+		margin-left: 0;
+		transition: all .3s linear;
+		position: absolute;
+	}
 
-  &__link:hover>&__link_hover {
-    opacity: 1;
-  }
+	&__link:hover>&__link_hover {
+		opacity: 1;
+	}
 }
+
 .listItem {
     display: flex;
     width: 310px;
@@ -92,6 +93,22 @@
 		}
 	}
 }
+
 .listItem:hover{
 	background-color: #e4edfd;
+}
+
+.block{
+	color: #646cff;
+    text-decoration: inherit;
+    text-align: right;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+
+	&__element{
+		height: 30px;
+		color: #646cff;
+		text-align: right;
+	}
 }

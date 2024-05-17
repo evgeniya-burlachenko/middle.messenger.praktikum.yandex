@@ -1,14 +1,17 @@
-import { FormChangePassword,  FormProfileWrapper } from '../../components';
+import { BackButton, FormChangePassword,  FormProfileWrapper } from '../../components';
 import Block from '../../core/Block';
+import Router from '../../core/Router';
 import { ChangePasswordData } from '../../core/api/AuthAPI';
 import UserController from '../../core/controllers/UserController';
+import backArrow from '../../assets/icons/arrow-left.svg';
 
 export interface IChangePassword {
 
 }
 export  interface IFormDataProps{
 	repeat?: string,
-	password?: string
+	oldPassword?: string,
+	newPassword?: string
 }
 export default class ChangePassword extends Block {
 
@@ -18,8 +21,14 @@ export default class ChangePassword extends Block {
 			FormProfile: new FormProfileWrapper({
 				formBodyProfile: new FormChangePassword({FormDataProps: {
 					repeat: '',
-					password: ''}}),
+					password: '',
+					newPassword: '',
+				}}),
 				onSubmit: (e: Event)=> this.onSubmitHandler(e),
+			}),
+			ButtonBackArrow: new BackButton({
+				src: backArrow,
+				onClick: () =>new Router().go('/settings'),
 			}),
 		});
 	}
@@ -29,7 +38,7 @@ export default class ChangePassword extends Block {
 			formBodyProfile.props.FormDataProps  as  IFormDataProps;
 		const btnError = this.children.FormProfile.children.
 			formBodyProfile.children.ButtonSaveData;
-		if(!formData || !formData.repeat || !formData.password){
+		if(!formData || !formData.repeat || !formData.oldPassword || !formData.newPassword ){
 			btnError.setProps({ error: 'ошибка', errorText:  'Форма содержит ошибки, submit' });
 			return;
 		}
@@ -42,6 +51,9 @@ export default class ChangePassword extends Block {
 	render(): string {
 		return (`
 			<div class="profile-container">
+			<div class = 'formChangePassword__btn-back'>
+			{{{ButtonBackArrow}}}
+			</div>	
 				{{{ FormProfile }}}
 			</div>
 			`);

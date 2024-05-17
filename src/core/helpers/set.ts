@@ -1,6 +1,6 @@
 import { Indexed, merge } from './merge';
 
-export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+export function set(object: Indexed , path: string, value: unknown): Indexed  {
 	if (typeof object !== 'object' || object === null) {
 		return object;
 	}
@@ -11,5 +11,5 @@ export function set(object: Indexed | unknown, path: string, value: unknown): In
 	value as Indexed,
 	);
 
-	return merge(object as Indexed, result);
+	return merge(object, result);
 }

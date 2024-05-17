@@ -29,7 +29,6 @@ export default class MessageInput extends Block{
 			ChatInput: new InputMessage({
 				...props,
 				name: INPUT_TYPE.MESSAGE,
-				// onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'message'),
 			}),
 			ArrowButton: new ArrowButton({
 				...props,
@@ -39,12 +38,6 @@ export default class MessageInput extends Block{
 		});
 	}
 
-	// onBlurHandler(e: FocusEvent, field: string){
-	// 	const target =  e.target as HTMLInputElement;
-	// 	const inputValue = target.value.trim();
-	// 	this.formData[field] = inputValue;
-	// }
-
 	onSubmitHandler(event: MouseEvent | Event){
 		event.preventDefault();
 
@@ -52,28 +45,27 @@ export default class MessageInput extends Block{
 		if(component) {
 			component.setProps({ error: false, errorText: '' });
 			console.log('Данные формы:', this.formData);
-		}			
-		const chatInput = document.querySelector('.chatAreaInput__input input');
-	
+		}
+		const chatInput = document.querySelector('.chatAreaInput__input input') as HTMLInputElement;
+
 		if (chatInput) {
-			const inputValue = chatInput.value.trim()
-			console.log("!!!inputValue", inputValue)
-			if(inputValue.length<1){
-			if(component){
-				component.setProps({
-					error: 'ошибка',
-					errorText: 'Форма пустая. Напишите сообщение, пожалуйста перед отправкой',
-				});
-			}
+			const inputValue = chatInput.value.trim();
+			if(inputValue.length < 1){
+				if(component){
+					component.setProps({
+						error: 'ошибка',
+						errorText: 'Форма пустая. Напишите сообщение, пожалуйста перед отправкой',
+					});
+				}
 			}else{
 				ws.sendMessage(inputValue);
 				scrollToLastMessage();
 			}
       	if (chatInput) {
-        (chatInput as HTMLInputElement).value = ''; // Очистка текста ввода
+				(chatInput).value = ''; // Очистка текста ввода
      	 }
 		  }
-	
+
 	}
 
 	render(){
