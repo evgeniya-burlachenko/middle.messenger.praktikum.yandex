@@ -6,9 +6,7 @@ import { Avatar } from '../../../ui/avatar';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
 import avatar from '../../../../assets/icons/profile.svg';
-import { BackButton } from '../../..';
-import backArrow from '../../../../assets/icons/arrow-left.svg';
-import Router from '../../../../core/Router';
+
 import { IStoreData, IUserData, connect } from '../../../../core/Store';
 import emailInput from '../inputs/emailInput';
 import loginInput from '../inputs/loginInput';
@@ -28,7 +26,16 @@ interface IFormProfileEdit {
 	FormDataProps?: object;
 	currentUser?: IUserData;
 }
-
+//сохранение данных у меня происходит по onBlur
+//это не всегда корректно, потому что  для сохранения надо сбросить фокус
+//если передвигаться табами и энтером, то проблем не заметила
+//но я не придумала пока другого решения, а во 2 спринте такой вариант приняли
+//в 3 спринте попыталась сосредоточиться на других вещах
+//если подойдет такой вариант, то в планах у меня его поправить на доп неделе,
+// как и многие другие косяки
+//сейчас я сделала доп проверку на кнопку - в какой-то момент она исчезает,
+//но если данные без ошибок и фокус был сброшен и данные сохранены
+//то она появляется
 class FormProfileEdit extends Block{
 	private formData: IFormData = {};
 	private errors: IErrors = {};
@@ -92,11 +99,6 @@ class FormProfileEdit extends Block{
 				style: TYPE_BUTTON.PRIMARY,
 				type: 'submit',
 			}),
-			BackButton: new BackButton({
-				...props,
-				src: backArrow,
-				onClick: () => new Router().go('/messenger'),
-			}),
 		});
 	}
 
@@ -122,17 +124,31 @@ class FormProfileEdit extends Block{
 
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
 		this.props.FormDataProps = this.formData;
+
+	  const hasErrors = Object.values(this.errors).some(error => error);
+		const isFormDataEmpty = Object.keys(this.formData).length === 0;
+		const buttonChangeData = this.children?.ButtonChangeData;
+
+		if (!hasErrors && !isFormDataEmpty) {
+			buttonChangeData.setProps({ disabled: false });
+		}
 	}
 	private onAvatarClick(){
 		this.setProps({ isModalVisible: true });
 	}
 
 	render(){
+		let hasNoErrors;
+		const isOnBlurHandlerDefined = typeof this.onBlurHandler === 'function';
+		if (this.errors ){
+			hasNoErrors = !Object.values(this.errors).some(error => error);
+		}
+
+		const btnSbmt = isOnBlurHandlerDefined && hasNoErrors ? '<div class="formProfileEdit__button">{{{ ButtonChangeData }}}</div>' :  'заполните форму перед отправокй';
+
 		return (`
 				<div class="formProfileEdit">
-					<div class = 'formProfileEdit__btn-back'>
-					{{{BackButton}}}
-					</div>
+				
 				<div class = 'formProfileEdit__fields-wrapper'>
 				<div class="formProfileEdit__fields"> 
 				<div class = "avatar__profile-container">	
@@ -144,9 +160,7 @@ class FormProfileEdit extends Block{
 						{{{ InputProfileSecond_name }}}
 						{{{ InputProfileDisplay_name }}}
 						{{{ InputProfilePhone }}}</div>
-						<div class = "formProfileEdit__button">
-							{{{ ButtonChangeData }}}
-						</div>
+					${btnSbmt}
 					<div>
 					</div>
 				</div>

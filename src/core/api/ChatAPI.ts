@@ -41,5 +41,5 @@ export default class ChatAPI {
 	delete(chatId: string): Promise<string> {
 		return this.http.delete('', { chatId });
 	}
-	
+
 }

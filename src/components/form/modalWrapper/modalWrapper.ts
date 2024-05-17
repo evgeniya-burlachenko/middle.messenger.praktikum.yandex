@@ -6,7 +6,7 @@ interface IModalWrapper{
 	onSubmit?: (e: MouseEvent) => void;
 	title?: string;
 	modalBody?: UserActions | FormDownload;
-	onChange?: () => void;
+	onChange?: (e: Event) => void;
 	onClick?: () => void;
 }
 export default class ModalWrapper extends Block {

@@ -6,7 +6,7 @@ import { IStoreData, connect } from '../../core/Store';
 import { IProfileData } from '../../core/api/UserApi';
 import AuthController from '../../core/controllers/AuthController';
 import UserController from '../../core/controllers/UserController';
-
+import backArrow from '../../assets/icons/arrow-left.svg';
 export interface IEditProfile {
 
 }
@@ -24,7 +24,8 @@ class EditProfile extends Block {
 				onSubmit: (e: Event)=> this.onSubmitHandler(e),
 			}),
 			ButtonBackArrow: new BackButton({
-				onClick: () =>new Router().go('/messenger'),
+				src: backArrow,
+				onClick: () =>new Router().go('/settings'),
 			}),
 		});
 	}
@@ -41,10 +42,14 @@ class EditProfile extends Block {
 			.catch((error) =>
 				console.log(`Ошибка выполнения запроса обновления профиля! ${error}`));
 		console.log('Измененные данные формы(submit):', formData);
+
 	}
 	render(): string {
 		return (`
 			<div>
+			<div class = 'formProfileEdit__btn-back'>
+			{{{ButtonBackArrow}}}
+			</div>
 				{{{ FormProfile }}}
 			</div>
 		`);

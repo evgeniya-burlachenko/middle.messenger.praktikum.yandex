@@ -1,34 +1,24 @@
 export function isEqual(a: unknown, b: unknown): boolean {
-	const keysA = Object.keys(a);
-	const keysB = Object.keys(b);
-
-	if (keysA.length === 0 && keysB.length === 0 && a === b) {
-		return true;
+	if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
+		return a === b;
 	}
+
+	const objA = a as { [key: string]: unknown };
+	const objB = b as { [key: string]: unknown };
+
+	const keysA = Object.keys(objA);
+	const keysB = Object.keys(objB);
+
 	if (keysA.length !== keysB.length) {
 		return false;
 	}
 
-	for (let i = 0; i < keysA.length; i += 1) {
-		const keyA = keysA[i];
-		const keyB = keysB[i];
-
-		if (keyA !== keyB) {
+	for (const key of keysA) {
+		if (!keysB.includes(key)) {
 			return false;
 		}
 
-		// Если один из объектов null, а второй нет - то false
-		if ((a[keyA] === null && b[keyB] !== null) || (a[keyA] !== null && b[keyB] === null)) {
-			return false;
-		}
-
-		if (typeof a[keyA] === 'object' && a[keyA] !== null) {
-			if (typeof b[keyB] !== 'object' && b[keyB] !== null) {
-				return false;
-			}
-			return isEqual(a[keyA], b[keyA]);
-		}
-		if (a[keyA] !== b[keyB]) {
+		if (!isEqual(objA[key], objB[key])) {
 			return false;
 		}
 	}
