@@ -1,4 +1,4 @@
-export function isEqual(a: any, b: any): boolean {
+export function isEqual(a: unknown, b: unknown): boolean {
 	const keysA = Object.keys(a);
 	const keysB = Object.keys(b);
 
@@ -22,8 +22,8 @@ export function isEqual(a: any, b: any): boolean {
 			return false;
 		}
 
-	if (typeof a[keyA] === 'object' && a[keyA] !== null) {
-		if (typeof b[keyB] !== 'object' && b[keyB] !== null) {
+		if (typeof a[keyA] === 'object' && a[keyA] !== null) {
+			if (typeof b[keyB] !== 'object' && b[keyB] !== null) {
 				return false;
 			}
 			return isEqual(a[keyA], b[keyA]);

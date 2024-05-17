@@ -3,9 +3,11 @@ import { UserActions } from '../../chatComponents/userActions';
 import { FormDownload } from '../../formDownloading';
 
 interface IModalWrapper{
-	onSubmit?: (e: Event) => void;
+	onSubmit?: (e: MouseEvent) => void;
 	title?: string;
 	modalBody?: UserActions | FormDownload;
+	onChange?: () => void;
+	onClick?: () => void;
 }
 export default class ModalWrapper extends Block {
 	constructor(props: IModalWrapper) {
@@ -13,7 +15,7 @@ export default class ModalWrapper extends Block {
 			events: {
 				submit: props.onSubmit,
 				change: props.onChange,
-				click: props.onClick
+				click: props.onClick,
 			}});
 	}
 

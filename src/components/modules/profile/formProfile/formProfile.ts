@@ -4,8 +4,8 @@ import { Avatar, BackButton } from '../../..';
 import { Download } from '../../../../pages';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-import avatarImg from '../../../../assets/icons/profile.svg'
-import backArrow from '../../../../assets/icons/arrow-left.svg'
+import avatarImg from '../../../../assets/icons/profile.svg';
+import backArrow from '../../../../assets/icons/arrow-left.svg';
 import Router from '../../../../core/Router';
 import AuthController from '../../../../core/controllers/AuthController';
 import { IStoreData, IUserData, connect, store } from '../../../../core/Store';
@@ -20,56 +20,56 @@ interface IFormProfile {
 
 }
 class FormProfile extends Block {
-	constructor(props: IFormProfile & {currentUser?: any}){
+	constructor(props: IFormProfile){
 		super({...props,
 			isModalVisible: false,
-			currentUser: props.currentUser,
-
 		});
 	}
 
 	init() {
-		console.log("!!!ListCardsHTML",  this.children)
 		const onAvatarClick = this.onAvatarClick.bind(this);
-		const onExitClick = this.onExitClick.bind(this)
-		const avatarUrl = this.props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatarImg
-
+		const onExitClick = this.onExitClick.bind(this);
+		const avatarUrl = this.props.currentUser && (this.props.currentUser as IUserData).avatar !== null
+			? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatarImg;
 		const InputProfileEmail = new emailInput({
 			label: 'Почта',
-			value: this.props.currentUser? (this.props.currentUser as IUserData).email : "",
+			value: this.props.currentUser? (this.props.currentUser as IUserData).email : '',
 			disabled: true,
 			name: INPUT_TYPE.EMAIL,
 		});
 
 		const InputProfileLogin = new LoginInput({
 			label: 'Логин',
-			value: this.props.currentUser ?(this.props.currentUser as IUserData).login : "",
+			value: this.props.currentUser ?(this.props.currentUser as IUserData).login : '',
 			disabled: true,
 			name: INPUT_TYPE.LOGIN,
 		});
 
 		const InputProfileName = new FirstNameInput({
 			label: 'Имя',
-			value: this.props.currentUser ? (this.props.currentUser as IUserData).first_name : "",
+			value: this.props.currentUser ? (this.props.currentUser as IUserData).first_name : '',
 			disabled: true,
 			name: INPUT_TYPE.FIRST_NAME,
 		});
 
 		const InputProfileSurname = new secondNameInput({
 			label: 'Фамилия',
-			value: this.props.currentUser ? (this.props.currentUser as IUserData).second_name : "",
+			value: this.props.currentUser
+				? (this.props.currentUser as IUserData).second_name : '',
 			disabled: true,
 			name: INPUT_TYPE.SECOND_NAME,
 		});
 		const InputProfileDisplayName = new displayNameInput({
 			label: 'Имя в чате',
-			value: this.props.currentUser ? (this.props.currentUser as IUserData).display_name : "",
+			value: this.props.currentUser
+				? (this.props.currentUser as IUserData).display_name : '',
 			disabled: true,
 			name: INPUT_TYPE.DISPLAY_NAME,
 		});
 		const InputProfilePhone = new PhoneInput({
 			label: 'Телефон',
-			value:this.props.currentUser ? (this.props.currentUser as IUserData).phone : "",
+			value:this.props.currentUser
+				? (this.props.currentUser as IUserData).phone : '',
 			disabled: true,
 			name: INPUT_TYPE.PHONE,
 		});
@@ -82,25 +82,25 @@ class FormProfile extends Block {
 		const ButtonChangeData =  new Button({
 			label: 'Изменить данные',
 			style: TYPE_BUTTON.LINK,
-			onClick: () => new Router().go('/settings-edit')
+			onClick: () => new Router().go('/settings-edit'),
 		});
 
 		const ButtonChangePassword =  new Button({
 			label: 'Изменить пароль',
 			style: TYPE_BUTTON.LINK,
-			onClick: () => new Router().go('/password-edit')
+			onClick: () => new Router().go('/password-edit'),
 		});
 		const ButtonExit =  new Button({
 			label: 'Выход',
 			style: TYPE_BUTTON.ATTENTION,
-			onClick: () => onExitClick()
+			onClick: () => onExitClick(),
 		});
 
 
 		const DownloadAvatar = new Download({});
 		const BackButtonArrow =  new BackButton({
 			src: backArrow,
-			onClick: () => new Router().go('/messenger')
+			onClick: () => new Router().go('/messenger'),
 		});
 
 		this.children = {
@@ -124,17 +124,19 @@ class FormProfile extends Block {
 		if(oldProps === newProps){
 		  return false;
 		}
-		this.children.ProfileAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${newProps.currentUser.avatar}` });
+		if((newProps.currentUser as IUserData).avatar && (newProps.currentUser as IUserData).avatar !== null){
+			this.children.ProfileAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${newProps.currentUser.avatar}` });
+		}
 
 		return true;
-	
+
 	  }
 	onExitClick() {
 		AuthController.logout().then(() => {
 		  store.clearUserInfo();
 		  const router = new Router();
 		  router.go('/sign-in');
-		}).catch((error) => console.error(`Ошибка выполнения запроса /logout! ${error ? error.reason : ''}`));
+		}).catch((error: string) => console.error(`Ошибка выполнения запроса /logout! ${error}`));
 	  }
 
 	onAvatarClick(){
@@ -182,6 +184,6 @@ class FormProfile extends Block {
 	}
 }
 const mapStateToProps = (state: IStoreData) => {
-	return { currentUser : state.currentUser}
-}
-export default  connect(mapStateToProps)(FormProfile)
+	return { currentUser : state.currentUser};
+};
+export default  connect(mapStateToProps)(FormProfile);

@@ -1,16 +1,15 @@
-import Block, { IComponentProps } from '../../../../core/Block';
+import Block from '../../../../core/Block';
 import { Button } from '../../../ui/button';
 
 import * as validationUtils from '../../../../utils/validationUtils';
 import { Avatar } from '../../../ui/avatar';
 import { TYPE_BUTTON } from '../../../ui/button/button';
-import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-import avatar from '../../../../assets/icons/profile.svg'
+import avatar from '../../../../assets/icons/profile.svg';
 import { BackButton } from '../../..';
-import backArrow from '../../../../assets/icons/arrow-left.svg'
+import backArrow from '../../../../assets/icons/arrow-left.svg';
 import Router from '../../../../core/Router';
-import { IStoreData, IUserData, connect, store } from '../../../../core/Store';
+import { IStoreData, IUserData, connect } from '../../../../core/Store';
 import emailInput from '../inputs/emailInput';
 import loginInput from '../inputs/loginInput';
 import firstNameInput from '../inputs/firstNameInput';
@@ -43,47 +42,47 @@ class FormProfileEdit extends Block{
 			InputProfileEmail: new emailInput({
 				label: 'Почта',
 				onBlur: (e: FocusEvent) => this.onBlurHandler(e, 'email'),
-				value: `${store.getState().currentUser?.email}`,
+				value: props.currentUser ? (props.currentUser).email : '',
 				disabled: false,
 				name: INPUT_TYPE.EMAIL,
 			}),
 			InputProfileLogin: new loginInput({
 				label: 'Логин',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'login'),
-				value: props.currentUser ? (props.currentUser as IUserData).login : "",
+				value: props.currentUser ? (props.currentUser).login : '',
 				disabled: false,
 				name: INPUT_TYPE.LOGIN,
 			}),
 			InputProfileFirst_name: new firstNameInput({
 				label: 'Имя',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'first_name'),
-				value: props.currentUser ? (props.currentUser as IUserData).first_name : "",
+				value: props.currentUser ? (props.currentUser).first_name : '',
 				disabled: false,
 				name: INPUT_TYPE.FIRST_NAME,
 			}),
 			InputProfileSecond_name: new secondNameInput({
 				label: 'Фамилия',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'second_name'),
-				value: props.currentUser ? (props.currentUser as IUserData).second_name : "",
+				value: props.currentUser ? (props.currentUser).second_name : '',
 				disabled: false,
 				name: INPUT_TYPE.SECOND_NAME,
 			}),
 			InputProfileDisplay_name: new displayNameInput({
 				label: 'Имя в чате',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'display_name'),
-				value: props.currentUser ? (props.currentUser as IUserData).display_name : "",
+				value: props.currentUser ? (props.currentUser).display_name : '',
 				disabled: false,
 				name: INPUT_TYPE.DISPLAY_NAME,
 			}),
 			InputProfilePhone: new phoneInput({
 				label: 'Телефон',
 				onBlur: (e: FocusEvent) => this.onBlurHandler(e, 'phone'),
-				value: props.currentUser ? (props.currentUser as IUserData).phone : "",
+				value: props.currentUser ? (props.currentUser).phone : '',
 				disabled: false,
 				name: INPUT_TYPE.PHONE,
 			}),
 			ProfileAvatar: new Avatar({
-				avatarUrl: props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(props.currentUser as IUserData).avatar}`: avatar,
+				avatarUrl: props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(props.currentUser).avatar}`: avatar,
 				name: 'avatar',
 				onClick: () => this.onAvatarClick(),
 				change: false,
@@ -122,7 +121,7 @@ class FormProfileEdit extends Block{
 		const inputComponent =  this.children?.[`InputProfile${field.charAt(0).toUpperCase() + field.slice(1)}`];
 
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
-		this.props.FormDataProps = this.formData
+		this.props.FormDataProps = this.formData;
 	}
 	private onAvatarClick(){
 		this.setProps({ isModalVisible: true });
@@ -156,6 +155,6 @@ class FormProfileEdit extends Block{
 	}
 }
 const mapStateToProps = (state: IStoreData) => {
-	return { currentUser : state.currentUser}
-}
-export default connect(mapStateToProps)(FormProfileEdit)
+	return { currentUser : state.currentUser};
+};
+export default connect(mapStateToProps)(FormProfileEdit);

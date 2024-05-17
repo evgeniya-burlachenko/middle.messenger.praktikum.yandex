@@ -30,28 +30,29 @@ class EditProfile extends Block {
 	}
 	componentDidMount() {
 		AuthController.fetchUser().catch(() => new Router().go('/'));
-	  }
-	async onSubmitHandler(event: MouseEvent | Event){
+	}
+	onSubmitHandler(event: MouseEvent | Event){
 		event.preventDefault();
-		const formData = this.children.FormProfile.children.formBodyProfile.props.FormDataProps  as  IFormDataProps;
-		if(!formData) return
+		const formData = this.children.FormProfile.children.
+			formBodyProfile.props.FormDataProps  as  IFormDataProps;
+		if(!formData) return;
 		UserController.updateProfile(formData as IProfileData)
-        .then(() => console.log('Профиль успешно обновлен!'))
-        .catch((error) => console.log(`Ошибка выполнения запроса обновления профиля! ${error ? error.reason : ''}`));
-    
-		console.log('Измененные данные формы(submit):', formData)
+			.then(() => console.log('Профиль успешно обновлен!'))
+			.catch((error) =>
+				console.log(`Ошибка выполнения запроса обновления профиля! ${error}`));
+		console.log('Измененные данные формы(submit):', formData);
 	}
 	render(): string {
 		return (`
 			<div>
 				{{{ FormProfile }}}
 			</div>
-        `);
+		`);
 	}
 }
 const mapStateToProps = (state: IStoreData) => {
-	return { currentUser : state.currentUser}
-}
+	return { currentUser : state.currentUser};
+};
 const withUser = connect(mapStateToProps);
 
-export default  withUser(EditProfile)
+export default  withUser(EditProfile);

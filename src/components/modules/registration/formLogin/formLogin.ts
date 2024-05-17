@@ -38,7 +38,7 @@ export default class FormLogin extends Block {
 		const ButtonCreateAccount = new Button({
 			label: 'Нет аккаунта?',
 			style: TYPE_BUTTON.LINK,
-			onClick: () => new Router().go('/sign-up')
+			onClick: () => new Router().go('/sign-up'),
 		});
 
 		this.children = {
@@ -66,8 +66,10 @@ export default class FormLogin extends Block {
 		this.errors = errors;
 		this.formData[field] = inputValue;
 
-		const inputComponent = this.children[`Input${field.charAt(0).toUpperCase() + field.slice(1)}`];
-		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
+		const inputComponent = this.children[`Input${field.charAt(0).toUpperCase()
+			+ field.slice(1)}`];
+		inputComponent.setProps({ error: errors[field], errorText: errors[field] ?
+			'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
 
 		this.props.FormDataProps = this.formData;
 	}

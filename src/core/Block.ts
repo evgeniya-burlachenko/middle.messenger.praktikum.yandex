@@ -2,15 +2,15 @@ import EventBus from './EventBus';
 import {nanoid} from 'nanoid';
 import Handlebars from 'handlebars';
 
-type EventHandler = (event: Event) => void;
+type EventHandler = () => void;
 
 interface IBlock {
-    [key: string]: unknown;
-    events?: { [key: string]: EventHandler };
+	[key: string]: unknown;
+	events?: { [key: string]: EventHandler };
 }
 
 export interface IComponentProps {
-	events?: { [eventName: string]: (e: Event) => void }
+	events?: { [eventName: string]: () => void }
 	withId?: boolean;
 	[prop: string]: unknown;
 }
@@ -32,11 +32,11 @@ export default class Block {
 
 
 	/** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
-     *
-     * @returns {void}
-     */
+	* @param {string} tagName
+	* @param {Object} props
+	*
+	* @returns {void}
+	*/
 
 	// private _eventbus: EventBus;
 	// private eventBus: () => EventBus;
@@ -113,7 +113,6 @@ export default class Block {
 		// console.log(oldProps);
 	}
 	componentWillUnmount(){
-		
 	}
 
 	dispatchComponentDidMount() {
@@ -171,19 +170,33 @@ export default class Block {
 		Object.entries(this.children).forEach(([key, child]) => {
 			propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
 		});
+		//  sprint3 addition
+		 const childrenProps: Block[] = [];
+		 Object.entries(propsAndStubs).forEach(([key, value]) => {
+		   if(Array.isArray(value)) {
+			 propsAndStubs[key] = value.map((item) => {
+			   if(item instanceof Block) {
+				 childrenProps.push(item);
+				 return `<div data-id="${item._id}"></div>`;
+			   }
+	 
+			   return item;
+			 }).join('');
+		   }
+		 });
 		const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 		fragment.innerHTML = Handlebars.compile(this.render())(propsAndStubs);
+		
 		if(this._element){
 			this._removeEvents();
-		  }
+		}
 		const newElement = fragment.content.firstElementChild as HTMLElement;
 
-		Object.values(this.children).forEach((child) => {
-			const stub= fragment.content.querySelector(`[data-id="${child._id}"]`);
-			if (stub){
-				stub?.replaceWith(child.getContent()!);
-			}
-		});
+		[...Object.values(this.children), ...childrenProps].forEach(child => {
+			const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+	  
+			stub?.replaceWith(child.getContent());
+		  });
 
 		if (this._element ) {
 			this._element.replaceWith(newElement);
@@ -193,22 +206,14 @@ export default class Block {
 
 		this._addEvents();
 	}
-	protected render(): string {
+
+	render(): string {
 		return '';
 	}
 
 	getContent() {
-		// // Хак, чтобы вызвать CDM только после добавления в DOM
-		// if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-		//   setTimeout(() => {
-		// 	if (
-		// 	  this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
-		// 	) {
-		// 		this.dispatchComponentDidMount();
-		// 	}
-		//   }, 100);
-		// }
-		return this._element;
+
+		return this._element as HTMLElement;
 	  }
 	_makePropsProxy(props: IComponentProps) {
 		// Можно и так передать this
@@ -225,7 +230,8 @@ export default class Block {
 				target[prop] = value;
 
 				// Запускаем обновление компоненты
-				// Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
+				// Плохой cloneDeep, в следующей итерации
+				// нужно заставлять добавлять cloneDeep им самим
 				this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
 				return true;
 			},
@@ -240,29 +246,11 @@ export default class Block {
 		return document.createElement(tagName);
 	}
 	show() {
-		this.getContent()!.style.display = "block";
+		this.getContent()!.style.display = 'block';
 	}
 
 	hide() {
-		this.getContent()!.style.display = "none";
+		this.getContent()!.style.display = 'none';
 	}
-
-	// compile(templateString: string, context: Record<string, any>) {
-	// 	const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
-	// 	const template = Handlebars.compile(templateString);
-	
-	// 	fragment.innerHTML = template({ ...context, children: this.children });
-	// 	Object.entries(this.children).forEach(([, child]) => {
-	// 	  const stub = fragment.content.querySelector(`[data-id="id-${child.id}"]`);
-	
-	// 	  if (!stub) {
-	// 		return;
-	// 	  }
-	// 	  stub.replaceWith(child.getContent()!);
-	// 	});
-	
-	// 	return fragment.content;
-	//   }
-	
-	  public onDestroy() {}
+	public onDestroy() {}
 }

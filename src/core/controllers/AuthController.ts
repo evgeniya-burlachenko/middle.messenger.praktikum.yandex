@@ -3,32 +3,28 @@ import AuthAPI, { SignInData, SignUpData } from '../api/AuthAPI';
 
 
 class AuthController {
-  private api: AuthAPI;
+	private api: AuthAPI;
 
-  constructor() {
-    this.api = new AuthAPI();
-  }
+	constructor() {
+		this.api = new AuthAPI();
+	}
 
-  async signUp(data: SignUpData) {
-    await this.api.signUp(data);
-  }
+	async signUp(data: SignUpData) {
+		await this.api.signUp(data);
+	}
 
-  async signIn(data: SignInData) {
-    await this.api.signIn(data);
-  }
+	async signIn(data: SignInData) {
+		await this.api.signIn(data);
+	}
 
-  async logout() {
-    await this.api.logout();
-  }
+	async logout() {
+		await this.api.logout();
+	}
 
-  async fetchUser() {
-    const userData = await this.api.read();
-
-    store.set('currentUser', userData);
-  }
-  setActiveCatCard (card)  {
-    store.set({selectedCard: card});
-}
+	async fetchUser() {
+		const userData = await this.api.read();
+		store.set('currentUser', userData);
+	}
 }
 
 export default new AuthController();

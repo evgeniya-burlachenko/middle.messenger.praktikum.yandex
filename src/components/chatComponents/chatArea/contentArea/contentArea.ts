@@ -1,5 +1,6 @@
 import Block from '../../../../core/Block';
-import img from '../../../../assets/images/image.png'
+import { store } from '../../../../core/Store';
+import formatTime from '../../../../core/utils';
 
 interface IMessageArea {
 
@@ -10,30 +11,24 @@ class MessageArea extends Block {
 	}
 
 	render(): string {
+		console.log("!!storearea", store.getState())
+		const dateChat = formatTime(this.props.messageDate)
+		const content = this.props.isMyMessage ? `
+		<div class="mesageArea__incoming">
+			<div class="mesageArea__incoming--text">{{messageText}} </div>
+			<div class="mesageArea__incoming--date">${dateChat}</div>
+		</div>` 
+			: 
+		`<div class="mesageArea__sent">
+			<div class="mesageArea__sent--message">{{messageText}}!</div>
+			<div class="mesageArea__sent--date">${dateChat}</div>
+		</div>`
+
 		return(`
         <form class="mesageArea">
-        <div class="mesageArea__date">19 июня</div>
-        
-        <div class="mesageArea__incoming">
-            <div class="mesageArea__incoming--text">
-                  {{{content}}}
-                  </div>
-            <div class="mesageArea__incoming--date">11:56</div>
-        </div>
-        <div class="mesageArea__image">
-            <div class="mesageArea__message">
-                <img src=${img} alt="">
-            </div>
-            <div class="mesageArea__incoming--date">11:56</div>
-        </div>  
-            
-        <div class="mesageArea__sent">
-            <div class="mesageArea__sent--message">Круто!</div>
-            <div class="mesageArea__sent--date">12:00</div>
-        </div>
-
-	</form>
-        `)
+    		${content}
+		</form>
+        `);
 	}
 }
 

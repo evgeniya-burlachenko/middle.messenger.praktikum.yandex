@@ -38,7 +38,7 @@ class InputElementProfile extends Block {
 		if(this.props !== newProps){
 			this.props = newProps;
 			this.render();
-			this.children.InputProfile.setProps({...newProps})
+			this.children.InputProfile.setProps({...newProps});
 			return true;
 	  }
 		return true;

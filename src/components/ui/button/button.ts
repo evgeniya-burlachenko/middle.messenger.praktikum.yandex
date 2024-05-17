@@ -14,7 +14,7 @@ interface IButton {
 	label?: string,
 	style?: TYPE_BUTTON,
 	type?: string,
-	onSubmit?: (e: MouseEvent) => void;
+	onSubmit?: () => void;
 }
 class Button extends Block {
 	constructor(props: IButton) {

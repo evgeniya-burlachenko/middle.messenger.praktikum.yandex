@@ -6,8 +6,8 @@ import { Avatar } from '../../../ui/avatar';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-import avatar from '../../../../assets/icons/profile.svg'
-import backArrow from '../../../../assets/icons/arrow-left.svg'
+import avatar from '../../../../assets/icons/profile.svg';
+import backArrow from '../../../../assets/icons/arrow-left.svg';
 import { BackButton } from '../../../ui/backButton';
 import Router from '../../../../core/Router';
 import { IStoreData, IUserData, connect } from '../../../../core/Store';
@@ -21,7 +21,7 @@ interface Errors {
 interface IFormChangePassword{
 
 }
- class FormChangePassword extends Block {
+class FormChangePassword extends Block {
 	private formData: FormData = {};
 	private errors: Errors = {};
 	constructor(props: IFormChangePassword){
@@ -32,7 +32,7 @@ interface IFormChangePassword{
 	init() {
 		const onBlurHandler = this.onBlurHandler.bind(this);
 		const onAvatarClick = this.onAvatarClick.bind(this);
-		const avatarUrl = this.props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatar
+		const avatarUrl = this.props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatar;
 		const InputOldPassword = new InputProfile({
 			label: 'Старый пароль',
 			value: '',
@@ -87,8 +87,7 @@ interface IFormChangePassword{
 		this.children.ProfileAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${newProps.currentUser.avatar}` });
 
 		return true;
-	
-	  }
+	}
 	onBlurHandler(e: FocusEvent, field: string){
 		const target = e.target as HTMLInputElement;
 		const inputValue = target.value.trim();
@@ -111,7 +110,7 @@ interface IFormChangePassword{
 		const inputComponent = this.children[`InputPassword${field.charAt(0).toUpperCase() + field.slice(1)}`];
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'some error' : '' });
 
-		this.props.FormDataProps =  this.formData
+		this.props.FormDataProps =  this.formData;
 	}
 	onAvatarClick(){
 		this.setProps({ isModalVisible: true });
@@ -144,6 +143,6 @@ interface IFormChangePassword{
 	}
 }
 const mapStateToProps = (state: IStoreData) => {
-	return { currentUser : state.currentUser}
-}
-export default  connect(mapStateToProps)(FormChangePassword)
+	return { currentUser : state.currentUser};
+};
+export default  connect(mapStateToProps)(FormChangePassword);

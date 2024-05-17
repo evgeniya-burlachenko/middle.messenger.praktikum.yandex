@@ -1,38 +1,50 @@
-import Block from "../../../../core/Block"
-import {Image} from '../../../ui/image'
-import avatar from '../../../../assets/icons/profile.svg'
-
-import { getParentDataSetParam, scrollToLastMessage } from "../../../../core/utils";
-import { IStoreData, connect, store } from "../../../../core/Store";
-import ChatController from "../../../../core/controllers/ChatController";
+import Block from '../../../../core/Block';
+import { IStoreData, connect, store } from '../../../../core/Store';
+// import wsService from '../../../../core/Websockets';
+import ChatController from '../../../../core/controllers/ChatController';
+import { getParentDataSetParam, scrollToLastMessage } from '../../../../core/utils';
+import { ws } from '../../../../main';
 
 
 interface IListItem {
-
+	onClick: () => {}
 }
- class ListItem extends Block{
+class ListItem extends Block{
 	constructor(props:IListItem){
 		super({
 			...props,
-		
-
-		})
+			events: {
+				click: (e: PointerEvent) => this.setCurrentChatId(e),
+			  },
+		});
 	}
 
+	async setCurrentChatId(e: PointerEvent) {
+		const id = getParentDataSetParam(e.target as HTMLElement, 'listItem__content', 'id');
+
+		if (id) {
+		  store.set('currentChatId', id);
+		  const chatUsers = await ChatController.getChatUsers(id);
+		  // eslint-disable-next-line no-console
+		  console.log(`Чат ${id}, пользователи: `, chatUsers);
+		  ws.connect(); // Создаем подключение по Websocket
+		} else {
+		  scrollToLastMessage();
+		}
+	  }
+	
 	render(){
-		const activeChatBorder = store.getState().currentChatId === this.props.id ? 'style="background: #92bdff"' : '';
+		const active = store.getState().currentChatId == this.props.id;
 
-		const active = store.getState().currentChatId == this.props.id 
 
-		
-// <img src="{{avatar}}" height="200px" width="200px" />
+		// <img src="{{avatar}}" height="200px" width="200px" />
 		return(`
 			<div class="listItem {{#if ${active}}}listItem--active{{/if}} ">
 
 				<div class="listItem__image">
 				</div>
 				<div class="listItem__content" data-id=${this.props.id}>
-					<p class="listItem__title">${this.props.title}</p>
+					<p class="listItem__title">{{title}}</p>
 					<p class="listItem__text">{{text}}</p>
 				</div>
 				<div class="listItem__info">
@@ -41,14 +53,14 @@ interface IListItem {
 				</div>
 			</div>
 			
-	`)
+	`);
 	}
 }
 
 const mapStateToProps = (state: IStoreData) => {
 
 	return { currentUser : state.currentUser,
-		currentChatId: state.currentChatId
-	}
-}
-export default  connect(mapStateToProps)(ListItem)
+		currentChatId: state.currentChatId,
+	};
+};
+export default  connect(mapStateToProps)(ListItem);

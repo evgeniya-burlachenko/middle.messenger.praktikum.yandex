@@ -8,7 +8,8 @@ export interface IAddUser{
 }
 export  interface IFormDataProps{
 	login?: string,
-	password?: string
+	password?: string,
+
 }
 export default class AddUser extends Block {
 	constructor(props: IAddUser) {
@@ -17,11 +18,12 @@ export default class AddUser extends Block {
 			UserActions: new ModalWrapper({
 				title: props.title,
 				modalBody: new UserActions({label: props.label,
-					FormDataProps: {login: ""} }),
-				onSubmit: (e) => {
+					FormDataProps: {login: ''} }),
+				onSubmit: (e: MouseEvent ) => {
 					e.preventDefault();
-					const formData = this.children.UserActions.children.modalBody.props.FormDataProps  as  IFormDataProps
-					console.log('Данные формы(submit):', formData)
+					const formData = this.children.UserActions.children.
+						modalBody.props.FormDataProps  as  IFormDataProps;
+					console.log('Данные формы(submit):', formData);
 				},
 
 			}),

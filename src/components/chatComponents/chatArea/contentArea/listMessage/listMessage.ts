@@ -3,12 +3,12 @@ import Block from '../../../../../core/Block';
 import { IStoreData, connect } from '../../../../../core/Store';
 
 
-interface IListCard{
+interface IListMessage{
 	onClick: () => void
 }
 
-class ListCard extends Block {
-	constructor(props: IListCard) {
+class ListMessage extends Block {
+	constructor(props: IListMessage) {
 		super({
 			...props,
 			events: {
@@ -34,4 +34,4 @@ const mapStateToProps = (state: IStoreData) => {
 		currentChatId: state.currentChatId,
 	};
 };
-export default  connect(mapStateToProps)(ListCard);
+export default  connect(mapStateToProps)(ListMessage);

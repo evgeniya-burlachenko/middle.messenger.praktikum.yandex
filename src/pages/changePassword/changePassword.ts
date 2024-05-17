@@ -16,25 +16,28 @@ export default class ChangePassword extends Block {
 		super({
 			...props,
 			FormProfile: new FormProfileWrapper({
-				formBodyProfile: new FormChangePassword({FormDataProps: {repeat: "", password: ""}}),
+				formBodyProfile: new FormChangePassword({FormDataProps: {
+					repeat: '',
+					password: ''}}),
 				onSubmit: (e: Event)=> this.onSubmitHandler(e),
 			}),
 		});
 	}
-	async onSubmitHandler(event: MouseEvent | Event){
+	onSubmitHandler(event: MouseEvent | Event){
 		event.preventDefault();
-		const formData = this.children.FormProfile.children.formBodyProfile.props.FormDataProps  as  IFormDataProps
-		const btnError = this.children.FormProfile.children.formBodyProfile.children.ButtonSaveData
+		const formData = this.children.FormProfile.children.
+			formBodyProfile.props.FormDataProps  as  IFormDataProps;
+		const btnError = this.children.FormProfile.children.
+			formBodyProfile.children.ButtonSaveData;
 		if(!formData || !formData.repeat || !formData.password){
 			btnError.setProps({ error: 'ошибка', errorText:  'Форма содержит ошибки, submit' });
-			return
+			return;
 		}
 		UserController.changePassword(formData as ChangePasswordData)
-        .then(() => console.log('Пароль успешно обновлен!'))
-        .catch((error) =>  console.log(`Ошибка выполнения запроса авторизации! ${error ? error.reason : ''}`));
-    
-		btnError.setProps({error: '', errorText: ''})
-		console.log('Данные формы(submit):', formData)
+			.then(() => console.log('Пароль успешно обновлен!'))
+			.catch((error) =>  console.log(`Ошибка выполнения запроса авторизации! ${error}`));
+		btnError.setProps({error: '', errorText: ''});
+		console.log('Данные формы(submit):', formData);
 	}
 	render(): string {
 		return (`

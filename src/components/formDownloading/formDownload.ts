@@ -9,13 +9,12 @@ interface IFormDownload {
 	title?: string,
 	isVisibleFile?: boolean,
 	onChange: () => void,
-	fileName:string
+	fileName: string
 }
 
 export default class FormDownload extends Block {
 	constructor(props: IFormDownload) {
 		super({...props,
-		
 			isError: false,
 			TitleDownload: new Title({
 				title: 'Загрузите файл',
@@ -23,7 +22,7 @@ export default class FormDownload extends Block {
 			InputDownload: new InputFile({
 				title: 'Выбрать файл на компьютере',
 				type: 'file',
-				onChange: props.onChange
+				onChange: props.onChange,
 			}),
 			TitleDownloadSuccess: new Title({
 				title:  'Файл загружен',
@@ -52,10 +51,10 @@ export default class FormDownload extends Block {
 
 		let titleComponent = '';
 		let modalContent = '';
-		let modalWarning = "Для корректной работы после закрытия модального окна перезагрузите страницу"
+		const modalWarning = 'Для корректной работы после закрытия модального окна перезагрузите страницу';
 		if (!isError && fileName) {
 			titleComponent = '{{{TitleDownloadSuccess}}}';
-			modalContent = fileName as string
+			modalContent = fileName as string;
 		} else if (isError) {
 			titleComponent = '{{{TitleDownloadError}}}';
 		} else {

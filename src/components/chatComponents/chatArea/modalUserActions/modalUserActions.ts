@@ -2,7 +2,7 @@ import Block from '../../../../core/Block';
 import { AddUser } from '../../../../pages';
 import { Button } from '../../../ui/button';
 import { TYPE_BUTTON } from '../../../ui/button/button';
-import add from '../../../../assets/icons/add.svg'
+import add from '../../../../assets/icons/add.svg';
 
 interface IModalUserActions {
 	label?: string,

@@ -24,8 +24,8 @@ class inputElementFile extends Block {
 				error: props.errorText,
 			}),
 			events: {
-				change: props.onChange
-			}
+				change: props.onChange,
+			},
 		});
 	}
 

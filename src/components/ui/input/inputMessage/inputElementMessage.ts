@@ -10,15 +10,19 @@ interface IInputElement{
 	errorText?: string,
 	label?: string,
 	name: INPUT_TYPE,
+	value?: string
 }
 class InputElementMessage extends Block {
 	constructor(props: IInputElement) {
 		super({
 			...props,
 			Input: new InputMessage({
+				...props,
 				onBlur: props.onBlur || (() => {}),
 				events: {
 					blur: props.onBlur || (() => {}),
+					submit: props.onSubmit,
+				
 				},
 			}),
 			ErrorLine: new ErrorLine({
@@ -38,10 +42,7 @@ class InputElementMessage extends Block {
 	render(): string {
 		return `
 		<div class=" chatAreaInput__input {{#if error}}input__error{{/if}}" >
-
 				{{{ Input }}}
-
-
 			{{{ ErrorLine }}}
 		</div>
 	`;

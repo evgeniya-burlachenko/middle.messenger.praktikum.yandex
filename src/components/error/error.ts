@@ -17,12 +17,11 @@ class ErrorTemplate extends Block{
 		});
 	}
 	init(){
-		// const navName = this.props.page as string;
 		const label = this.props.label as string;
 		const ButtonCreateAccount = new Button({
 			label: label,
 			style: TYPE_BUTTON.LINK,
-			onClick: () => console.log("error")});
+			onClick: () => console.log('error')});
 		this.children = {
 			...this.children,
 			ButtonCreateAccount,

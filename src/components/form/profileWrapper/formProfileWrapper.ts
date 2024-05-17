@@ -2,14 +2,12 @@ import Block  from '../../../core/Block';
 import Router from '../../../core/Router';
 import { IStoreData, connect } from '../../../core/Store';
 import AuthController from '../../../core/controllers/AuthController';
-import { FormChangePassword } from '../../modules/profile/formChangePassword';
 import { FormProfile } from '../../modules/profile/formProfile';
-import { FormProfileEdit } from '../../modules/profile/formProfileEdit';
+
 
 interface IFormProfileWrapper{
-	onSubmit?: (e: Event) => void;
-	formBodyProfile?: typeof FormProfile | typeof FormProfileEdit | typeof FormChangePassword,
-	
+	onSubmit?: () => void;
+	formBodyProfile?: typeof FormProfile
 }
 class FormProfileWrapper extends Block {
 	constructor(props: IFormProfileWrapper) {
@@ -17,7 +15,7 @@ class FormProfileWrapper extends Block {
 			events: {
 				submit: props.onSubmit,
 			},
-		})
+		});
 	}
 	componentDidMount() {
 		AuthController.fetchUser().catch(() => new Router().go('/'));
@@ -32,7 +30,7 @@ class FormProfileWrapper extends Block {
 	}
 }
 const mapStateToProps = (state: IStoreData) => {
-	return { currentUser : state.currentUser}
-}
+	return { currentUser : state.currentUser};
+};
 
-export default  connect(mapStateToProps)(FormProfileWrapper)
+export default  connect(mapStateToProps)(FormProfileWrapper);

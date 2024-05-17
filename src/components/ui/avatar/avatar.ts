@@ -13,9 +13,9 @@ class Avatar extends Block {
 			...props,
 			events: {
 				click: props.onClick,
-			
+
 			},
-			
+
 		});
 	}
 
