@@ -1,5 +1,5 @@
 
-export { ListMessage } from './contentArea/listMessage'
-export {MessageList, MessageArea} from './contentArea'
+export { ListMessage } from './contentArea/listMessage';
+export {MessageList, MessageArea} from './contentArea';
 
 

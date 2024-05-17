@@ -35,7 +35,7 @@ class ChatController {
 	async removeUserFromChat(chatId: number, userId: number) {
 		return this.api.removeUserFromChat(chatId, userId);
 	}
-	
+
 }
 
 export default new ChatController();

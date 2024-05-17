@@ -1,25 +1,18 @@
 
 
-import { Button, MessageArea } from '../../..';
+import {  MessageArea } from '../../..';
 import Block, { IComponentProps } from '../../../../core/Block';
-
-import {  connect, store  } from '../../../../core/Store';
-import ChatController from '../../../../core/controllers/ChatController';
-import UserController from '../../../../core/controllers/UserController';
-
-
-import { ListCard } from './list-cats';
-import ListItem from './listItem';
+import {  IMessageProps, connect } from '../../../../core/Store';
 import { ListMessage } from './listMessage';
-import listMessage from './listMessage/listMessage';
+
 
 interface IItemList {
-    // chatList?: IItemList;
-	onClick: () => void
+	onClick: () => void,
+	messageList: IMessageProps[]
 }
 
 class MessageList extends Block {
-
+	messageList: IMessageProps[];
 	constructor(props: IItemList) {
 		super({
 			...props,
@@ -27,12 +20,13 @@ class MessageList extends Block {
 				click: props.onClick,
 			},
 		});
+		this.messageList = props.messageList;
 	}
 
 
 	init(): void {
 		const ListCat = new ListMessage({
-			cards: this.mapStateToProps(this.messageList, null) || [],
+			cards: this.mapStateToProps(this.messageList ) || [],
 			...this.props,
 		});
 		this.children = {
@@ -40,17 +34,17 @@ class MessageList extends Block {
 		};
 	}
 
-	mapStateToProps(catCard, activeId) {
-
-		return catCard?.map(({isMyMessage,
+	mapStateToProps(catCard : IMessageProps[]) {
+		return catCard?.map(({
+			isMyMessage,
 			messageText,
-			messageDate
-			}) =>
+			messageDate,
+		}) =>
 			new MessageArea({
 				isMyMessage,
 				messageText,
-				messageDate
-		
+				messageDate,
+
 			}));
 	}
 
@@ -58,20 +52,17 @@ class MessageList extends Block {
 		if(oldProps === newProps){
 			return false;
 		  }
-		  console.log("!!componentDidUpdate", newProps)
+
 		this.children.ListCat.setProps({
-			cards: this.mapStateToProps(newProps.messageList, null) || [],
+			cards: this.mapStateToProps((newProps.messageList as IMessageProps[])) || [],
 			currentChatId: newProps.currentChatId,
 		});
-console.log("!!this.children.ListCat", this.children.ListCat)
 		return true;
 	}
 
 	render() {
-
 		return `
             <div class = 'messages-container'>
-	
 			{{{ ListCat }}}
             </div>
         `;

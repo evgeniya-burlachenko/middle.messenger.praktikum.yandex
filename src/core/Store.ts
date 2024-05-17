@@ -52,7 +52,7 @@ class Store extends EventBus {
 	private state: Indexed = {};
 
 	public getState() {
-		return this.state;
+		return JSON.parse(JSON.stringify(this.state));
 	}
 
 	public set(path: keyof IStoreData, value: unknown) {
@@ -60,7 +60,7 @@ class Store extends EventBus {
 		this.emit(StoreEvents.Updated);
 	}
 
-	
+
 	public clearUserInfo() {
 		this.set('currentUser', {});
 		this.set('chatList', []);

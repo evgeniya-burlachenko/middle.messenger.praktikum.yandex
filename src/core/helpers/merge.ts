@@ -1,5 +1,5 @@
 export type Indexed<T = any> = {
-	[key in string]: T;
+    [key in string]: T;
 };
 
 export function merge(lhs: Indexed, rhs: Indexed): Indexed {
