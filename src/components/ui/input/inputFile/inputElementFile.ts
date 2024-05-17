@@ -11,7 +11,7 @@ interface IInputElement{
 	label?: string,
 	title?: string,
 	type?: string,
-	onChange: () => void
+	onChange?: (e: Event) => void
 }
 class inputElementFile extends Block {
 	constructor(props: IInputElement) {

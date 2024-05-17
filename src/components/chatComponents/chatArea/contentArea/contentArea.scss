@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-	// height: 100vh;
 
 	&__date {
 		margin: 16px auto 30px;
@@ -77,6 +76,7 @@
 			text-align: right;
 			color: var(--main-color);
 			transform: translate(-10px, -10px);
+
 			// background: url('/assets/icons/doubleTick.svg') no-repeat;
 			background-position: 80px;
 		}
@@ -85,8 +85,7 @@
 
 .messages-container{
 height: 100%;
-overflow-x: hidden;
-overflow-y: auto;
+overflow: hidden auto;
 padding: 0 100px;
 display: flex;
 flex-direction: column;

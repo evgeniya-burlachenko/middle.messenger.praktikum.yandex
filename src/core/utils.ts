@@ -96,5 +96,5 @@ export default function formatTime(dateTimeString: string) {
 	  timeZone: 'Europe/Moscow',
 	};
 	return date.toLocaleString('ru-RU', options);
-  }
-  
+}
+

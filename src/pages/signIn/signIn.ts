@@ -1,9 +1,8 @@
 import { FormLogin, FormWrapper } from '../../components';
-import Block from '../../core/Block';
+import Block, { ICustomError } from '../../core/Block';
 import Router from '../../core/Router';
 import { SignInData } from '../../core/api/AuthAPI';
 import AuthController from '../../core/controllers/AuthController';
-import ChatController from '../../core/controllers/ChatController';
 
 export interface ILoginPageProps{
 
@@ -40,16 +39,16 @@ export default class LoginPage extends Block {
 		AuthController.signIn(formData as SignInData)
 			.then(() => {
 				console.log('Авторизация выполнена успешно');
-				ChatController.getChats()
-					.then(() => {
-					})
-					.catch(() => {
-					});
 				new Router().go('/messenger');
 			})
 			.catch(
-				(error) =>
-					console.error('Ошибка выполнения запроса регистрации', error),
+				(error: ICustomError) =>{
+					if(error.reason === 'User already in system'){
+						new Router().go('/messenger');
+					}else{
+						console.error('Ошибка выполнения запроса регистрации', error);}
+				},
+
 			);
 		btnError.setProps({error: '', errorText: ''});
 		console.log('Данные формы(submit):', formData);

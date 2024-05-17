@@ -67,7 +67,7 @@ export default class HTTPTransport {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			const isGet = method === Method.GET;
-			xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+			xhr.open(method, isGet && !!data ? `${url}${queryStringify(data as IData)}` : url);
 			xhr.open(method, url);
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState !== 4) {

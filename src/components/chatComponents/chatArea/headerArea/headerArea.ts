@@ -16,7 +16,7 @@ class HeaderMessage extends Block {
 	}
 	init() {
 		const onKebabClick = this.onKebabClick.bind(this);
-		const avatarUrl = this.props.currentUser && this.props.currentUser.avatar !== null ? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatar;
+		const avatarUrl = this.props.currentUser && (this.props.currentUser as IChatData).avatar !== null ? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatar;
 
 		const HeaderMessageAvatar = new Avatar({
 			avatarUrl: avatarUrl,
@@ -41,7 +41,7 @@ class HeaderMessage extends Block {
 		}
 
 		if((newProps.currentUser as IUserData).avatar && (newProps.currentUser as IUserData).avatar !== null) {
-			this.children.HeaderMessageAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${newProps.currentUser.avatar}` });
+			this.children.HeaderMessageAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${(newProps.currentUser as IUserData).avatar}` });
 		}
 
 
@@ -60,8 +60,8 @@ class HeaderMessage extends Block {
 
 	render() {
 		const { isModalVisible} = this.props;
-		const currentChatId: string = store.getState().currentChatId;
-		const listChat = store.getState().chatList;
+		const currentChatId = (store.getState() as IStoreData).currentChatId ;
+		const listChat = (store.getState() as IStoreData).chatList;
 
 		let currentChat;
 		currentChatId && listChat ?
@@ -82,7 +82,7 @@ class HeaderMessage extends Block {
    		`);
 	}
 }
-// {{{ Kebab }}}
+
 const mapStateToProps = (state: IStoreData) => {
 	return { currentUser : state.currentUser};
 };

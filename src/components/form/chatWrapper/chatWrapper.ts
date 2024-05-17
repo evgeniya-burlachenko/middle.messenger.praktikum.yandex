@@ -8,7 +8,8 @@ import { ChatArea } from '../../modules/chat/chatArea';
 import { ChatList } from '../../modules/chat/chatList';
 
 interface IFormChatWrapper{
-	chatList: IChatData[]
+	chatList: IChatData[],
+	onSubmit: () => void
 }
 
 class FormChatWrapper extends Block {
@@ -35,8 +36,7 @@ class FormChatWrapper extends Block {
 		const router = new Router();
 		ChatController.getChats()
 			.then(() => {
-				AuthController.fetchUser()
-					
+				AuthController.fetchUser().then(() => {}).catch(()=>{});
 			})
 			.catch(() => {
 				router.go('/');
