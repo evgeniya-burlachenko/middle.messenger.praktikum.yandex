@@ -19,7 +19,7 @@ class ListCard extends Block {
 
 	render(): string {
 		return `
-			 <div >
+			 <div class='cards' >
 				<ul class="renderCats">
 				{{{cards}}}
 				</ul>
