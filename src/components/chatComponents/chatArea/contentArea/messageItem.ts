@@ -52,6 +52,7 @@ class MessageList extends Block {
 		if(oldProps === newProps){
 			return false;
 		  }
+
 		this.children.ListCat.setProps({
 			cards: this.mapStateToProps((newProps.messageList as IMessageProps[])) || [],
 			currentChatId: newProps.currentChatId,

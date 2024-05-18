@@ -147,20 +147,21 @@ class FormProfileEdit extends Block{
 		const btnSbmt = isOnBlurHandlerDefined && hasNoErrors ? '<div class="formProfileEdit__button">{{{ ButtonChangeData }}}</div>' :  'заполните форму перед отправокй';
 
 		return (`
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 			<div class="formProfileEdit">
 					<div class = 'formProfileEdit__btn-back'>
 					{{{BackButton}}}
 					</div>
-=======
+
 				<div class="formProfileEdit">
 				
->>>>>>> sprint_3
-=======
+
 				<div class="formProfileEdit">
 				
->>>>>>> sprint_3
+
+				<div class="formProfileEdit">
+				
+
 				<div class = 'formProfileEdit__fields-wrapper'>
 				<div class="formProfileEdit__fields"> 
 				<div class = "avatar__profile-container">	

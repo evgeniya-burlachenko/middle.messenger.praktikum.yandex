@@ -82,7 +82,7 @@ class HeaderMessage extends Block {
    		`);
 	}
 }
-// {{{ Kebab }}}
+
 const mapStateToProps = (state: IStoreData) => {
 	return { currentUser : state.currentUser};
 };
