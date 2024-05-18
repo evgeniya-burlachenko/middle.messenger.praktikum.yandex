@@ -9,7 +9,9 @@ export enum INPUT_TYPE{
 	DISPLAY_NAME = 'display_name',
 	LOGIN = 'login',
 	EMAIL = 'email',
+	OLD_PASSWORD = 'oldPassword',
 	PASSWORD = 'password',
+	NEW_PASSWORD = 'newPassword',
 	PHONE = 'phone',
 	MESSAGE  = 'message'
 
