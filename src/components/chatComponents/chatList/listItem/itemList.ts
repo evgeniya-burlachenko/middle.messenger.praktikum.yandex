@@ -88,7 +88,7 @@ class ItemList extends Block {
 						ChatController.addUserToChat((store.getState()).currentChatId,
 							+ newUser[0].id)
 							.then(() => {})
-							.catch(() => {});
+							.catch(console.error)
 						alert('Пользователь успешно добавлен!');
 					}
 					else {
@@ -108,14 +108,14 @@ class ItemList extends Block {
 		const userId = prompt('Введите логин пользователя для удаления из текущего чата');
 		try{
 			if (userId) {
-				const newUser = await UserController.searchUser(userId) as unknown;
-				console.log('!!newUser', newUser);
+				const newUser = await UserController.searchUser(userId);
+		
 				let newUserId;
 				if(Array.isArray(newUser)){
 					newUserId = newUser[0].id;
 				}
 				if(newUserId){
-					ChatController.removeUserFromChat((store.getState()).currentChatId, + userId)
+					ChatController.removeUserFromChat((store.getState()).currentChatId, + newUserId)
 						.then(() => alert('Пользователь успешно удалён!'));
 				}
 				else{

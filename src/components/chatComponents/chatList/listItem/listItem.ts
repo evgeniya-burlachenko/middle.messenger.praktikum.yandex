@@ -39,12 +39,11 @@ class ListItem extends Block{
 		const count = this.props.unread_count ? '<div class="listItem__badge{{LImodifier}}">{{unread_count}}</div>' :
 			'';
 
-		// <img src="{{avatar}}" height="200px" width="200px" />
 		return(`
 			<div class="listItem {{#if ${active}}}listItem--active{{/if}} ">
-
-				<div class="listItem__image">
-				</div>
+			<div class ="list__avatar">
+			<img class="listItem__image-avatar" src="{{avatar}}" height="100px" width="100px" />
+			</div>
 				<div class="listItem__content" data-id={{id}}>
 					<p class="listItem__title">{{title}}</p>
 					<p class="listItem__text">{{text}}</p>

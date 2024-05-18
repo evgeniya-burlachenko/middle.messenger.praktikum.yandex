@@ -129,7 +129,7 @@ class FormProfileEdit extends Block{
 
 	render(){
 		return (`
-				<div class="formProfileEdit">
+			<div class="formProfileEdit">
 					<div class = 'formProfileEdit__btn-back'>
 					{{{BackButton}}}
 					</div>

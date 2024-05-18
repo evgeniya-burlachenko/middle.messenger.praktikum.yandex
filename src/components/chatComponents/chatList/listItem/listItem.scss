@@ -27,13 +27,13 @@
 		background-color: #e4edfd;
 	}
 
-	&__image {
-		margin: 10px;
-		border: 2px solid #EFEFEF;
-		background-color: #EFEFEF;
-		width: 48px;
-		border-radius: 52%;
-	}
+	// &__image {
+	// 	margin: 10px;
+	// 	border: 2px solid #EFEFEF;
+	// 	// background-color: #EFEFEF;
+	// 	width: 48px;
+	// 	border-radius: 52%;
+	// }
 
 	&__content {
 		display: flex;
@@ -112,3 +112,21 @@
 		text-align: right;
 	}
 }
+
+.list__avatar{
+	width: 48px;
+	height: 48px;
+	border-radius: 50%; /* Делает изображение круглым */
+	overflow: hidden; /* Обрезает изображение до формы круга */
+	display: flex;
+	justify-content: center; /* Центрирует изображение по горизонтали */
+	align-items: center; /* Центрирует изображение по вертикали */
+	border: 2px solid #EFEFEF;
+	margin: 10px;
+}
+  
+  .listItem2__image-avatar {
+	width: 100%; /* Заполняет доступное пространство внутри круга */
+	height: auto; /* Поддерживает соотношение сторон изображения */
+	display: block; /* Убирает лишние отступы */
+  }

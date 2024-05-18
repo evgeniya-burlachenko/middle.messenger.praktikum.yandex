@@ -72,7 +72,7 @@ class ChatList extends Block{
 					store.set('messageList', []);
 					ChatController.getChats()
 						.then(() => {})
-						.catch(() => {});
+						.catch(console.error);
 				})
 
 				.catch((error: ICustomError) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
