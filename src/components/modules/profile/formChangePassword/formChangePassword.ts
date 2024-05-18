@@ -105,10 +105,6 @@ class FormChangePassword extends Block {
 		}
 		this.errors = errors;
 		this.formData[field] = inputValue;
-		console.log('!!1this.formData', this.formData);
-		console.log('!!1field', field);
-		// mannayamashaQWERTY12345!
-		// 111aaaQQQ
 		const inputComponent = this.children[`InputPassword${field.charAt(0).toUpperCase() + field.slice(1)}`];
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'some error' : '' });
 

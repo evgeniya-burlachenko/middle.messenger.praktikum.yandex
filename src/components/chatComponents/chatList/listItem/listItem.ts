@@ -1,9 +1,9 @@
 import Block from '../../../../core/Block';
-import { IStoreData, connect, store } from '../../../../core/Store';
-// import wsService from '../../../../core/Websockets';
+import { IChatData, IStoreData, connect, store } from '../../../../core/Store';
 import ChatController from '../../../../core/controllers/ChatController';
 import { getParentDataSetParam, scrollToLastMessage } from '../../../../core/utils';
 import { ws } from '../../../../main';
+import avatar from '../../../../assets/icons/profile.svg';
 
 
 interface IListItem {
@@ -38,11 +38,11 @@ class ListItem extends Block{
 		const active =( store.getState() as IStoreData).currentChatId == this.props.id;
 		const count = this.props.unread_count ? '<div class="listItem__badge{{LImodifier}}">{{unread_count}}</div>' :
 			'';
-
+		const avatarUrl = this.props.avatar ? `https://ya-praktikum.tech/api/v2/resources${(this.props.avatar as IChatData).avatar}`: avatar;
 		return(`
 			<div class="listItem {{#if ${active}}}listItem--active{{/if}} ">
 			<div class ="list__avatar">
-			<img class="listItem__image-avatar" src="{{avatar}}" height="100px" width="100px" />
+			<img class="listItem__image-avatar" src="${avatarUrl}" height="48px" width="48px" />
 			</div>
 				<div class="listItem__content" data-id={{id}}>
 					<p class="listItem__title">{{title}}</p>

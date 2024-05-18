@@ -148,10 +148,15 @@ class FormProfileEdit extends Block{
 
 		return (`
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<div class="formProfileEdit">
 					<div class = 'formProfileEdit__btn-back'>
 					{{{BackButton}}}
 					</div>
+=======
+				<div class="formProfileEdit">
+				
+>>>>>>> sprint_3
 =======
 				<div class="formProfileEdit">
 				

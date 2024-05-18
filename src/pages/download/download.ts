@@ -26,10 +26,9 @@ export default class Download extends Block {
 					const fileName = file.name;
 					formData.append('avatar', file as string | Blob);
 					UserController.changeAvatar(formData)
-						.then(() => {
-							this.children.FormDownLoad.children.modalBody.setProps({fileName});
-						})
-						.catch(console.error)
+						.then(() => { console.log('Аватар успешно изменен');})
+						.catch(console.error);
+					this.children.FormDownLoad.children.modalBody.setProps({fileName});
 				},
 			}),
 

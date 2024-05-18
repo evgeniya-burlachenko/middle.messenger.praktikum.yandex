@@ -29,7 +29,7 @@ class Chat extends Block {
 			.then(() => {
 				AuthController.fetchUser()
 					.then(()=>{})
-					.catch(console.error)
+					.catch(console.error);
 			})
 			.catch(() => {router.go('/');
 			});

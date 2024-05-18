@@ -97,7 +97,7 @@ export class WS {
 	}
 
 	private onError(event: Event) {
-		const errorEvent = event as ErrorEvent
+		const errorEvent = event as ErrorEvent;
 		console.log('Ошибка', errorEvent.message);
 	}
 

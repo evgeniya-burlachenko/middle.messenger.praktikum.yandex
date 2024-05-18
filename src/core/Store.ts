@@ -53,7 +53,6 @@ class Store extends EventBus {
 
 	public getState() {
 		return JSON.parse(JSON.stringify(this.state));
-
 	}
 
 	public set(path: keyof IStoreData, value: unknown) {

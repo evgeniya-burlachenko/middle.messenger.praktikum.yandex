@@ -60,10 +60,8 @@ class MessageList extends Block {
 	}
 
 	render() {
-
 		return `
             <div class = 'messages-container'>
-	
 			{{{ ListCat }}}
             </div>
         `;

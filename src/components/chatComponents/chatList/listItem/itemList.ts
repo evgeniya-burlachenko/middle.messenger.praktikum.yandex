@@ -68,6 +68,7 @@ class ItemList extends Block {
 				ChatController.deleteChat(currentChatId)
 					.then(() => {
 		  store.set('messageList', []);
+		  store.set('currentChatId', '');
 		  ChatController.getChats().then(() => {}).catch(() => {});
 					})
 
@@ -87,9 +88,9 @@ class ItemList extends Block {
 				 if(newUserId){
 						ChatController.addUserToChat((store.getState()).currentChatId,
 							+ newUser[0].id)
-							.then(() => {})
-							.catch(console.error)
-						alert('Пользователь успешно добавлен!');
+							.then(() => {alert('Пользователь успешно добавлен!');})
+							.catch(console.error);
+
 					}
 					else {
 
@@ -108,14 +109,13 @@ class ItemList extends Block {
 		const userId = prompt('Введите логин пользователя для удаления из текущего чата');
 		try{
 			if (userId) {
-				const newUser = await UserController.searchUser(userId);
-		
+				const newUser = await UserController.searchUser(userId) as unknown;
 				let newUserId;
 				if(Array.isArray(newUser)){
 					newUserId = newUser[0].id;
 				}
 				if(newUserId){
-					ChatController.removeUserFromChat((store.getState()).currentChatId, + newUserId)
+					ChatController.removeUserFromChat((store.getState()).currentChatId, + userId)
 						.then(() => alert('Пользователь успешно удалён!'));
 				}
 				else{
@@ -130,9 +130,9 @@ class ItemList extends Block {
 
 		return catCard?.map(({title, avatar, id, unread_count}) =>
 			new ListItem({
-				title,
+				title: title,
 				avatar: avatar,
-				id,
+				id: id,
 				unread_count,
 			}));
 	}

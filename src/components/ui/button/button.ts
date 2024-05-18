@@ -37,7 +37,6 @@ class Button extends Block {
 	}
 
 	render(): string {
-		console.log('!!this.props', this.props);
 
 		return `
 			<div class = 'button-container {{#if error}}button-error{{/if}} '>
