@@ -4,6 +4,7 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+	
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
@@ -17,7 +18,6 @@ export default tseslint.config(
   {
     rules: {
       'no-unused-vars': 'warn',
-      'no-undef': 'warn',
       'max-len': [1, 100],
       'max-params': [1, 5],
       'semi': ['warn', 'always'],
@@ -27,7 +27,9 @@ export default tseslint.config(
       'no-extra-semi': 'error',
       'no-trailing-spaces': 'error',
       'no-multiple-empty-lines': ['error', { 'max': 2 }],
-	  'eol-last': ["error", "always"]
+	  'eol-last': ['error', 'always'],
+	  '@typescript-eslint/no-this-alias': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
   {

@@ -1,36 +1,68 @@
-import Block from "../../../../core/Block"
-import {Image} from '../../../ui/image'
+import Block from '../../../../core/Block';
+import { IStoreData, connect, store } from '../../../../core/Store';
+// import wsService from '../../../../core/Websockets';
+import ChatController from '../../../../core/controllers/ChatController';
+import { getParentDataSetParam, scrollToLastMessage } from '../../../../core/utils';
+import { ws } from '../../../../main';
+
 
 interface IListItem {
-
+	onClick: () => void
 }
-export default class ListItem extends Block{
+class ListItem extends Block{
 	constructor(props:IListItem){
 		super({
 			...props,
-			ImageList: new Image({
-				...props,
-				size: '47',
-			}),
-		})
+			events: {
+				click: (e: PointerEvent) => this.setCurrentChatId(e),
+			  },
+		});
 	}
 
+	async setCurrentChatId(e: PointerEvent) {
+		const id = getParentDataSetParam(e.target as HTMLElement, 'listItem__content', 'id');
+
+		if (id) {
+		  store.set('currentChatId', id);
+		  const chatUsers = await ChatController.getChatUsers(id);
+		  // eslint-disable-next-line no-console
+		  console.log(`Чат ${id}, пользователи: `, chatUsers);
+		  ws.connect(); // Создаем подключение по Websocket
+		} else {
+		  scrollToLastMessage();
+		}
+	  }
+
+
 	render(){
+		const active =( store.getState() as IStoreData).currentChatId == this.props.id;
+		const count = this.props.unread_count ? '<div class="listItem__badge{{LImodifier}}">{{unread_count}}</div>' :
+			'';
+
+		// <img src="{{avatar}}" height="200px" width="200px" />
 		return(`
-		<div class="listItem {{#if active}}listItem--active{{/if}}">
-		<div class="listItem__image">
-			{{{ImageList}}}
-		</div>
-		<div class="listItem__content">
-			<p class="listItem__title">{{LItitle}}</p>
-		<p class="listItem__text">{{LItext}}</p>
-		</div>
-		<div class="listItem__info">
-			<p class="listItem__date">{{LIdate}}</p>
-		<div class="listItem__badge{{LImodifier}}">{{LIbadge}}</div>
-		</div>
-		</div>
+			<div class="listItem {{#if ${active}}}listItem--active{{/if}} ">
+
+				<div class="listItem__image">
+				</div>
+				<div class="listItem__content" data-id={{id}}>
+					<p class="listItem__title">{{title}}</p>
+					<p class="listItem__text">{{text}}</p>
+				</div>
+				<div class="listItem__info">
+					<p class="listItem__date">{{date}}</p>
+				${count}
+				</div>
+			</div>
 			
-	`)
+	`);
 	}
 }
+
+const mapStateToProps = (state: IStoreData) => {
+
+	return { currentUser : state.currentUser,
+		currentChatId: state.currentChatId,
+	};
+};
+export default  connect(mapStateToProps)(ListItem);

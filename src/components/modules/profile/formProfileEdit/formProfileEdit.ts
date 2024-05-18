@@ -4,12 +4,18 @@ import { Button } from '../../../ui/button';
 import * as validationUtils from '../../../../utils/validationUtils';
 import { Avatar } from '../../../ui/avatar';
 import { TYPE_BUTTON } from '../../../ui/button/button';
-import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-import avatar from '../../../../assets/icons/profile.svg'
+import avatar from '../../../../assets/icons/profile.svg';
 import { BackButton } from '../../..';
-import { navigate } from '../../../../main';
-import backArrow from '../../../../assets/icons/arrow-left.svg'
+import backArrow from '../../../../assets/icons/arrow-left.svg';
+import Router from '../../../../core/Router';
+import { IStoreData, IUserData, connect } from '../../../../core/Store';
+import emailInput from '../inputs/emailInput';
+import loginInput from '../inputs/loginInput';
+import firstNameInput from '../inputs/firstNameInput';
+import secondNameInput from '../inputs/secondNameInput';
+import displayNameInput from '../inputs/displayNameInput';
+import phoneInput from '../inputs/phoneInput';
 
 interface IFormData{
 	[key: string]: string
@@ -19,60 +25,64 @@ interface IErrors {
 }
 interface IFormProfileEdit {
 	isModalVisible?: boolean;
-	FormDataProps?: object
+	FormDataProps?: object;
+	currentUser?: IUserData;
 }
 
-export default class FormProfileEdit extends Block{
+class FormProfileEdit extends Block{
 	private formData: IFormData = {};
 	private errors: IErrors = {};
 
 	constructor(props: IFormProfileEdit){
+
 		super({...props,
 			isModalVisible: false,
-			InputProfileEmail: new InputProfile({
+			currentUser: props.currentUser,
+
+			InputProfileEmail: new emailInput({
 				label: 'Почта',
 				onBlur: (e: FocusEvent) => this.onBlurHandler(e, 'email'),
-				value: 'pochta@yandex.ru',
+				value: props.currentUser ? (props.currentUser).email : '',
 				disabled: false,
 				name: INPUT_TYPE.EMAIL,
 			}),
-			InputProfileLogin: new InputProfile({
+			InputProfileLogin: new loginInput({
 				label: 'Логин',
 				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'login'),
-				value: 'ivanivanov',
+				value: props.currentUser ? (props.currentUser).login : '',
 				disabled: false,
 				name: INPUT_TYPE.LOGIN,
 			}),
-			InputProfileName: new InputProfile({
+			InputProfileFirst_name: new firstNameInput({
 				label: 'Имя',
-				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'name'),
-				value: 'Иван',
+				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'first_name'),
+				value: props.currentUser ? (props.currentUser).first_name : '',
 				disabled: false,
 				name: INPUT_TYPE.FIRST_NAME,
 			}),
-			InputProfileSecondname: new InputProfile({
+			InputProfileSecond_name: new secondNameInput({
 				label: 'Фамилия',
-				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'secondname'),
-				value: 'Иванов',
+				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'second_name'),
+				value: props.currentUser ? (props.currentUser).second_name : '',
 				disabled: false,
 				name: INPUT_TYPE.SECOND_NAME,
 			}),
-			InputProfileDisplayName: new InputProfile({
+			InputProfileDisplay_name: new displayNameInput({
 				label: 'Имя в чате',
-				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'displayName'),
-				value: 'Иван',
+				onBlur:  (e: FocusEvent) => this.onBlurHandler(e, 'display_name'),
+				value: props.currentUser ? (props.currentUser).display_name : '',
 				disabled: false,
 				name: INPUT_TYPE.DISPLAY_NAME,
 			}),
-			InputProfilePhone: new InputProfile({
+			InputProfilePhone: new phoneInput({
 				label: 'Телефон',
 				onBlur: (e: FocusEvent) => this.onBlurHandler(e, 'phone'),
-				value: '89099673030',
+				value: props.currentUser ? (props.currentUser).phone : '',
 				disabled: false,
 				name: INPUT_TYPE.PHONE,
 			}),
 			ProfileAvatar: new Avatar({
-				avatarUrl: avatar,
+				avatarUrl: props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(props.currentUser).avatar}`: avatar,
 				name: 'avatar',
 				onClick: () => this.onAvatarClick(),
 				change: false,
@@ -85,7 +95,7 @@ export default class FormProfileEdit extends Block{
 			BackButton: new BackButton({
 				...props,
 				src: backArrow,
-				onClick: () => navigate('chat'),
+				onClick: () => new Router().go('/messenger'),
 			}),
 		});
 	}
@@ -111,7 +121,7 @@ export default class FormProfileEdit extends Block{
 		const inputComponent =  this.children?.[`InputProfile${field.charAt(0).toUpperCase() + field.slice(1)}`];
 
 		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
-		this.props.FormDataProps = this.formData
+		this.props.FormDataProps = this.formData;
 	}
 	private onAvatarClick(){
 		this.setProps({ isModalVisible: true });
@@ -125,12 +135,14 @@ export default class FormProfileEdit extends Block{
 					</div>
 				<div class = 'formProfileEdit__fields-wrapper'>
 				<div class="formProfileEdit__fields"> 
+				<div class = "avatar__profile-container">	
 						{{{ ProfileAvatar }}}
-						{{{ InputProfileEmail }}}
+						</div>
+						{{{ InputProfileEmail}}}
 						{{{ InputProfileLogin }}}
-						{{{ InputProfileName }}}
-						{{{ InputProfileSecondName }}}
-						{{{ InputProfileDisplayName }}}
+						{{{ InputProfileFirst_name }}}
+						{{{ InputProfileSecond_name }}}
+						{{{ InputProfileDisplay_name }}}
 						{{{ InputProfilePhone }}}</div>
 						<div class = "formProfileEdit__button">
 							{{{ ButtonChangeData }}}
@@ -142,3 +154,7 @@ export default class FormProfileEdit extends Block{
     	`);
 	}
 }
+const mapStateToProps = (state: IStoreData) => {
+	return { currentUser : state.currentUser};
+};
+export default connect(mapStateToProps)(FormProfileEdit);

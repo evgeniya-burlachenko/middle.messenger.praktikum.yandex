@@ -51,19 +51,23 @@ export default class UserActions extends Block {
 		const target = e.target as HTMLInputElement;
 		const inputValue = target.value.trim();
 		const errors = {...this.errors};
-		const validationFunctions: {[key: string]: (value: string) => boolean} = {
-			login: validationUtils.validateLogin,
+		const validationFunctions: {[key: string]:
+			(value: string) => boolean} = {
+				login: validationUtils.validateLogin,
 
-		};
+			};
 		const validationFunction = validationFunctions[field];
 		if(validationFunction){
 			errors[field] = !validationFunction(inputValue);
 		}
 		this.errors = errors;
 		this.formData[field] = inputValue;
-		const inputComponent = this.children[`Input${field.charAt(0).toUpperCase() + field.slice(1)}`];
-		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
-		this.props.FormDataProps = this.formData
+		const inputComponent = this.children[`Input${field.charAt(0).toUpperCase()
+			+ field.slice(1)}`];
+		inputComponent.setProps({ error: errors[field],
+			errorText: errors[field] ?
+				'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
+		this.props.FormDataProps = this.formData;
 	}
 
 	render() {

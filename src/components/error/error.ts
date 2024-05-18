@@ -1,5 +1,4 @@
 import Block from '../../core/Block';
-import { navigate } from '../../main';
 import { Button } from '../ui/button';
 import { TYPE_BUTTON } from '../ui/button/button';
 
@@ -18,12 +17,11 @@ class ErrorTemplate extends Block{
 		});
 	}
 	init(){
-		const navName = this.props.page as string;
 		const label = this.props.label as string;
 		const ButtonCreateAccount = new Button({
 			label: label,
 			style: TYPE_BUTTON.LINK,
-			onClick: () => navigate(navName)});
+			onClick: () => console.log('error')});
 		this.children = {
 			...this.children,
 			ButtonCreateAccount,

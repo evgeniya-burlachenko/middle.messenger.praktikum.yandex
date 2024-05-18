@@ -1,6 +1,6 @@
 import Block from '../../../../core/Block';
 import { AttachButton } from '../../../ui/attachButton';
-import { AttachModal } from "../modalAttachment";
+import { AttachModal } from '../modalAttachment';
 
 interface IAttach {
 
@@ -38,7 +38,7 @@ export default class Attach extends Block {
 	}
 
 	render() {
-		const {isVisibleModal} = this.props
+		const {isVisibleModal} = this.props;
 		return (`
 			<div >
 			{{{Attach}}}

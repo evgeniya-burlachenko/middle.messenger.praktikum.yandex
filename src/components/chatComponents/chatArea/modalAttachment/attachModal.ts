@@ -2,7 +2,7 @@ import Block from '../../../../core/Block';
 import InputFile from '../../../ui/input/inputFile/input';
 import attachFile from '../../../../assets/icons/attachFile.svg';
 import attachMedia from '../../../../assets/icons/attachMedia.svg';
-import attachLocation from '../../../../assets/icons/attachLocation.svg'
+import attachLocation from '../../../../assets/icons/attachLocation.svg';
 
 interface IAttachModal{
 
@@ -48,6 +48,6 @@ export default class AttachModal extends Block{
 				<p class="modalAttach__text">Локация</p>
 			</div>
 		</div>
-		`)
+		`);
 	}
 }

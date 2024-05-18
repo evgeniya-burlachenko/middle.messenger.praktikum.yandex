@@ -1,1 +1,5 @@
-export { default as ChatArea } from './chatArea';
+
+export { ListMessage } from './contentArea/listMessage';
+export {MessageList, MessageArea} from './contentArea';
+
+

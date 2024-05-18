@@ -1,29 +1,26 @@
-import Block, { IComponentProps } from '../../../core/Block';
+import Block  from '../../../core/Block';
+import Router from '../../../core/Router';
+import { IStoreData, connect } from '../../../core/Store';
+import AuthController from '../../../core/controllers/AuthController';
 import { FormProfile } from '../../modules/profile/formProfile';
-import { FormProfileEdit } from '../../modules/profile/formProfileEdit';
+
 
 interface IFormProfileWrapper{
-	onSubmit?: (e: Event) => void;
-	formBodyProfile?: FormProfile | FormProfileEdit,
+	onSubmit?: () => void;
+	formBodyProfile?: typeof FormProfile
 }
-export default class FormProfileWrapper extends Block {
+class FormProfileWrapper extends Block {
 	constructor(props: IFormProfileWrapper) {
 		super({...props,
 			events: {
 				submit: props.onSubmit,
-			} })
+			},
+		});
 	}
-	componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps): boolean {
-		if(oldProps === newProps) {
-			return false;
-		}
-    	if(this.props !== newProps){
-			this.props = newProps;
-			this.render();
-			return true;
+	componentDidMount() {
+		AuthController.fetchUser().catch(() => new Router().go('/'));
+
 	  }
-	  return false;
-	}
 	render() {
 		return (`
 			<Form class="profile" onsubmit = "return false">
@@ -32,3 +29,8 @@ export default class FormProfileWrapper extends Block {
 		);
 	}
 }
+const mapStateToProps = (state: IStoreData) => {
+	return { currentUser : state.currentUser};
+};
+
+export default  connect(mapStateToProps)(FormProfileWrapper);
