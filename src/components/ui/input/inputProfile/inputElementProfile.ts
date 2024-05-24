@@ -1,5 +1,5 @@
 
-import Block from '../../../../core/Block';
+import Block, { IComponentProps } from '../../../../core/Block';
 import { INPUT_TYPE } from '../input/inputElement';
 import ErrorLineProfile from './errorLineProfile';
 import InputProfile from './inputProfile';
@@ -31,12 +31,16 @@ class InputElementProfile extends Block {
 		});
 	}
 
-	componentDidUpdate(oldProps: object, newProps: object): boolean {
+	componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps): boolean {
 		if(oldProps === newProps) {
 			return false;
 		}
-
-		this.children.ErrorLineProfile.setProps(newProps);
+		if(this.props !== newProps){
+			this.props = newProps;
+			this.render();
+			this.children.InputProfile.setProps({...newProps});
+			return true;
+	  }
 		return true;
 	}
 

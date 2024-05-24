@@ -14,7 +14,7 @@ interface IButton {
 	label?: string,
 	style?: TYPE_BUTTON,
 	type?: string,
-	onSubmit?: (e: MouseEvent) => void;
+	onSubmit?: () => void;
 }
 class Button extends Block {
 	constructor(props: IButton) {
@@ -37,6 +37,7 @@ class Button extends Block {
 	}
 
 	render(): string {
+
 		return `
 			<div class = 'button-container {{#if error}}button-error{{/if}} '>
 				<button class='button button__{{style}} {{#if text-underline }}  button__{{type}} && button__{{style}}__underline  {{/if}} {{#if data-message }} button__error {{/if}}

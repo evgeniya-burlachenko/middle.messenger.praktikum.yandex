@@ -1,92 +1,106 @@
-import Block from '../../../../core/Block';
+import Block, { IComponentProps } from '../../../../core/Block';
 import { Button } from '../../../ui/button';
-
-import { navigate } from '../../../../main';
 import { Avatar, BackButton } from '../../..';
 import { Download } from '../../../../pages';
 import { TYPE_BUTTON } from '../../../ui/button/button';
-import { InputProfile } from '../../../ui/input/inputProfile';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
-import avatar from '../../../../assets/icons/profile.svg'
-import backArrow from '../../../../assets/icons/arrow-left.svg'
+import avatarImg from '../../../../assets/icons/profile.svg';
+import backArrow from '../../../../assets/icons/arrow-left.svg';
+import Router from '../../../../core/Router';
+import AuthController from '../../../../core/controllers/AuthController';
+import { IStoreData, IUserData, connect, store } from '../../../../core/Store';
+import FirstNameInput from '../inputs/firstNameInput';
+import LoginInput from '../inputs/loginInput';
+import PhoneInput from '../inputs/phoneInput';
+import secondNameInput from '../inputs/secondNameInput';
+import emailInput from '../inputs/emailInput';
+import displayNameInput from '../inputs/displayNameInput';
 interface IFormProfile {
 
+
 }
-export default class FormProfile extends Block {
+class FormProfile extends Block {
 	constructor(props: IFormProfile){
 		super({...props,
 			isModalVisible: false,
 		});
 	}
+
 	init() {
 		const onAvatarClick = this.onAvatarClick.bind(this);
-
-		const InputProfileEmail = new InputProfile({
+		const onExitClick = this.onExitClick.bind(this);
+		const avatarUrl = this.props.currentUser && (this.props.currentUser as IUserData).avatar !== null
+			? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatarImg;
+		const InputProfileEmail = new emailInput({
 			label: 'Почта',
-			value: 'pochta@yandex.ru',
+			value: this.props.currentUser? (this.props.currentUser as IUserData).email : '',
 			disabled: true,
 			name: INPUT_TYPE.EMAIL,
 		});
 
-		const InputProfileLogin = new InputProfile({
+		const InputProfileLogin = new LoginInput({
 			label: 'Логин',
-			value: 'ivanivanov',
+			value: this.props.currentUser ?(this.props.currentUser as IUserData).login : '',
 			disabled: true,
 			name: INPUT_TYPE.LOGIN,
 		});
 
-		const InputProfileName = new InputProfile({
+		const InputProfileName = new FirstNameInput({
 			label: 'Имя',
-			value: 'Иван',
+			value: this.props.currentUser ? (this.props.currentUser as IUserData).first_name : '',
 			disabled: true,
 			name: INPUT_TYPE.FIRST_NAME,
 		});
 
-		const InputProfileSurname = new InputProfile({
+		const InputProfileSurname = new secondNameInput({
 			label: 'Фамилия',
-			value: 'Иванов',
+			value: this.props.currentUser
+				? (this.props.currentUser as IUserData).second_name : '',
 			disabled: true,
 			name: INPUT_TYPE.SECOND_NAME,
 		});
-		const InputProfileDisplayName = new InputProfile({
+		const InputProfileDisplayName = new displayNameInput({
 			label: 'Имя в чате',
-			value: 'Иван',
+			value: this.props.currentUser
+				? (this.props.currentUser as IUserData).display_name : '',
 			disabled: true,
 			name: INPUT_TYPE.DISPLAY_NAME,
 		});
-		const InputProfilePhone = new InputProfile({
+		const InputProfilePhone = new PhoneInput({
 			label: 'Телефон',
-			value: '+7(909)9673030',
+			value:this.props.currentUser
+				? (this.props.currentUser as IUserData).phone : '',
 			disabled: true,
 			name: INPUT_TYPE.PHONE,
 		});
 		const ProfileAvatar = new Avatar({
-			avatarUrl: avatar,
+			avatarUrl: avatarUrl,
 			name: 'avatar',
-			onClick: onAvatarClick,
+			onClick: () => onAvatarClick(),
 			change: true,
 		});
 		const ButtonChangeData =  new Button({
 			label: 'Изменить данные',
 			style: TYPE_BUTTON.LINK,
-			onClick: () => navigate('editProfileInformation'),
+			onClick: () => new Router().go('/settings-edit'),
 		});
 
 		const ButtonChangePassword =  new Button({
 			label: 'Изменить пароль',
 			style: TYPE_BUTTON.LINK,
-			onClick: () => navigate('changePassword'),
+			onClick: () => new Router().go('/password-edit'),
 		});
 		const ButtonExit =  new Button({
 			label: 'Выход',
 			style: TYPE_BUTTON.ATTENTION,
-			onClick: () => navigate('nav')});
+			onClick: () => onExitClick(),
+		});
 
 
 		const DownloadAvatar = new Download({});
 		const BackButtonArrow =  new BackButton({
 			src: backArrow,
-			onClick: () => navigate('chat'),
+			onClick: () => new Router().go('/messenger'),
 		});
 
 		this.children = {
@@ -106,13 +120,33 @@ export default class FormProfile extends Block {
 
 		};
 	}
+	componentDidUpdate(oldProps: IComponentProps, newProps: IComponentProps ): boolean {
+		if(oldProps === newProps){
+		  return false;
+		}
+		if((newProps.currentUser as IUserData).avatar && (newProps.currentUser as IUserData).avatar !== null){
+			this.children.ProfileAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${(newProps.currentUser as IUserData).avatar}` });
+		}
+
+		return true;
+
+	  }
+	onExitClick() {
+		AuthController.logout().then(() => {
+		  store.clearUserInfo();
+		  const router = new Router();
+		  router.go('/sign-in');
+		}).catch((error: string) => console.error(`Ошибка выполнения запроса /logout! ${error}`));
+	  }
 
 	onAvatarClick(){
 		this.setProps({ isModalVisible: true });
+
 	}
 
 	render() {
 		const { isModalVisible } = this.props;
+
 		return (`
         <div class="formProfile">
 			<div class = 'formProfile__btn-back'>
@@ -120,7 +154,9 @@ export default class FormProfile extends Block {
 			</div>
 			<div class = 'formProfile__fields-wrapper'>
 				<div class = "formProfile__fields"> 
+				<div class = "avatar__profile-container">	
 					{{{ ProfileAvatar }}}
+					</div>
 					{{{ InputProfileEmail }}}
 					{{{ InputProfileLogin }}}
 					{{{ InputProfileName }}}
@@ -131,20 +167,23 @@ export default class FormProfile extends Block {
 					{{{ ButtonChangeData }}}
 					{{{ ButtonChangePassword }}}
 					{{{ ButtonExit }}}
-				</div>
+				</div> 
 			</div>
 			</div>
 			
 
 			<div class="formProfile__modalChange">   
 				${isModalVisible ? `
-				<div class="formProfile__modalChange-overlay"></div>
-				<div class="formProfile__modalChange-modal">
 					{{{ DownloadAvatar }}}
-				</div>
+			
+				
 				` : ''}
 			</div>
         </div>
     `);
 	}
 }
+const mapStateToProps = (state: IStoreData) => {
+	return { currentUser : state.currentUser};
+};
+export default  connect(mapStateToProps)(FormProfile);

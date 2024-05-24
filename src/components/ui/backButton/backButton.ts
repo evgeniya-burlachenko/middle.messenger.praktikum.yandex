@@ -1,4 +1,4 @@
-import Block from "../../../core/Block"
+import Block from '../../../core/Block';
 
 
 interface IBackButton{
@@ -17,7 +17,7 @@ export default class BackButton extends Block{
 				click: props.onClick,
 				submit: props.onSubmit,
 			},
-		})
+		});
 	}
 
 
@@ -28,6 +28,6 @@ export default class BackButton extends Block{
 				alt="{{alt}}" 
 				class="arrowButton__image">
 			</button>
-		`)
+		`);
 	}
 }

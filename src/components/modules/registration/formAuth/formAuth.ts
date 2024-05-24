@@ -2,10 +2,11 @@ import Block from '../../../../core/Block';
 import { Button } from '../../../ui/button';
 
 import * as validationUtils from '../../../../utils/validationUtils';
-import { navigate } from '../../../../main';
+// import { navigate } from '../../../../main';
 import { TYPE_BUTTON } from '../../../ui/button/button';
 import { Input } from '../../../ui/input/input';
 import { INPUT_TYPE } from '../../../ui/input/input/inputElement';
+import Router from '../../../../core/Router';
 
 interface FormData{
 	[key: string]: string
@@ -32,15 +33,15 @@ export default class FormAuth extends Block {
 			name: INPUT_TYPE.LOGIN,
 			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'login'),
 		});
-		const InputName = new Input({
+		const InputFirst_name = new Input({
 			label: 'Имя',
 			name: INPUT_TYPE.FIRST_NAME,
-			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'name'),
+			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'first_name'),
 		});
-		const InputSurname = new Input({
+		const InputSecond_name = new Input({
 			label: 'Фамилия',
 			name: INPUT_TYPE.SECOND_NAME,
-			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'surname'),
+			onBlur:  (e: FocusEvent) => onBlurHandler(e, 'second_name'),
 		});
 		const InputProfilePhone = new Input({
 			label: 'Телефон',
@@ -67,7 +68,7 @@ export default class FormAuth extends Block {
 		const ButtonCreateAccount = new Button({
 			label: 'Войти',
 			style: TYPE_BUTTON.LINK,
-			onClick: ()=> navigate('signIn'),
+			onClick: () => new Router().go('/sign-in'),
 		});
 		const InputEmailLogin = new Input({
 			label: 'Почта',
@@ -78,8 +79,8 @@ export default class FormAuth extends Block {
 			...this.children,
 			InputEmail,
 			InputLogin,
-			InputName,
-			InputSurname,
+			InputFirst_name,
+			InputSecond_name,
 			InputPassword,
 			InputProfilePhone,
 			InputPasswordRepeat,
@@ -102,8 +103,8 @@ export default class FormAuth extends Block {
 		case 'login':
 			errors[field] = !validationUtils.validateLogin(inputValue);
 			break;
-		case 'name':
-		case 'surname':
+		case 'first_name':
+		case 'second_name':
 			errors[field] = !validationUtils.validateName(inputValue);
 			break;
 		case 'phone':
@@ -134,8 +135,8 @@ export default class FormAuth extends Block {
 				<div class = 'form__content'>
 					{{{ InputEmail }}}
 					{{{ InputLogin }}}
-					{{{ InputName }}}
-					{{{ InputSurname }}}
+					{{{ InputFirst_name }}}
+					{{{ InputSecond_name }}}
 					{{{ InputProfilePhone }}}
 					{{{ InputPassword }}}
 					{{{ InputPasswordRepeat }}}

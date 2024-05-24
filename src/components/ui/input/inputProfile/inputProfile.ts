@@ -7,7 +7,13 @@ class InputProfile extends Block {
 	constructor(props: InputProfileProps) {
 		super(props);
 	}
-
+	componentDidUpdate(oldProps: object, newProps: object): boolean {
+		if(oldProps === newProps) {
+			return false;
+		}
+		// this.children.ErrorLine.setProps(newProps);
+		return true;
+	}
 	render(): string {
 		return (`
             <input

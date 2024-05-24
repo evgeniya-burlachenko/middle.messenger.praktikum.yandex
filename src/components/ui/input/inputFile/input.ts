@@ -13,7 +13,7 @@ class InputFile extends Block {
 	}
 
 	render(): string {
-		const {style} = this.props
+		const {style} = this.props;
 		return (`
 		${style ? `<div class = 'inputFile'>
 			<label for='file-input' class='inputFile__label'>

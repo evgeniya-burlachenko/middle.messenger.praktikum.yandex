@@ -2,7 +2,10 @@ import Block from '../../../../core/Block';
 import { AddUser } from '../../../../pages';
 import { Button } from '../../../ui/button';
 import { TYPE_BUTTON } from '../../../ui/button/button';
-import add from '../../../../assets/icons/add.svg'
+import add from '../../../../assets/icons/add.svg';
+import UserController from '../../../../core/controllers/UserController';
+import ChatController from '../../../../core/controllers/ChatController';
+import { store } from '../../../../core/Store';
 
 interface IModalUserActions {
 	label?: string,
@@ -20,7 +23,6 @@ export default class ModalUserActions extends Block {
 	init() {
 		const onAddUser = this.onAddUser.bind(this);
 		const onRemoveUser = this.onRemoveUser.bind(this);
-
 		const ButtonAddUser = new Button({
 			label: 'Добавить пользователя',
 			style: TYPE_BUTTON.LINK,
@@ -51,7 +53,33 @@ export default class ModalUserActions extends Block {
 			ModalRemoveUser,
 		};
 	}
+	async addUserToChat() {
+		const userId = prompt('Введите login пользователя для добавления в текущий чат');
+		try{
+			if(userId){
+				const newUser = await UserController.searchUser(userId) as unknown;
+				let newUserId;
+				if(Array.isArray(newUser)){
+				 newUserId = newUser[0].id ;
+				 if(newUserId){
+						ChatController.addUserToChat((store.getState()).currentChatId,
+							+ newUser[0].id)
+							.then(() => {alert('Пользователь успешно добавлен!');})
+							.catch(console.error);
 
+					}
+					else {
+
+						alert('Поле не должно быть пустым!');
+		  }
+				}
+
+			}
+
+		}catch(error){
+			alert(`Ошибка выполнения запроса! ${error}`);
+		}
+	}
 	onAddUser(e: MouseEvent){
 		e.preventDefault();
 		this.setProps({ isAddUser: true });

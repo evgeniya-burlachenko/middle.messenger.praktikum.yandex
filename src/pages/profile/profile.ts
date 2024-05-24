@@ -1,8 +1,10 @@
 import { FormProfile, FormProfileWrapper } from '../../components';
 import Block from '../../core/Block';
+import Router from '../../core/Router';
+import AuthController from '../../core/controllers/AuthController';
 
 export interface IProfile {
-	FormProfile: FormProfileWrapper
+	FormProfile: typeof FormProfileWrapper
 }
 
 export default class Profile extends Block {
@@ -10,15 +12,31 @@ export default class Profile extends Block {
 		super({
 			...props,
 			FormProfile: new FormProfileWrapper({
-				formBodyProfile: new FormProfile({FormDataProps: {login: "", password: ""}}),
+				...props,
+				formBodyProfile: new FormProfile({
+					FormDataProps: {},
+					currentUser: props,
+					...props,
+				}),
 			}),
 		});
 	}
+
+	componentDidMount() {
+		AuthController.fetchUser()
+			.then(user => {
+				this.props = {...this.props, currentUser: user};
+				this.render();
+			}).
+			catch(() => new Router().go('/'));
+
+	}
+
 	render(): string {
 		return `
 			<div>
 				{{{ FormProfile }}}
 			</div>
-        `;
+	`;
 	}
 }
