@@ -1,0 +1,56 @@
+.inputProfile {
+	padding-top: 25px;
+  }
+  
+  .inputProfile__container {
+	display: flex;
+	flex-direction: column;
+	width: 510px;
+	position: relative; /* Добавлено для позиционирования label */
+  }
+  
+  .inputProfile__label {
+	top:50%;
+	color: var(--text-dark-gray);
+	font-size: 13px;
+	font-weight: 500;
+	position: absolute; /* Позиционирование label */
+	transform: translateY(-50%);
+	left: 10px; /* Отступ слева */
+	transition: all 0.3s ease; /* Изменено для плавности */
+  }
+  
+  .inputProfile__element{
+	border: none;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--text-color);
+	border-bottom: 1px solid var(--text-light-gray);
+	text-align: right
+  }
+  
+  .inputProfile__element:focus-visible {
+	outline: none;
+  }
+  
+  .inputProfile__text-error {
+	color: var(--error-color);
+	font-size: 8px;
+	font-weight: 400;
+	display: none;
+  }
+  
+  .inputProfile__element:not(:placeholder-shown) + .input__label,
+  .inputProfile__element:focus + .input__label {
+	font-size: 9px;
+	top: 0; /* Перемещение label при фокусе */
+	transform: translateY(-100%);
+  }
+  
+  .inputProfile__error .inputProfile__text-error{
+	display: block;
+  }
+  
+  .inputProfile__error .inputProfile__element {
+	color: var(--error-color);
+  }

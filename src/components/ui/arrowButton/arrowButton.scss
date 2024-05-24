@@ -1,0 +1,44 @@
+.arrowButton {
+    background-color: var(--main-color);
+    height: 38px;
+    width: 28px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrowButton__image {
+    height: 28px;
+    width: 28px;
+    object-fit: fill;
+}
+
+.button__text-error {
+    transform: translateY(-7px);
+    color: var(--error-color);
+    font-size: 8px;
+    font-weight: 400;
+    display: block;
+	margin-top: 15px;
+  }
+
+  .button__error{
+	width: 280px;
+    display: block;
+	margin-top: 15px;
+  }
+  
+  .button__error .button__element {
+    color: var(--error-color);
+  }
+
+  .errorBlock {
+	position: absolute;
+    bottom: 5%;
+    width: 300px;
+    left: 72%;
+  }

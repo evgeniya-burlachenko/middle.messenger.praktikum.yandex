@@ -1,2 +1,3 @@
-import './signUp.scss'
-export { default as AuthPage } from './signUp.hbs?raw';
+import AuthPage from './signUp';
+
+export default AuthPage;

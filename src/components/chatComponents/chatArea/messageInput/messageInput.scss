@@ -1,0 +1,25 @@
+.chatAreaInput {
+    display: flex;
+    margin: 10px 13px 10px 20px;
+    border-top: 1px solid #eaeaea;
+    padding-top: 10px;
+
+	&__input {
+		flex: 1;
+		margin: 0 10px;
+		display: flex;
+		padding-bottom: 10px;
+
+		&--input {
+			background-color:#EFEFEF;
+			border: none;
+			padding: 9px;
+			border-radius: 30px;
+			flex: 1;
+			
+				:focus {
+					outline: none;
+				}
+		}
+	}
+}

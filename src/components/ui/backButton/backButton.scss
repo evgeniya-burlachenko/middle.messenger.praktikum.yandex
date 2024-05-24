@@ -1,0 +1,18 @@
+.arrowButton {
+    background-color: var(--primary-color);
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrowButton__image {
+    height: 28px;
+    width: 28px;
+    object-fit: fill;
+}

@@ -1,0 +1,11 @@
+.form__title {
+    color: var(--text-dark-gray);
+    margin-top: 50px;
+	font-weight: 500;
+	line-height: 20px;
+	text-align: center;
+}
+
+.form__title-error{
+	color: var( --error-color);
+}

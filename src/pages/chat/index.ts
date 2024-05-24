@@ -1,2 +1,4 @@
-import './chat.scss'
-export { default as Chat } from './chat.hbs?raw'
+import Chat from './chat';
+
+export default Chat;
+

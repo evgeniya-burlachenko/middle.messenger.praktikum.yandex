@@ -1,2 +1,2 @@
-import './error500.scss'
-export { default as ErrorPage500 } from './error500.hbs?raw';
+import ErrorPage500 from './error500';
+export default ErrorPage500;

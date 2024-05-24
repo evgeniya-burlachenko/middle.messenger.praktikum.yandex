@@ -1,0 +1,40 @@
+/* Modal Styles */
+.modalAttach {
+	position: absolute;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 162px;
+    height: 128px;
+    padding: 5px;
+    border: solid var(--background-color);
+    border-radius: 12px;
+    box-shadow: 0 0 10px #00000024;
+    box-sizing: border-box;
+    transform: translate(-12px, -168px);
+    background-color: #fff;
+	
+	&__attachment {
+		display: flex;
+		flex-direction: row;
+		width: 160px;
+
+		&--icon {
+			margin: 1px;
+			width: 28px;
+			height: 28px;
+			object-fit: fill;
+			margin-top: 4px;
+			margin-left: 5px;
+		}
+	}
+
+	&__text {
+		font-weight: 500;
+		font-size: 12px;
+		line-height: 14px;
+		display: flex;
+		align-items: center;
+		margin-left: 15px;
+		text-align: left;
+	}
+}

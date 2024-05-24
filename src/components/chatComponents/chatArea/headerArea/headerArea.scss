@@ -1,0 +1,41 @@
+.headerArea{
+	padding: 10px;
+
+	&__modal{
+		position: absolute;
+		right: 0;
+	}
+}
+
+.header{
+	display: flex;
+	width: 929px;
+	align-items: center;
+	border-bottom: 1px solid #eaeaea;
+	padding-bottom: 10px;
+
+	&__avatar{
+		width: 34px;
+		height: 34px;
+	}
+
+	&__name{
+		width: 193px;
+		font-size: 13px;
+		font-weight: 600;
+		line-height: 13px;
+		text-align: left;
+		color:  var(--text-color);
+		margin-left: 10px;
+	}
+
+	&__kebab{
+		margin-left: auto;
+	}
+
+	&__buttons{
+		margin-right: auto;
+		margin-top: 20px;
+		width: 120px;
+	}
+}

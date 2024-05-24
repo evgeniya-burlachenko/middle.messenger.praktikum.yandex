@@ -1,0 +1,24 @@
+.imageContainer {
+    color: #EFEFEF;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+	&__47 {
+		background-color: #efefef;
+		border-radius: 50%;
+		width: 47px;
+		height: 47px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+}
+
+.image {
+    margin: auto;
+}

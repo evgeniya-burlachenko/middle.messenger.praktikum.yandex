@@ -1,14 +1,13 @@
-export {LoginPage} from './signIn'
-export {AuthPage} from './signUp'
-export {NavigatePage} from './navigate'
-export {ErrorPage404} from './error404'
-export {ErrorPage500} from './error500'
-export {DownloadSuccessPage} from './downloadSuccess'
-export {DownloadErrorPage} from './downloadError'
-export {DownloadPage} from './download'
-export {Profile} from './profile'
-export {EditProfileInformation} from './editProfileInformation'
-export {ChangePassword} from './changePassword'
-export {ModalUser} from './modalUser'
-export {Chat} from './chat'
-export {AddUser} from './addUser'
+export {default as LoginPage} from './signIn';
+export {default as AuthPage} from './signUp';
+export {default as AddUser} from './addUser';
+export {default as Download} from './download';
+export {default as Profile} from './profile';
+export {default as EditProfileInformation} from './editProfileInformation';
+export {default as ErrorPage404} from './error404';
+export {default as ErrorPage500} from './error500';
+export {default as ChangePassword} from './changePassword';
+export {default as Chat} from './chat';
+
+// NavigatePage будет позже удалена
+export {NavigatePage} from './navigate';
