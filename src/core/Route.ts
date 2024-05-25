@@ -24,7 +24,7 @@ export class Route {
 		return pathname === this._pathname;
 	}
 
-	private _render(query: string, block: Block) {
+	_render(query: string, block: Block) {
 		const root = document.querySelector(query);
 		if (root !== null) {
 			root.innerHTML = '';
