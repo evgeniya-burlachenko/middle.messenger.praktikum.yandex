@@ -45,7 +45,7 @@ class Router {
 		route.render();
 	}
 
-	 public go(pathname: string) {
+	public go(pathname: string) {
 		this.history.pushState({}, '', pathname);
 		this._onRoute(pathname);
 	}
@@ -58,7 +58,7 @@ class Router {
 		this.history.forward();
 	}
 
-	private getRoute(pathname: string) {
+	public getRoute(pathname: string) {
 		const defaultRoute = this.routes.find(route => route.match('*'));
 		return this.routes.find((route) => route.match(pathname)) || defaultRoute;
 

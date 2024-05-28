@@ -16,7 +16,10 @@ class HeaderMessage extends Block {
 	}
 	init() {
 		const onKebabClick = this.onKebabClick.bind(this);
-		const avatarUrl = this.props.currentUser && (this.props.currentUser as IChatData).avatar !== null ? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatar;
+		const avatarUrl = this.props.currentUser &&
+		(this.props.currentUser as IChatData).avatar !== null ?
+			`https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`
+			: avatar;
 
 		const HeaderMessageAvatar = new Avatar({
 			avatarUrl: avatarUrl,
@@ -41,7 +44,8 @@ class HeaderMessage extends Block {
 		}
 
 		if((newProps.currentUser as IUserData).avatar && (newProps.currentUser as IUserData).avatar !== null) {
-			this.children.HeaderMessageAvatar.setProps({avatarUrl: `https://ya-praktikum.tech/api/v2/resources${(newProps.currentUser as IUserData).avatar}` });
+			this.children.HeaderMessageAvatar.setProps({
+				avatarUrl: `https://ya-praktikum.tech/api/v2/resources${(newProps.currentUser as IUserData).avatar}` });
 		}
 
 

@@ -29,8 +29,10 @@ class FormProfile extends Block {
 	init() {
 		const onAvatarClick = this.onAvatarClick.bind(this);
 		const onExitClick = this.onExitClick.bind(this);
-		const avatarUrl = this.props.currentUser && (this.props.currentUser as IUserData).avatar !== null
-			? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`: avatarImg;
+		const avatarUrl = this.props.currentUser &&
+		(this.props.currentUser as IUserData).avatar !== null
+			? `https://ya-praktikum.tech/api/v2/resources${(this.props.currentUser as IUserData).avatar}`
+			: avatarImg;
 		const InputProfileEmail = new emailInput({
 			label: 'Почта',
 			value: this.props.currentUser? (this.props.currentUser as IUserData).email : '',
@@ -40,14 +42,16 @@ class FormProfile extends Block {
 
 		const InputProfileLogin = new LoginInput({
 			label: 'Логин',
-			value: this.props.currentUser ?(this.props.currentUser as IUserData).login : '',
+			value: this.props.currentUser ?
+				(this.props.currentUser as IUserData).login : '',
 			disabled: true,
 			name: INPUT_TYPE.LOGIN,
 		});
 
 		const InputProfileName = new FirstNameInput({
 			label: 'Имя',
-			value: this.props.currentUser ? (this.props.currentUser as IUserData).first_name : '',
+			value: this.props.currentUser ?
+				(this.props.currentUser as IUserData).first_name : '',
 			disabled: true,
 			name: INPUT_TYPE.FIRST_NAME,
 		});

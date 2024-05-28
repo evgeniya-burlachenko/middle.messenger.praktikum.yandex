@@ -1,5 +1,7 @@
 ## Описание  
-Приложение мессенджера, написанное на scss, собирается в vite, запускается на express, задеплоено в [netlify](https://yapracticumchat.netlify.app/)
+Приложение мессенджера, написанное на scss, собирается в vite, запускается на express, задеплоено в [netlify]
+написаны unit-тесты
+(https://yapracticumchat.netlify.app/)
 
 ## Команды для запуска  
 `npm install` - установка зависимостей  
@@ -15,3 +17,5 @@ https://github.com/evgeniya-burlachenko/middle.messenger.praktikum.yandex/pulls
 
 ## Ссылка на опубликованное приложение  
 https://yapracticumchat.netlify.app/
+
+

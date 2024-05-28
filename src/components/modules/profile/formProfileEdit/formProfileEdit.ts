@@ -26,16 +26,18 @@ interface IFormProfileEdit {
 	FormDataProps?: object;
 	currentUser?: IUserData;
 }
-//сохранение данных у меня происходит по onBlur
-//это не всегда корректно, потому что  для сохранения надо сбросить фокус
-//если передвигаться табами и энтером, то проблем не заметила
-//но я не придумала пока другого решения, а во 2 спринте такой вариант приняли
-//в 3 спринте попыталась сосредоточиться на других вещах
-//если подойдет такой вариант, то в планах у меня его поправить на доп неделе,
+
+// сохранение данных у меня происходит по onBlur
+// это не всегда корректно, потому что  для сохранения надо сбросить фокус
+// если передвигаться табами и энтером, то проблем не заметила
+// но я не придумала пока другого решения, а во 2 спринте такой вариант приняли
+// в 3 спринте попыталась сосредоточиться на других вещах
+// если подойдет такой вариант, то в планах у меня его поправить на доп неделе,
 // как и многие другие косяки
-//сейчас я сделала доп проверку на кнопку - в какой-то момент она исчезает,
-//но если данные без ошибок и фокус был сброшен и данные сохранены
-//то она появляется
+// сейчас я сделала доп проверку на кнопку - в какой-то момент она исчезает,
+// но если данные без ошибок и фокус был сброшен и данные сохранены
+// то она появляется
+
 class FormProfileEdit extends Block{
 	private formData: IFormData = {};
 	private errors: IErrors = {};
@@ -89,7 +91,9 @@ class FormProfileEdit extends Block{
 				name: INPUT_TYPE.PHONE,
 			}),
 			ProfileAvatar: new Avatar({
-				avatarUrl: props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(props.currentUser).avatar}`: avatar,
+				avatarUrl: props.currentUser ?
+					`https://ya-praktikum.tech/api/v2/resources${(props.currentUser).avatar}`
+					: avatar,
 				name: 'avatar',
 				onClick: () => this.onAvatarClick(),
 				change: false,
@@ -106,13 +110,14 @@ class FormProfileEdit extends Block{
 		const target =  e.target as HTMLInputElement;
 		const inputValue = target.value.trim();
 		const errors = {...this.errors};
-		const validationFunctions: {[key: string]: (value: string) => boolean} = {
-			email: validationUtils.validateEmail,
-			login: validationUtils.validateLogin,
-			name: validationUtils.validateName,
-			secondname: validationUtils.validateName,
-			phone: validationUtils.validatePhone,
-		};
+		const validationFunctions: {[key: string]: (value: string)
+			=> boolean} = {
+				email: validationUtils.validateEmail,
+				login: validationUtils.validateLogin,
+				name: validationUtils.validateName,
+				secondname: validationUtils.validateName,
+				phone: validationUtils.validatePhone,
+			};
 		const validationFunction = validationFunctions[field];
 		if(validationFunction){
 			errors[field] = !validationFunction(inputValue);
@@ -122,7 +127,8 @@ class FormProfileEdit extends Block{
 
 		const inputComponent =  this.children?.[`InputProfile${field.charAt(0).toUpperCase() + field.slice(1)}`];
 
-		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
+		inputComponent.setProps({ error: errors[field], errorText: errors[field] ?
+			'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
 		this.props.FormDataProps = this.formData;
 
 	  const hasErrors = Object.values(this.errors).some(error => error);
@@ -144,7 +150,9 @@ class FormProfileEdit extends Block{
 			hasNoErrors = !Object.values(this.errors).some(error => error);
 		}
 
-		const btnSbmt = isOnBlurHandlerDefined && hasNoErrors ? '<div class="formProfileEdit__button">{{{ ButtonChangeData }}}</div>' :  'заполните форму перед отправокй';
+		const btnSbmt = isOnBlurHandlerDefined && hasNoErrors ?
+			'<div class="formProfileEdit__button">{{{ ButtonChangeData }}}</div>'
+			:  'заполните форму перед отправокй';
 
 		return (`
 				<div class="formProfileEdit">
