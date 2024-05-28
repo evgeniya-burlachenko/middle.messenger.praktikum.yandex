@@ -67,7 +67,8 @@ class ChatList extends Block{
 		const result = window.confirm('Вы действительно хотите удалить этот чат?');
 
 		if (result) {
-			ChatController.deleteChat(store.getState().currentChatId)
+			// eslint-disable-next-line
+			ChatController.deleteChat(store.getState().currentChatId as string)
 				.then(() => {
 					store.set('messageList', []);
 					ChatController.getChats()

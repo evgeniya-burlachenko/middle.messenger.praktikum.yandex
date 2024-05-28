@@ -9,5 +9,4 @@ export {default as ErrorPage500} from './error500';
 export {default as ChangePassword} from './changePassword';
 export {default as Chat} from './chat';
 
-// NavigatePage будет позже удалена
 export {NavigatePage} from './navigate';

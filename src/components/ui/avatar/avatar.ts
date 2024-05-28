@@ -23,7 +23,9 @@ class Avatar extends Block {
 		return `
 		<div class="avatar-container">
 			<div class="avatar">
-				<img src={{#if avatarUrl}} "{{avatarUrl}}" {{else}} "/assets/icons/profile.svg"{{/if}} alt="avatar" class="avatar__image" name ="{{name}}">
+				<img src={{#if avatarUrl}} "{{avatarUrl}}" {{else}} 
+				"/assets/icons/profile.svg"{{/if}} alt="avatar" 
+				class="avatar__image" name ="{{name}}">
 				${this.props.change ?`<div class="avatar__overlay">
 				<span class="avatar__overlay-text">Поменять аватар</span>
 			</div>` : ''}

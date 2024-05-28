@@ -57,6 +57,7 @@ export class WS {
 		let data: IMessage;
 		try {
 			const eventData = event.data as string;
+			// eslint-disable-next-line
 			 data =  JSON.parse(eventData);
 
 		} catch (error) {
@@ -145,7 +146,8 @@ export class WS {
 					this.socket.removeEventListener('close', this.onCloseConnection.bind(this));
 					this.socket.removeEventListener('message', this.onReceiveMessage.bind(this));
 					this.socket.removeEventListener('error', this.onError.bind(this));
-					this.socket.close(1000, `Close previous chat connection with chat ${this.chatId}`);
+					this.socket.close(1000,
+						`Close previous chat connection with chat ${this.chatId}`);
 				}
 
 				this.socket = new WebSocket(`wss://${this.host}/ws/chats/${userId}/${chatId}/${data.token}`);

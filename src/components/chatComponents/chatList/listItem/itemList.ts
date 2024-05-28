@@ -12,7 +12,10 @@ interface IItemList {
 	onClick: () => void,
 	chatList: IChatData[]
 }
+interface User {
+	id: string;
 
+  }
 class ItemList extends Block {
 	chatList: IChatData[];
 
@@ -72,7 +75,7 @@ class ItemList extends Block {
 		  ChatController.getChats().then(() => {}).catch(() => {});
 					})
 
-					.catch((error) => alert(`Ошибка выполнения запроса! ${error ? error.reason : ''}`));
+					.catch((error) => alert(`Ошибка выполнения запроса! ${error}`));
 			}
 		}
 
@@ -82,12 +85,13 @@ class ItemList extends Block {
 		try{
 			if(userId){
 				const newUser = await UserController.searchUser(userId) as unknown;
-				let newUserId;
+				let newUserId: string;
 				if(Array.isArray(newUser)){
-				 newUserId = newUser[0].id ;
+					newUserId = (newUser[0] as User).id;
 				 if(newUserId){
-						ChatController.addUserToChat((store.getState()).currentChatId,
-							+ newUser[0].id)
+						// eslint-disable-next-line
+						ChatController.addUserToChat((store.getState() ).currentChatId,
+							+ (newUser[0] as User).id)
 							.then(() => {alert('Пользователь успешно добавлен!');})
 							.catch(console.error);
 
@@ -101,6 +105,7 @@ class ItemList extends Block {
 			}
 
 		}catch(error){
+			// eslint-disable-next-line
 			alert(`Ошибка выполнения запроса! ${error}`);
 		}
 	}
@@ -110,19 +115,24 @@ class ItemList extends Block {
 		try{
 			if (userId) {
 				const newUser = await UserController.searchUser(userId) as unknown;
+
 				let newUserId;
 				if(Array.isArray(newUser)){
-					newUserId = newUser[0].id;
+					newUserId = (newUser[0] as User).id;
 				}
 				if(newUserId){
+					// eslint-disable-next-line
 					ChatController.removeUserFromChat((store.getState()).currentChatId, + userId)
-						.then(() => alert('Пользователь успешно удалён!'));
+						.then(() => alert('Пользователь успешно удалён!'))
+						.catch(() => console.log('ошибка'));
 				}
 				else{
 					alert('Поле не должно быть пустым!');
 				}
 			}
+
 		}catch(error){
+			// eslint-disable-next-line
 			alert(`Ошибка выполнения запроса! ${error}`);
 		}
 	}
@@ -149,8 +159,9 @@ class ItemList extends Block {
 	}
 
 	render() {
-		const btnDelete =  store.getState().currentChatId;
-		const deleteBlock = btnDelete ? '<div class = "block" > 	<hr/> <div class="block__element">{{{BtnDeleteChat}}}</div>  <div class="block__element">{{{BtnAddUser}}} </div> <div class="block__element">{{{BtnRemoveUser}}}</div></div>' : '';
+		const btnDelete =  (store.getState() as IStoreData).currentChatId;
+		const deleteBlock = btnDelete ?
+			'<div class = "block" > <hr/> <div class="block__element">{{{BtnDeleteChat}}}</div>  <div class="block__element">{{{BtnAddUser}}} </div> <div class="block__element">{{{BtnRemoveUser}}}</div></div>' : '';
 		return `
             <div >
 			${deleteBlock}
@@ -161,4 +172,5 @@ class ItemList extends Block {
 }
 
 
-export default connect(({chatList, currentChatId}) => ({chatList, currentChatId: currentChatId}))(ItemList);
+export default connect(({chatList, currentChatId}) => ({
+	chatList, currentChatId: currentChatId}))(ItemList);

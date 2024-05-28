@@ -10,7 +10,8 @@ class Title extends Block {
 
 	render(): string {
 		return (`
-			<h3 class="form__title {{#if textError}} form__title-error {{/if}}" name={{name}}>{{title}}</h3>
+			<h3 class="form__title {{#if textError}} form__title-error {{/if}}" 
+			name={{name}}>{{title}}</h3>
         `);
 	}
 }
