@@ -36,7 +36,8 @@ class ListItem extends Block{
 
 	render(){
 		const active =( store.getState() as IStoreData).currentChatId == this.props.id;
-		const count = this.props.unread_count ? '<div class="listItem__badge{{LImodifier}}">{{unread_count}}</div>' :
+		const count = this.props.unread_count ?
+			'<div class="listItem__badge{{LImodifier}}">{{unread_count}}</div>' :
 			'';
 		const avatarUrl = this.props.avatar ? `https://ya-praktikum.tech/api/v2/resources${(this.props.avatar as IChatData).avatar}`: avatar;
 		return(`

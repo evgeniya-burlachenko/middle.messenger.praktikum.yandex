@@ -29,17 +29,17 @@ describe('HTTPTransport', () => {
 		});
 	  });
 	describe('get', () => {
-		beforeEach(() => {
-			transport.get('/user1');
+		beforeEach( () => {
+			  transport.get('/user1');
 		  });
-		it('should send GET request', () => {
-			expect(request.method).to.equal('GET');
+		it('should send GET request',  () => {
+			 expect(request.method).to.equal('GET');
 			expect(request.url).to.equal('https://ya-praktikum.tech/api/v2/test/user1');
 		});
 	});
 	describe('post', () => {
-		beforeEach(() => {
-			transport.post('/new_post');
+		beforeEach( () => {
+			 transport.post('/new_post');
 		  });
 		it('should send post request', () => {
 			expect(request.method).to.equal('POST');
@@ -47,8 +47,8 @@ describe('HTTPTransport', () => {
 		});
 	});
 	describe('put', () => {
-		beforeEach(() => {
-			transport.put('/edit_post');
+		beforeEach( () => {
+			 transport.put('/edit_post');
 		  });
 		it('should send put request', () => {
 			expect(request.method).to.be.equal('PUT');

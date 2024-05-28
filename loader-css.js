@@ -1,3 +1,4 @@
+/* eslint-disable */
 export async function resolve(specifier, context, next) {
 	const nextResult = await next(specifier, context);
   

@@ -22,5 +22,5 @@
 	"experimentalSpecifierResolution": "node",
     "transpileOnly": true
   },
-  "include": ["src/**/*", "vite.config.js"]
+  "include": ["src/**/*", "vite.config.js", "mochaSetup.js", "loader-css.js"]
 }

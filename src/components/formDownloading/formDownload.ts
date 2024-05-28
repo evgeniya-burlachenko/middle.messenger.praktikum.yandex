@@ -63,7 +63,6 @@ export default class FormDownload extends Block {
 
 		if(fileName && !isError){
 			modalContent = fileName as string;
-			// xmodalWarning = "Для корректной работы после закрытия модального окна перезагрузите страницу"
 		}else if (isError && isVisibleFile) {
 			modalContent = '{{{ InputDownload }}}';
 		} else {

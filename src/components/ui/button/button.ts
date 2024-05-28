@@ -40,7 +40,10 @@ class Button extends Block {
 
 		return `
 			<div class = 'button-container {{#if error}}button-error{{/if}} '>
-				<button class='button button__{{style}} {{#if text-underline }}  button__{{type}} && button__{{style}}__underline  {{/if}} {{#if data-message }} button__error {{/if}}
+				<button class='button button__{{style}} 
+				{{#if text-underline }}  button__{{type}} && 
+				button__{{style}}__underline  {{/if}} 
+				{{#if data-message }} button__error {{/if}}
 				'   >
 					{{label}}
 				</button>

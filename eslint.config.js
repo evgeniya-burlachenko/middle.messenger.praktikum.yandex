@@ -30,6 +30,7 @@ export default tseslint.config(
 	  'eol-last': ['error', 'always'],
 	  '@typescript-eslint/no-this-alias': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+	  "@typescript-eslint/no-floating-promises": "off"
     },
   },
   {

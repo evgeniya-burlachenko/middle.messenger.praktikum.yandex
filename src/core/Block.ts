@@ -177,7 +177,7 @@ export default class Block {
 		 const childrenProps: Block[] = [];
 		 Object.entries(propsAndStubs).forEach(([key, value]) => {
 		   if(Array.isArray(value)) {
-			 propsAndStubs[key] = value.map((item) => {
+			 propsAndStubs[key] = value.map((item: unknown) => {
 			   if(item instanceof Block) {
 				 childrenProps.push(item);
 				 return `<div data-id="${item._id}"></div>`;

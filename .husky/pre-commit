@@ -1,2 +1,5 @@
 #!/bin/sh
 . "$(dirname -- "$0")/_/husky.sh"
+npx eslint . --fix
+npx stylelint **/*.scss --fix
+npm test

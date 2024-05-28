@@ -91,7 +91,9 @@ class FormProfileEdit extends Block{
 				name: INPUT_TYPE.PHONE,
 			}),
 			ProfileAvatar: new Avatar({
-				avatarUrl: props.currentUser ? `https://ya-praktikum.tech/api/v2/resources${(props.currentUser).avatar}`: avatar,
+				avatarUrl: props.currentUser ?
+					`https://ya-praktikum.tech/api/v2/resources${(props.currentUser).avatar}`
+					: avatar,
 				name: 'avatar',
 				onClick: () => this.onAvatarClick(),
 				change: false,
@@ -108,13 +110,14 @@ class FormProfileEdit extends Block{
 		const target =  e.target as HTMLInputElement;
 		const inputValue = target.value.trim();
 		const errors = {...this.errors};
-		const validationFunctions: {[key: string]: (value: string) => boolean} = {
-			email: validationUtils.validateEmail,
-			login: validationUtils.validateLogin,
-			name: validationUtils.validateName,
-			secondname: validationUtils.validateName,
-			phone: validationUtils.validatePhone,
-		};
+		const validationFunctions: {[key: string]: (value: string)
+			=> boolean} = {
+				email: validationUtils.validateEmail,
+				login: validationUtils.validateLogin,
+				name: validationUtils.validateName,
+				secondname: validationUtils.validateName,
+				phone: validationUtils.validatePhone,
+			};
 		const validationFunction = validationFunctions[field];
 		if(validationFunction){
 			errors[field] = !validationFunction(inputValue);
@@ -124,7 +127,8 @@ class FormProfileEdit extends Block{
 
 		const inputComponent =  this.children?.[`InputProfile${field.charAt(0).toUpperCase() + field.slice(1)}`];
 
-		inputComponent.setProps({ error: errors[field], errorText: errors[field] ? 'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
+		inputComponent.setProps({ error: errors[field], errorText: errors[field] ?
+			'Форма содержит ошибки. Пожалуйста, исправьте их' : '' });
 		this.props.FormDataProps = this.formData;
 
 	  const hasErrors = Object.values(this.errors).some(error => error);
@@ -146,7 +150,9 @@ class FormProfileEdit extends Block{
 			hasNoErrors = !Object.values(this.errors).some(error => error);
 		}
 
-		const btnSbmt = isOnBlurHandlerDefined && hasNoErrors ? '<div class="formProfileEdit__button">{{{ ButtonChangeData }}}</div>' :  'заполните форму перед отправокй';
+		const btnSbmt = isOnBlurHandlerDefined && hasNoErrors ?
+			'<div class="formProfileEdit__button">{{{ ButtonChangeData }}}</div>'
+			:  'заполните форму перед отправокй';
 
 		return (`
 				<div class="formProfileEdit">

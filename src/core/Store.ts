@@ -38,7 +38,7 @@ export interface IChatData {
 export interface IStoreData {
 	currentUser?: IUserData;
 	chatList?: IChatData[];
-	currentChatId?: string;
+	currentChatId?: string ;
 	messageList: IMessageProps[];
 }
 export interface IMessageProps {
@@ -52,6 +52,7 @@ class Store extends EventBus {
 	private state: Indexed = {};
 
 	public getState() {
+		// eslint-disable-next-line
 		return JSON.parse(JSON.stringify(this.state));
 	}
 

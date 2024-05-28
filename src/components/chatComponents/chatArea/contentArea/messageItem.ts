@@ -70,4 +70,5 @@ class MessageList extends Block {
 }
 
 
-export default connect(({messageList, currentChatId}) => ({messageList, currentChatId: currentChatId}))(MessageList);
+export default connect(({messageList, currentChatId}) => ({
+	messageList, currentChatId: currentChatId}))(MessageList);

@@ -12,6 +12,9 @@ interface IModalUserActions {
 	isModalVisible?: boolean;
 	onClose?: () => void;
 }
+interface IUser {
+	id: string;
+}
 export default class ModalUserActions extends Block {
 
 	constructor(props: IModalUserActions) {
@@ -60,10 +63,11 @@ export default class ModalUserActions extends Block {
 				const newUser = await UserController.searchUser(userId) as unknown;
 				let newUserId;
 				if(Array.isArray(newUser)){
-				 newUserId = newUser[0].id ;
+				 newUserId = (newUser[0] as IUser).id ;
 				 if(newUserId){
+					// eslint-disable-next-line
 						ChatController.addUserToChat((store.getState()).currentChatId,
-							+ newUser[0].id)
+							+ (newUser[0] as IUser).id)
 							.then(() => {alert('Пользователь успешно добавлен!');})
 							.catch(console.error);
 
@@ -77,6 +81,7 @@ export default class ModalUserActions extends Block {
 			}
 
 		}catch(error){
+			// eslint-disable-next-line
 			alert(`Ошибка выполнения запроса! ${error}`);
 		}
 	}

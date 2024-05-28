@@ -8,7 +8,7 @@ describe('Block', () => {
 
 	before(() => {
 		class Page extends Block{
-			constructor(props:{}){
+			constructor(props: object){
 				super({
 					...props,
 				});

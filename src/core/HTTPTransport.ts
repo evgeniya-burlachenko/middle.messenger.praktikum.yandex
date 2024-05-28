@@ -61,7 +61,8 @@ export default class HTTPTransport {
 		});
 	}
 
-	private request<Response>(url: string, options: Options = { method: Method.GET }): Promise<Response> {
+	private request<Response>(url: string, options: Options = {
+		 method: Method.GET }): Promise<Response> {
 		const { method, data } = options;
 
 		return new Promise((resolve, reject) => {
@@ -74,6 +75,7 @@ export default class HTTPTransport {
 					return;
 				}
 				if (xhr.status < 400) {
+					// eslint-disable-next-line
 					resolve(xhr.response);
 				} else {
 					reject(xhr.response);
